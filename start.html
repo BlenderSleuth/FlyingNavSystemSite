@@ -67,17 +67,52 @@
                             <section id="download-section" class="doc-section">
                                 <h2 class="section-title">Download</h2>
                                 <div class="section-block">
-                                    <p>Download the Flying Navigation System plugin from the Unreal Engine marketplace</p>
+                                    <p>The Flying Navigation System plugin can be found on the Unreal Engine Marketplace. It can be downloaded and installed from the Library tab of the Epic Games Launcher.</p>
                                     <a href="https://www.unrealengine.com/marketplace/en-US/store" class="btn btn-green" target="_blank"><i class="fas fa-download"></i> Download Flying Navigation System</a>
                                 </div>
                             </section><!--//doc-section-->
                             
-                            <section id="image-section" class="doc-section">
-                                <h2 class="section-title">Image</h2>
-                                <div class="section-block">
-                                    <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/quickstart1.png" alt="Enable plugin from plugin window"/>
-                                    </div> 
+                            <section id="quickstart-section" class="doc-section">
+                                <h2 class="section-title">Quickstart Guide</h2>
+                                <div id="step1" class="section-block">
+                                    <h6>Step 1</h6>
+                                    <p>Once the plugin is downloaded to your engine version, create a Flying template project. Make sure to enable the plugin (Under <code>Navigation</code>) in the Plugins window and restart the editor.</p>
+                                    <div class="section-block">
+                                        <div class="screenshot-holder">
+                                            <img class="img-fluid" src="assets/images/quickstart1.png" alt="Enable plugin from plugin window"/>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div id="step2" class="section-block">
+                                    <h6>Step 2</h6>
+                                    <p>
+                                        Head over to Project Settings, then <code>Engine/Navigation System</code>. 
+                                        Now, what we want to do is create at least one Navigation Agent. 
+                                        Here I have created two, one that uses the Flying Navigation System and another that uses the standard Recast Navmesh system. Which system the agent uses is dependent on the <code>Preferred Nav Data</code> property. 
+                                        The <code>Nav Data Class</code> property is (I think) legacy, but setting it will automatically set <code>Preferred Nav Data</code> to the same value.
+                                    </p>
+                                    <ol>
+                                        <li>Set an Agent to <code>FlyingNavigationData</code> to make it use the Flying Navigation System</li>
+                                        <li>Set an Agent to <code>RecastNavMesh</code> to make it use the default UE4 navigation.</li>
+                                      </ol> 
+                                      <p>
+                                        You can also change the colour to distinguish the two. The colour is reflected in the debug display.
+                                      </p>
+                                    <div class="callout-block callout-warning">
+                                        <div class="icon-holder">
+                                            <i class="fas fa-bug"></i>
+                                        </div><!--//icon-holder-->
+                                        <div class="content">
+                                            <h4 class="callout-title">IMPORTANT</h4>
+                                            <p>Also make sure to set the <code>Navigation/DefaultAgentName</code> to a valid name or None. This seems to be a bug in which pathfinding requests will fail if an invalid name is set.</p>
+                                        </div><!--//content-->
+                                    </div><!--//callout-block-->
+                                    <div class="section-block">
+                                        <div class="screenshot-holder">
+                                            <img class="img-fluid" src="assets/images/quickstart2.png" alt="Enable plugin from plugin window"/>
+                                        </div> 
+                                    </div>
+                                    <p>You should also note the <code>Nav Agent Radius</code> property, as this will become useful later.</p>
                                 </div>
                             </section><!--//doc-section-->
                             
@@ -452,7 +487,7 @@ echo $y;
 	                        
 	                            <nav id="doc-menu" class="nav doc-menu flex-column sticky">
 	                                <a class="nav-link scrollto" href="#download-section">Download</a>
-	                                <a class="nav-link scrollto" href="#installation-section">Installation</a>
+	                                <a class="nav-link scrollto" href="#quickstart-section">Quickstart</a>
                                     <nav class="doc-sub-menu nav flex-column">
                                         <a class="nav-link scrollto" href="#step1">Step One</a>
                                         <a class="nav-link scrollto" href="#step2">Step Two</a>
