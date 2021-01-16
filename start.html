@@ -9,7 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">    
     <link rel="shortcut icon" href="favicon.ico">  
+    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet"> 
     <!-- FontAwesome JS -->
     <script defer src="assets/fontawesome/js/all.js"></script>
     <!-- Global CSS -->
@@ -69,19 +71,34 @@
                                 <div class="section-block">
                                     <p>The Flying Navigation System plugin can be found on the Unreal Engine Marketplace. It can be downloaded and installed from the Library tab of the Epic Games Launcher.</p>
                                     <a href="https://www.unrealengine.com/marketplace/en-US/store" class="btn btn-green" target="_blank"><i class="fas fa-download"></i> Download Flying Navigation System</a>
+                                    <br>
                                 </div>
                             </section><!--//doc-section-->
                             
                             <section id="quickstart-section" class="doc-section">
                                 <h2 class="section-title">Quickstart Guide</h2>
+                                <br>
+                                <h3>Part 1: Creating the Octree</h3>
                                 <div id="step1" class="section-block">
                                     <h6>Step 1</h6>
-                                    <p>Once the plugin is downloaded to your engine version, create a Flying template project. Make sure to enable the plugin (Under <code>Navigation</code>) in the Plugins window and restart the editor.</p>
-                                    <div class="section-block">
-                                        <div class="screenshot-holder">
-                                            <img class="img-fluid" src="assets/images/quickstart1.png" alt="Enable plugin from plugin window"/>
-                                        </div> 
-                                    </div>
+                                    <p>
+                                        Once the plugin is downloaded to your engine version, create a Flying template project. 
+                                    </p>
+                                    <div class="screenshot-holder">
+                                        <a href="assets/images/quickstart1.png" data-toggle="lightbox">
+                                            <img class="img-fluid" src="assets/images/quickstart1.png" alt="Create a Flying template project"/>
+                                        </a>
+                                    </div> <!--//screenshot-holder-->
+                                    <p>
+                                        Make sure to enable the plugin (Under <code>Navigation</code>) in the Plugins window and restart the editor.
+                                    </p>
+                                    
+                                    <div class="screenshot-holder">
+                                        <a href="assets/images/quickstart2.png" data-toggle="lightbox">
+                                            <img class="img-fluid" src="assets/images/quickstart2.png" alt="Enable plugin from plugin window"/>
+                                        </a>
+                                    </div> <!--//screenshot-holder-->
+
                                 </div>
                                 <div id="step2" class="section-block">
                                     <h6>Step 2</h6>
@@ -89,409 +106,408 @@
                                         Head over to Project Settings, then <code>Engine/Navigation System</code>. 
                                         Now, what we want to do is create at least one Navigation Agent. 
                                         Here I have created two, one that uses the Flying Navigation System and another that uses the standard Recast Navmesh system. Which system the agent uses is dependent on the <code>Preferred Nav Data</code> property. 
-                                        The <code>Nav Data Class</code> property is (I think) legacy, but setting it will automatically set <code>Preferred Nav Data</code> to the same value.
                                     </p>
                                     <ol>
                                         <li>Set an Agent to <code>FlyingNavigationData</code> to make it use the Flying Navigation System</li>
                                         <li>Set an Agent to <code>RecastNavMesh</code> to make it use the default UE4 navigation.</li>
-                                      </ol> 
-                                      <p>
-                                        You can also change the colour to distinguish the two. The colour is reflected in the debug display.
-                                      </p>
+                                    </ol> 
+                                    <p>
+                                        You can also change the colour to distinguish the two, which is reflected in the debug display. For this quickstart, we won’t use the Recast agent.
+                                    </p>
                                     <div class="callout-block callout-warning">
                                         <div class="icon-holder">
                                             <i class="fas fa-bug"></i>
                                         </div><!--//icon-holder-->
                                         <div class="content">
                                             <h4 class="callout-title">IMPORTANT</h4>
-                                            <p>Also make sure to set the <code>Navigation/Default Agent Name</code> to a valid name or None. This seems to be a bug in which pathfinding requests will fail if an invalid name is set.</p>
+                                            <p>Also make sure to set the <code>Navigation/Default Agent Name</code> to a valid name or None. There seems to be a bug in which pathfinding requests will sometimes fail if an invalid name is set.</p>
                                         </div><!--//content-->
                                     </div><!--//callout-block-->
-                                    <div class="section-block">
-                                        <div class="screenshot-holder">
-                                            <img class="img-fluid" src="assets/images/quickstart2.png" alt="Enable plugin from plugin window"/>
-                                        </div> 
-                                    </div>
-                                    <p>You should also note the <code>Nav Agent Radius</code> property, as this will become useful later.</p>
-                                </div>
-                            </section><!--//doc-section-->
-                            
-                            <section id="code-section" class="doc-section">
-                                <h2 class="section-title">Code</h2>
-                                <div class="section-block">
-                                    <p>
-                                        <a href="https://prismjs.com/" target="_blank">PrismJS</a> is used as the syntax highlighter here. You can <a href="https://prismjs.com/download.html" target="_blank">build your own version</a> via their website should you need to.
-                                    </p>
-                                    
-                                </div><!--//section-block-->
-                                <div id="html" class="section-block">
-                                    
-                                    <div class="callout-block callout-success">
-                                        <div class="icon-holder">
-                                            <i class="fas fa-thumbs-up"></i>
-                                        </div><!--//icon-holder-->
-                                        <div class="content">
-                                            <h4 class="callout-title">Useful Tip:</h4>
-                                            <p>You can use this online <a href="https://mothereff.in/html-entities" target="_blank">HTML entity encoder/decoder</a> to generate your code examples.</p>
-                                        </div><!--//content-->
-                                    </div>
-                                    <div class="code-block">
-                                        <h6>HTML Code Example</h6>
-                                        <pre><code class="language-markup">&lt;!DOCTYPE html&gt; 
-&lt;html lang=&quot;en&quot;&gt; 
-    ...
-    &lt;div class=&quot;jumbotron&quot;&gt; 
-        &lt;h1&gt;Hello, world!&lt;/h1&gt; 
-        &lt;p&gt;...&lt;/p&gt; 
-        &lt;p&gt;&lt;a class=&quot;btn btn-primary btn-lg&quot; href=&quot;#&quot; role=&quot;button&quot;&gt;Learn more&lt;/a&gt;&lt;/p&gt; 
-    &lt;/div&gt;
-    &lt;div class=&quot;jumbotron&quot;&gt; 
-        &lt;h1&gt;Hello, world!&lt;/h1&gt; 
-        &lt;p&gt;...&lt;/p&gt; 
-        &lt;p&gt;&lt;a class=&quot;btn btn-primary btn-lg&quot; href=&quot;#&quot; role=&quot;button&quot;&gt;Learn more&lt;/a&gt;&lt;/p&gt; 
-    &lt;/div&gt;
-    ...
-&lt;/html&gt;</code></pre>
-                                    </div><!--//code-block-->
-                                </div><!--//section-block-->
-                                <div id="css" class="section-block">
-                                    <div class="code-block">
-                                        <h6>CSS Code Example</h6>
-                                        <pre><code class="language-css">/* ======= Base Styling ======= */
-body {
-    font-family: 'Open Sans', arial, sans-serif; 
-    color: #333; 
-    font-size: 16px; 
-    -webkit-font-smoothing: antialiased; 
-    -moz-osx-font-smoothing: grayscale; 
-}</code></pre>
-                                    </div><!--//code-block-->
-                                </div><!--//section-block-->
-                                <div id="sass" class="section-block">
-                                    <div class="code-block">
-                                        <h6>SCSS Code Example</h6>
-                                        <pre><code class="language-css">@mixin transform($property) {
-  -webkit-transform: $property;
-      -ms-transform: $property;
-          transform: $property;
-}
-
-.box { @include transform(rotate(30deg)); }</code></pre>
-                                    </div><!--//code-block-->
-                                </div><!--//section-block-->
-                                <div id="less" class="section-block">
-                                    <div class="code-block">
-                                        <h6>LESS Code Example</h6>
-                                        <pre><code class="language-css">@base: #f04615;
-@width: 0.5;
-
-.class {
-  width: percentage(@width); // returns &#x60;50%&#x60;
-  color: saturate(@base, 5%);
-  background-color: spin(lighten(@base, 25%), 8);
-}</code></pre>
-                                    </div><!--//code-block-->
-                                </div><!--//section-block-->
-                                <div id="javascript" class="section-block">
-                                    <div class="code-block">
-                                        <h6>JavaScript Code Example</h6>
-                                        <pre><code class="language-javascript">&lt;script&gt; 
-    function myFunction(a, b) { 
-        return a * b; 
-    } 
-    
-    document.getElementById(&quot;demo&quot;).innerHTML = myFunction(4, 3); 
-&lt;/script&gt;</code></pre>
-                                    </div><!--//code-block-->
-                                </div><!--//section-block-->
-                                <div id="python" class="section-block">
-                                    <div class="code-block">
-                                        <h6>Python Code Example</h6>
-                                        <pre><code class="language-python">&gt;&gt;&gt; x = int(input(&quot;
-Please enter an integer: &quot;)) Please enter an integer: 42 
-&gt;&gt;&gt; if x &lt; 0: 
-... x = 0 
-... print('Negative changed to zero') 
-... elif x == 0: 
-... print('Zero') 
-... elif x == 1: 
-... print('Single') 
-... else: 
-... print('More') 
-... More</code></pre>
-                                    </div><!--//code-block-->
-                                </div><!--//section-block-->
-                                <div id="php" class="section-block">
-                                    <div class="code-block">
-                                        <h6>PHP Code Example</h6>
-                                        <pre><code class="language-php">&lt;?php 
-$txt = &quot;Hello world!&quot;; 
-$x = 5; 
-$y = 10.5; 
-
-echo $txt; 
-echo &quot;&lt;br&gt;&quot;; 
-echo $x; 
-echo &quot;&lt;br&gt;&quot;; 
-echo $y; 
-?&gt;</code></pre>
-                                    </div><!--//code-block-->
-                                </div><!--//section-block-->
-                                <div id="handlebars" class="section-block">
-                                    <div class="code-block">
-                                        <h6>Handlebars Code Example</h6>
-                                        <pre><code class="language-handlebars">Handlebars.registerHelper('list', function(items, options) { 
-  var out = &quot;&lt;ul&gt;&quot;; 
-  
-  for(var i=0, l=items.length; i&lt;l; i++) { 
-    out = out + &quot;&lt;li&gt;&quot; + options.fn(items[i]) + &quot;&lt;/li&gt;&quot;; 
-  } 
-  
-  return out + &quot;&lt;/ul&gt;&quot;; 
-});</code></pre>
-                                    </div><!--//code-block-->
-                                    <div class="code-block">
-                                        <h6>Git Code Example</h6>
-                                        <pre><code class="language-git">$ git add Documentation.txt</code></pre>
-                                    </div><!--//code-block-->
-                                </div><!--//section-block-->
-                            </section><!--//doc-section-->
-                            <section id="callouts-section" class="doc-section">
-                                <h2 class="section-title">Callouts</h2>
-                                <div class="section-block">
-                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. 
-                                    </p>
-                                </div>
-
-                                <div class="section-block">
+                                    <div class="screenshot-holder">
+                                        <a href="assets/images/quickstart3.png" data-toggle="lightbox">
+                                            <img class="img-fluid" src="assets/images/quickstart3.png" alt="Create a flying navigation agent in the project settings"/>
+                                        </a>
+                                    </div> <!--//screenshot-holder-->
                                     <div class="callout-block callout-info">
                                         <div class="icon-holder">
                                             <i class="fas fa-info-circle"></i>
                                         </div><!--//icon-holder-->
                                         <div class="content">
-                                            <h4 class="callout-title">Aenean imperdiet</h4>
-                                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium <code>&lt;code&gt;</code> , Nemo enim ipsam voluptatem quia voluptas <a href="#">link example</a> sit aspernatur aut odit aut fugit.</p>
+                                            <h4 class="callout-title"><code>Nav Data Class</code> vs <code>Preferred Nav Data</code></h4>
+                                            <p>
+                                                The <code>Nav Data Class</code> property is (I think) legacy, but setting it will automatically set <code>Preferred Nav Data</code> to the same value. The pathfinding method is only determined by <code>Preferred Nav Data</code>.
+                                            </p>
                                         </div><!--//content-->
                                     </div><!--//callout-block-->
-                                    
+                                    <p>You should also note the <code>Nav Agent Radius</code> property, as this will become useful later.</p>
+                                </div>
+                                <div id="step3" class="section-block">
+                                    <h6>Step 3</h6>
+                                    <p>Once the Supported Agents are set up, you can add a standard Nav Mesh Bounds Volume from the side panel.</p>
+                                    <div class="screenshot-holder">
+                                        <a href="assets/images/quickstart4.png" data-toggle="lightbox">
+                                            <img class="img-fluid" src="assets/images/quickstart4.png" alt="Add a nav mesh bounds volume to the level"/>
+                                        </a>
+                                    </div> <!--//screenshot-holder-->
+                                    <p>
+                                        Everything up to this point has worked if you see a <code>FlyingNavigationData-FlyingAgent</code> or similar actor spawned in your level. 
+                                        If you also created a Recast agent you should also see a <code>RecastNavMesh-RecastAgent</code> or similar actor.
+                                    </p>
+                                    <div class="screenshot-holder">
+                                        <a href="assets/images/quickstart5.png" data-toggle="lightbox">
+                                            <img class="img-fluid" src="assets/images/quickstart5.png" alt="Make sure a Flying navigation data actor appears in the level."/>
+                                        </a>
+                                    </div> <!--//screenshot-holder-->
                                     <div class="callout-block callout-warning">
                                         <div class="icon-holder">
                                             <i class="fas fa-bug"></i>
                                         </div><!--//icon-holder-->
                                         <div class="content">
-                                            <h4 class="callout-title">Morbi posuere</h4>
-                                            <p>Nunc hendrerit odio quis dignissim efficitur. Proin ut finibus libero. Morbi posuere fringilla felis eget sagittis. Fusce sem orci, cursus in tortor <a href="#">link example</a> tellus vel diam viverra elementum.</p>
+                                            <h4 class="callout-title">If you can't find it:</h4>                                    
+                                            <p>
+                                                You may be required to reload the level after placing the bounds volume to trigger the Navigation Actor spawn. <br>
+                                                If you still don’t see the actor, make sure that <code>FlyingAgent</code> is checked under <br> <code>WorldSettings/World/NavigationSystemConfig/SupportedAgentsMask</code> <br> and <br> <code>NavMeshBoundsVolume/Navigation/SupportedAgents</code>.
+                                            </p>
                                         </div><!--//content-->
                                     </div><!--//callout-block-->
-                                    
+                                </div>
+                                <div id="step4" class="section-block">
+                                    <h6>Step 4</h6>
+                                    <p>You can now scale the bounds volume to fit your scene. For the FlyingExampleMap, that looks like this:</p>
+                                    <div class="screenshot-holder">
+                                        <a href="assets/images/quickstart6.png" data-toggle="lightbox">
+                                            <img class="img-fluid" src="assets/images/quickstart6.png" alt="Scale and move the nav mesh bounds volume to fit the scene"/>
+                                        </a>
+                                    </div> <!--//screenshot-holder-->
+                                    <div class="callout-block callout-info">
+                                        <div class="icon-holder">
+                                            <i class="fas fa-info-circle"></i>
+                                        </div><!--//icon-holder-->
+                                        <div class="content">
+                                            <h4 class="callout-title">Generating Octrees in Levels</h4>                                    
+                                            <p>
+                                                The Flying Navigation System will generate one Octree structure in the world, which is required to be a cube. 
+                                                This cube is calculated from the <i>largest edge</i> of the <i>sum</i> of the Nav Mesh Bounds Volumes. (The sum of boxes is a larger box that encapsulates both).<br>
+                                                However, the building algorithm only takes meshes into account that are inside Nav Mesh Bounds Volumes (as well as some other optimisations). 
+                                                The Octree cube centre is calculated from the <i>centre</i> of the <i>sum</i> of the Nav Mesh Bounds Volumes, so it can be useful to scale up and move the volume to make the best use of the flying space.
+                                            </p>
+                                        </div><!--//content-->
+                                    </div><!--//callout-block-->
+                                </div>
+                                <div id="step5" class="section-block">
+                                    <h6>Step 5</h6>
+                                    <p>
+                                        Select the FlyingNavigationData actor, and click <code>Rebuild Navigation Data</code> (Or click <code>Build/Build Paths</code> in the toolbar). 
+                                        Make sure <code>Enable Drawing</code> and <code>Show/Navigation</code> in the viewport (press <code>P</code>) are both checked, and you should get something like this:
+                                    </p>
+                                    <div class="screenshot-holder">
+                                        <a href="assets/images/quickstart7.png" data-toggle="lightbox">
+                                            <img class="img-fluid" src="assets/images/quickstart7.png" alt="The blocked voxels are displayed"/>
+                                        </a>
+                                    </div> <!--//screenshot-holder-->
+                                </div>
+                                <div id="step6" class="section-block">
+                                    <h6>Step 6</h6>
+                                    <p>
+                                        We’re not quite finished yet: You might notice that the player spaceship is being treated as a blocking mesh. 
+                                        This will be problematic for the pathfinding, as the destingation point (the spaceship) will be inside a blocked area.
+                                    </p>
+                                    <div class="screenshot-holder">
+                                        <a href="assets/images/quickstart8.png" data-toggle="lightbox">
+                                            <img class="img-fluid" src="assets/images/quickstart8.png" alt="Spaceship causes blocked voxels"/>
+                                        </a>
+                                    </div> <!--//screenshot-holder-->
+                                    <p>To fix this, disable <code>Collision/Can Ever Affect Navigation</code> on the Flying Pawn's mesh:</p>
+                                    <div class="screenshot-holder">
+                                        <a href="assets/images/quickstart9.png" data-toggle="lightbox">
+                                            <img class="img-fluid" src="assets/images/quickstart9.png" alt="Uncheck Can Ever Affect Navigation under the Collision category on the static mesh"/>
+                                        </a>
+                                    </div> <!--//screenshot-holder-->
+                                    <p>Rebuild the Octree, and everything should be good to go.</p>
                                     <div class="callout-block callout-success">
                                         <div class="icon-holder">
                                             <i class="fas fa-thumbs-up"></i>
                                         </div><!--//icon-holder-->
                                         <div class="content">
-                                            <h4 class="callout-title">Lorem ipsum dolor sit amet</h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. <a href="#">Link example</a> aenean commodo ligula eget dolor.</p>
+                                            <h4 class="callout-title">Congratulations!</h4>
+                                            <p>You’ve set up your first octree!</p>
                                         </div><!--//content-->
                                     </div><!--//callout-block-->
-                                    
-                                    <div class="callout-block callout-danger">
+                                </div>
+                                <h3>Part 2: Building a flying AI</h3>
+                                <p>This is a basic UE4 AI setup; programming more advanced AI in UE4 can be found elsewhere. This AI will follow the player wherever they go.</p>
+                                <div id="step7" class="section-block">
+                                    <h6>Step 7</h6>
+                                    <p>
+                                        Create a new <code>AIController</code> Blueprint (you'll need to search for it under <code>All Classes</code>) called <code>AIC_FollowingController</code>. <br>
+                                        Create a new Blackboard asset (<code>Right Click -> Artificial Intelligence</code>) called <code>BB_FollowingPawn</code>. <br>
+                                        Create a new <code>Pawn</code> Blueprint called <code>BP_FollowingPawn</code>. <br>
+                                        Create a new Behavior Tree asset (<code>Right Click -> Artificial Intelligence</code>) called <code>BT_FollowingBehavior</code>. <br>
+                                    </p>
+                                    <div class="screenshot-holder">
+                                        <a href="assets/images/quickstart10.png" data-toggle="lightbox">
+                                            <img class="img-fluid" src="assets/images/quickstart10.png" alt="A folder containing the required AI assets"/>
+                                        </a>
+                                    </div> <!--//screenshot-holder-->
+                                    <p>
+                                        Add a few static mesh components to the BP_FollowingPawn to make it look interesting. 
+                                        Make sure to disable <code>Collision/Can Ever Affect Navigation</code> on each mesh.
+                                    </p>
+                                    <div class="screenshot-holder">
+                                        <a href="assets/images/quickstart11.png" data-toggle="lightbox">
+                                            <img class="img-fluid" src="assets/images/quickstart11.png" alt="Uncheck Can Ever Affect Navigation under the Collision category on each static mesh on the pawn"/>
+                                        </a>
+                                    </div> <!--//screenshot-holder-->
+                                </div>
+                                <div id="step8" class="section-block">
+                                    <h6>Step 8</h6>
+                                    <p>
+                                        Add a <code>FloatingPawnMovement</code> component.
+                                        All pawns require some kind of movement component to participate in navigation (This could be the <code>CharacterMovementComponent</code> in the Character Class). <br>
+                                        The movement component settings (<code>Nav Movement/Movement Capabilities</code>) define which navigation system your agent should use:
+                                    </p>
+                                    <div class="screenshot-holder">
+                                        <a href="assets/images/quickstart12.png" data-toggle="lightbox">
+                                            <img class="img-fluid" src="assets/images/quickstart12.png" alt="Uncheck Can Ever Affect Navigation under the Collision category on each static mesh on the pawn"/>
+                                        </a>
+                                    </div> <!--//screenshot-holder-->
+                                    <div class="callout-block callout-info">
                                         <div class="icon-holder">
-                                            <i class="fas fa-exclamation-triangle"></i>
+                                            <i class="fas fa-info-circle"></i>
                                         </div><!--//icon-holder-->
                                         <div class="content">
-                                            <h4 class="callout-title">Interdum et malesuada</h4>
-                                            <p>Morbi eget interdum sapien. Donec sed turpis sed nulla lacinia accumsan vitae ut tellus. Aenean vestibulum <a href="#">Link example</a> maximus ipsum vel dignissim. Morbi ornare elit sit amet massa feugiat, viverra dictum ipsum pellentesque. </p>
+                                            <h4 class="callout-title"><code>Can Crouch</code> etc. checkboxes</h4>
+                                            <p>
+                                                As far as I can tell, the <code>Can Crouch</code>, <code>Can Walk</code>, <code>Can Fly</code> etc. checkboxes do nothing in code and will not impact how the pawn behaves. <br>
+                                                However, the other options are used for determining which navigation data to use if you have set up multiple agents with the same <code>Preferred Nav Data</code> in Project Settings.
+                                                Please see <a href="components.html" target="_blank">here</a> for more info. TODO!
+                                            </p>
                                         </div><!--//content-->
                                     </div><!--//callout-block-->
                                 </div>
-                            </section><!--//doc-section-->
-                            <section id="tables-section" class="doc-section">
-                                <h2 class="section-title">Tables</h2>
-                                <div class="section-block">
-                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis.
+                                <div id="step9" class="section-block">
+                                    <h6>Step 9</h6>
+                                    <p>Add a <code>TargetActor</code> Object value to the blackboard, with <code>Actor</code> as the <code>Base Class</code>.</p>
+                                    <div class="screenshot-holder">
+                                        <a href="assets/images/quickstart13.png" data-toggle="lightbox">
+                                            <img class="img-fluid" src="assets/images/quickstart13.png" alt="Add a target actor variable to the blackboard."/>
+                                        </a>
+                                    </div> <!--//screenshot-holder-->
+                                    <p>
+                                        In <code>AIC_FollowingController</code>, set up the blackboard, set the <code>TargetActor</code> property and run the behavior tree in the <code>BeginPlay</code> event.
+                                        To set the player pawn to <code>TargetActor</code>, use the <code>Set Value as Object</code> node with a string literal in the key name (in this case <code>TargetActor</code>).
                                     </p>
+                                    <div class="screenshot-holder">
+                                        <a href="assets/images/quickstart14.png" data-toggle="lightbox">
+                                            <img class="img-fluid" src="assets/images/quickstart14.png" alt="Set up the blackboard with the player pawn as the target actor"/>
+                                        </a>
+                                    </div> <!--//screenshot-holder-->
+                                    <div class="spoiler">
+                                        <div class="btn btn-blue btn-cta spoiler-btn"><i class="fas fa-code-branch"></i> Blueprint Code</div>
+                                        <div class="spoiler-body collapse">
+                                            <div class="code-block">
+                                                <pre><code class="language-git">Begin Object Class=/Script/BlueprintGraph.K2Node_CallFunction Name="K2Node_CallFunction_0"
+   FunctionReference=(MemberName="UseBlackboard",bSelfContext=True)
+   NodePosX=208
+   NodePosY=-16
+   NodeGuid=3E8252FF45537C625491F2AB9495ED10
+   CustomProperties Pin (PinId=80F9E3BA4926DA5335D705ADCE98485F,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_Event_0 07684E254FC1C1BEF80CE894942660B6,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=11A0F87E40F44FEED746ABAD9532C2F5,PinName="then",Direction="EGPD_Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_IfThenElse_0 67B370EF4988E230B080CBA8A29ADE51,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=4285BE6D42F0420F65B66496DAA3C7CA,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'"/Script/AIModule.AIController"',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=3F6D3995430BDFDF084D03AEAC66B8E5,PinName="BlackboardAsset",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'"/Script/AIModule.BlackboardData"',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultObject="/Game/FlyingBP/AI/BB_FollowingPawn.BB_FollowingPawn",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=ED5D29C64055856BFFC07CB6A5366A91,PinName="BlackboardComponent",Direction="EGPD_Output",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'"/Script/AIModule.BlackboardComponent"',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_Knot_0 3DB90C9D4381803596FD83A2E4B68526,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=205905FA4C924368079A088C7F61A431,PinName="ReturnValue",Direction="EGPD_Output",PinType.PinCategory="bool",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="false",AutogeneratedDefaultValue="false",LinkedTo=(K2Node_IfThenElse_0 59D910F446245B24B02B658A9CD565E4,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node_IfThenElse Name="K2Node_IfThenElse_0"
+   NodePosX=608
+   NodeGuid=4E9B8A0D4745B5A30D9C54B6FE642748
+   CustomProperties Pin (PinId=67B370EF4988E230B080CBA8A29ADE51,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_CallFunction_0 11A0F87E40F44FEED746ABAD9532C2F5,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=59D910F446245B24B02B658A9CD565E4,PinName="Condition",PinType.PinCategory="bool",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="true",AutogeneratedDefaultValue="true",LinkedTo=(K2Node_CallFunction_0 205905FA4C924368079A088C7F61A431,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=AF1376E642110CC3045D028C22AF07F0,PinName="then",PinFriendlyName=NSLOCTEXT("K2Node", "true", "true"),Direction="EGPD_Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_CallFunction_1 B9F78B364D41E932BA008EB3E6E46A04,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=2DDEA00A4B2D6A8C7EEE41B493D3D040,PinName="else",PinFriendlyName=NSLOCTEXT("K2Node", "false", "false"),Direction="EGPD_Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node_CallFunction Name="K2Node_CallFunction_1"
+   FunctionReference=(MemberParent=Class'"/Script/AIModule.BlackboardComponent"',MemberName="SetValueAsObject")
+   NodePosX=864
+   NodePosY=-16
+   NodeGuid=8ECF39D6439EDD140C5D97A6FC0318C1
+   CustomProperties Pin (PinId=B9F78B364D41E932BA008EB3E6E46A04,PinName="execute",PinToolTip="\nExec",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_IfThenElse_0 AF1376E642110CC3045D028C22AF07F0,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=BA3805654910060EA3960CA9860A2A5E,PinName="then",PinToolTip="\nExec",Direction="EGPD_Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_CallFunction_4 51E3A3604D66AF5528A82AA35827F9EB,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=4F778431405F444FDEE84295F855D67E,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinToolTip="Target\nBlackboard Component Object Reference",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'"/Script/AIModule.BlackboardComponent"',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_Knot_0 3A31D3DE47963F01D6CAA5AB08ADCA35,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=CAA2AB9841C9DA4D9D8132B7D0BFC3B8,PinName="KeyName",PinToolTip="Key Name\nName (by ref)",PinType.PinCategory="name",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=True,PinType.bIsConst=True,PinType.bIsWeakPointer=False,DefaultValue="None",AutogeneratedDefaultValue="None",LinkedTo=(K2Node_CallFunction_3 D552FE464C183C0F042548A869CE5D5D,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=CA324B9C4A397AFDCC3DD7B6A19F6345,PinName="ObjectValue",PinToolTip="Object Value\nObject Reference",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'"/Script/CoreUObject.Object"',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_CallFunction_2 EB19D983439B1AD57654D0BC12041954,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_0"
+   NodePosX=640
+   NodePosY=112
+   NodeGuid=BEC83E9040158FCBE8F2BEB714985234
+   CustomProperties Pin (PinId=3DB90C9D4381803596FD83A2E4B68526,PinName="InputPin",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'"/Script/AIModule.BlackboardComponent"',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_CallFunction_0 ED5D29C64055856BFFC07CB6A5366A91,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=3A31D3DE47963F01D6CAA5AB08ADCA35,PinName="OutputPin",Direction="EGPD_Output",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'"/Script/AIModule.BlackboardComponent"',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_CallFunction_1 4F778431405F444FDEE84295F855D67E,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node_CallFunction Name="K2Node_CallFunction_2"
+   bIsPureFunc=True
+   FunctionReference=(MemberParent=Class'"/Script/Engine.GameplayStatics"',MemberName="GetPlayerPawn")
+   NodePosX=528
+   NodePosY=256
+   NodeGuid=220F21E7440E10118B7DE59F55DCEF8B
+   CustomProperties Pin (PinId=8C571B5B4A15705CC8904F8E4567517D,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'"/Script/Engine.GameplayStatics"',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultObject="/Script/Engine.Default__GameplayStatics",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=82F875234A47D91CD1D71EA97418461A,PinName="WorldContextObject",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'"/Script/CoreUObject.Object"',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=True,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=BF09DC304B102FD58BCD8AA2C6D29489,PinName="PlayerIndex",PinType.PinCategory="int",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="0",AutogeneratedDefaultValue="0",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=EB19D983439B1AD57654D0BC12041954,PinName="ReturnValue",Direction="EGPD_Output",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'"/Script/Engine.Pawn"',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_CallFunction_1 CA324B9C4A397AFDCC3DD7B6A19F6345,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node_CallFunction Name="K2Node_CallFunction_3"
+   bIsPureFunc=True
+   FunctionReference=(MemberParent=Class'"/Script/Engine.KismetSystemLibrary"',MemberName="MakeLiteralName")
+   NodePosX=512
+   NodePosY=160
+   NodeGuid=CCB38595493B40CE4B332F9EB1D1B661
+   CustomProperties Pin (PinId=D50DECC84576E6AF98BE9988292A1471,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'"/Script/Engine.KismetSystemLibrary"',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultObject="/Script/Engine.Default__KismetSystemLibrary",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=49B46DA44EBDD55B77905DA7AB1ECE0A,PinName="Value",PinType.PinCategory="name",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="TargetActor",AutogeneratedDefaultValue="None",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=D552FE464C183C0F042548A869CE5D5D,PinName="ReturnValue",Direction="EGPD_Output",PinType.PinCategory="name",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="None",AutogeneratedDefaultValue="None",LinkedTo=(K2Node_CallFunction_1 CAA2AB9841C9DA4D9D8132B7D0BFC3B8,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node_CallFunction Name="K2Node_CallFunction_4"
+   FunctionReference=(MemberName="RunBehaviorTree",bSelfContext=True)
+   NodePosX=1200
+   NodePosY=-16
+   NodeGuid=A2CA51794912869DD84E48889A886EF5
+   CustomProperties Pin (PinId=51E3A3604D66AF5528A82AA35827F9EB,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,LinkedTo=(K2Node_CallFunction_1 BA3805654910060EA3960CA9860A2A5E,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=2C6D131141F53217F94F6EA638F95F1B,PinName="then",Direction="EGPD_Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=780432094105F055AE4C03A68029C615,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'"/Script/AIModule.AIController"',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=D499286C41EE3F257EF31882D66B8948,PinName="BTAsset",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Class'"/Script/AIModule.BehaviorTree"',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultObject="/Game/FlyingBP/AI/BT_FollowingBehavior.BT_FollowingBehavior",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=5AB4B5654A4C1A9BB2AD9290DCDAAD62,PinName="ReturnValue",Direction="EGPD_Output",PinType.PinCategory="bool",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,DefaultValue="false",AutogeneratedDefaultValue="false",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object</code></pre>
+                                            </div><!--//code-block-->
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="section-block">
-                                    <h6>Basic Table</h6>
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>First Name</th>
-                                                    <th>Last Name</th>
-                                                    <th>Username</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td>@mdo</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">2</th>
-                                                    <td>Jacob</td>
-                                                    <td>Thornton</td>
-                                                    <td>@fat</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>Larry</td>
-                                                    <td>the Bird</td>
-                                                    <td>@twitter</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div><!--//table-responsive-->
-                                    <h6>Striped Table</h6>
-                                    <div class="table-responsive">
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>First Name</th>
-                                                    <th>Last Name</th>
-                                                    <th>Username</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td>@mdo</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">2</th>
-                                                    <td>Jacob</td>
-                                                    <td>Thornton</td>
-                                                    <td>@fat</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>Larry</td>
-                                                    <td>the Bird</td>
-                                                    <td>@twitter</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div><!--//table-responsive-->
-                                    <h6>Bordered Table</h6>
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>First Name</th>
-                                                    <th>Last Name</th>
-                                                    <th>Username</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td>@mdo</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">2</th>
-                                                    <td>Jacob</td>
-                                                    <td>Thornton</td>
-                                                    <td>@fat</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>Larry</td>
-                                                    <td>the Bird</td>
-                                                    <td>@twitter</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div><!--//table-responsive-->
-                                </div><!--//section-block-->
-                            </section><!--//doc-section-->
-                            <section id="buttons-section" class="doc-section">
-                                <h2 class="section-title">Buttons</h2>
-                                <div class="section-block">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec imperdiet turpis. Curabitur aliquet pulvinar ultrices. Etiam at posuere leo. Proin ultrices ex et dapibus feugiat <a href="#">link example</a> aenean purus leo, faucibus at elit vel, aliquet scelerisque dui. Etiam quis elit euismod, imperdiet augue sit amet, imperdiet odio. Aenean sem erat, hendrerit  eu gravida id, dignissim ut ante. Nam consequat porttitor libero euismod congue. 
+                                <div id="step10" class="section-block">
+                                    <h6>Step 10</h6>
+                                    <p>
+                                        In <code>BP_FollowingPawn</code>, set <code>Pawn/AI Controller Class</code> to <code>AIC_FollowingController</code>. 
+                                        Also, set the <code>Use Controller Rotation *</code> checkboxes, so that the pawn rotates to follow the path.
                                     </p>
-                                    <div class="row">
-                                        <div class="col-md-6 col-12">
-                                            <h6>Basic Buttons</h6>
-                                            <ul class="list list-unstyled">
-                                                <li><a href="#" class="btn btn-primary">Primary Button</a></li>
-                                                <li><a href="#" class="btn btn-green">Green Button</a></li>
-                                                <li><a href="#" class="btn btn-blue">Blue Button</a></li>
-                                                <li><a href="#" class="btn btn-orange">Orange Button</a></li>
-                                                <li><a href="#" class="btn btn-red">Red Button</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-6 col-12">
-                                            <h6>CTA Buttons</h6>
-                                            <ul class="list list-unstyled">
-                                                <li><a href="#" class="btn btn-primary btn-cta"><i class="fas fa-download"></i> Download Now</a></li>
-                                                <li><a href="#" class="btn btn-green btn-cta"><i class="fas fa-code-branch"></i> Fork Now</a></li>
-                                                <li><a href="#" class="btn btn-blue btn-cta"><i class="fas fa-play-circle"></i> Find Out Now</a></li>
-                                                <li><a href="#" class="btn btn-orange btn-cta"><i class="fas fa-bug"></i> Report Bugs</a></li>
-                                                <li><a href="#" class="btn btn-red btn-cta"><i class="fas fa-exclamation-circle"></i> Submit Issues</a></li>
-                                            </ul>
-                                        </div>
-                                    </div><!--//row-->
-                                </div><!--//section-block-->
-                            </section><!--//doc-section-->
-                            <section id="video-section" class="doc-section">
-                                <h2 class="section-title">Video</h2>
-                                <div class="section-block">
-                                    <div class="row">
-                                        <div class="col-md-6 col-12">
-                                            <h6>Responsive Video 16:9</h6>
-                                            <!-- 16:9 aspect ratio -->
-                                            <div class="embed-responsive embed-responsive-16by9">
-                                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/ejBkOjEG6F0?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-12">
-                                            <h6>Responsive Video 4:3</h6>
-                                            <!-- 4:3 aspect ratio -->
-                                            <div class="embed-responsive embed-responsive-4by3">
-                                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/ejBkOjEG6F0?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-                                            </div>
-                                        </div>
-                                    </div><!--//row-->
-                                </div><!--//section-block-->
-                            <section id="icons-section" class="doc-section">
-                                <h2 class="section-title">Icons</h2>
-                                <div class="section-block">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec imperdiet turpis. Curabitur aliquet pulvinar ultrices. Etiam at posuere leo. Proin ultrices ex et dapibus feugiat <a href="#">link example</a> aenean purus leo, faucibus at elit vel, aliquet scelerisque dui. Etiam quis elit euismod, imperdiet augue sit amet, imperdiet odio. Aenean sem erat, hendrerit  eu gravida id, dignissim ut ante. Nam consequat porttitor libero euismod congue. 
+                                    <div class="screenshot-holder">
+                                        <a href="assets/images/quickstart15.png" data-toggle="lightbox">
+                                            <img class="img-fluid" src="assets/images/quickstart15.png" alt="Attach AI controller to pawn"/>
+                                        </a>
+                                    </div> <!--//screenshot-holder-->
+                                </div>
+                                <div id="step11" class="section-block">
+                                    <h6>Step 11</h6>
+                                    <p>
+                                        The only thing left is to fill in the <code>BT_FollowingBehavior</code> behavior tree. 
+                                        First, set the <code>Blackboard Asset</code> to <code>BB_FollowingPawn</code>.
                                     </p>
-                                </div><!--//section-block-->
-                                <div class="section-block">
-                                    <h6>Elegant Icon Font</h6>
-                                    <a href="https://www.elegantthemes.com/blog/resources/elegant-icon-font" target="_blank"><img class="img-fluid" src="assets/images/demo/elegant-icon-font.jpg" alt="elegant icons" /></a>
-                                </div><!--//section-block-->
-                                <div class="section-block">
-                                    <h6>FontAwesome Icon Font</h6>
-                                    <a href="https://fortawesome.github.io/Font-Awesome/" target="_blank"><img class="img-fluid" src="assets/images/demo/fontawesome-icons.png" alt="fontawesome" /></a>
-                                </div><!--//section-block-->
-                                
-                            </section><!--//doc-section-->
-                            
+                                    <div class="screenshot-holder">
+                                        <a href="assets/images/quickstart16.png" data-toggle="lightbox">
+                                            <img class="img-fluid" src="assets/images/quickstart16.png" alt="Set the Blackboard Asset to BB_FollowingPawn"/>
+                                        </a>
+                                    </div> <!--//screenshot-holder-->
+                                    <p>
+                                        Create a Sequence, then a Wait node and a Move To node.
+                                    </p>
+                                    <div class="screenshot-holder">
+                                        <a href="assets/images/quickstart17.png" data-toggle="lightbox">
+                                            <img class="img-fluid" src="assets/images/quickstart17.png" alt="Create a Sequence, then a Wait node and a Move To node in the behaviour tree"/>
+                                        </a>
+                                    </div> <!--//screenshot-holder-->
+                                    <div class="callout-block callout-info">
+                                        <div class="icon-holder">
+                                            <i class="fas fa-info-circle"></i>
+                                        </div><!--//icon-holder-->
+                                        <div class="content">
+                                            <h4 class="callout-title">The Move To Behavior Tree Node</h4>
+                                            <p>
+                                                That’s right, the Flying Navigation System uses the <i>same</i> Move To node as standard nav walking! <br>
+                                                Which system the node uses to find a path is determined by MovementComponent settings of the Pawn it is controlling (<code>Nav Movement/Movement Capabilities</code>). 
+                                                We changed this earlier in our <code>BP_FollowingPawn</code>.
+                                            </p>
+                                        </div><!--//content-->
+                                    </div><!--//callout-block-->
+                                    <p>
+                                        It’s recommended that you turn off <code>Allow Partial Path</code> on the Move To node, to prevent searching the whole world if the target is inaccessible. 
+                                        The pathfinding algorithm will try to guess the closest point to the target if it’s in a blocked area.
+                                    </p>
+                                    <div class="screenshot-holder">
+                                        <a href="assets/images/quickstart18.png" data-toggle="lightbox">
+                                            <img class="img-fluid" src="assets/images/quickstart18.png" alt="Turn off Allow Partial path on the Move To node"/>
+                                        </a>
+                                    </div> <!--//screenshot-holder-->
+                                </div>
+                                <div id="step12" class="section-block">
+                                    <h6>Step 12</h6>
+                                    <p>
+                                        Drag your <code>BP_FollowingPawn</code> into your level, press play and give it a go! Our following pawn should follow you around the level, even underneath the floor!
+                                    </p>
+                                    <div class="screenshot-holder">
+                                        <a href="assets/images/quickstart19.png" data-toggle="lightbox">
+                                            <img class="img-fluid" src="assets/images/quickstart19.png" alt="Playing the flying quickstart level"/>
+                                        </a>
+                                    </div> <!--//screenshot-holder-->
+                                    <div class="callout-block callout-info">
+                                        <div class="icon-holder">
+                                            <i class="fas fa-info-circle"></i>
+                                        </div><!--//icon-holder-->
+                                        <div class="content">
+                                            <h4 class="callout-title">Debug path drawing</h4>
+                                            <p>
+                                                You can see the path the AI calculates by enabling <code>Draw Debug Paths</code> on the <code>FlyingNavigationData</code> actor in the level.
+                                            </p>
+                                        </div><!--//content-->
+                                    </div><!--//callout-block-->
+                                </div>
+                                <div id="step13" class="section-block">
+                                    <h6>Step 13</h6>
+                                    <p>
+                                        I found it rather difficult to see what the AI was actually doing in the flying simulator, so I deleted the <code>FlyingPawn</code> from the template level and added a <code>DefaultPawn</code> (Search <code>DefaultPawn</code> under <code>Engine C++ Classes</code>). 
+                                    </p>
+                                    <div class="screenshot-holder">
+                                        <a href="assets/images/quickstart20.png" data-toggle="lightbox">
+                                            <img class="img-fluid" src="assets/images/quickstart20.png" alt="Finding the default pawn class in the engine c++ classed folder"/>
+                                        </a>
+                                    </div> <!--//screenshot-holder-->
+                                    <p>
+                                        If you set <code>Auto Possess Player</code> to <code>Player 0</code> and bump up the <code>Max Speed</code> on the <code>DefaultPawn</code>, you can give the AI a run for its money.
+                                    </p>
+                                    <div class="screenshot-holder">
+                                        <a href="assets/images/quickstart21.png" data-toggle="lightbox">
+                                            <img class="img-fluid" src="assets/images/quickstart21.png" alt="Set auto posesses player to player 0 and increase the max speed to 6000 on the default pawn"/>
+                                        </a>
+                                    </div> <!--//screenshot-holder-->
+                                </div>
+                                <div class="callout-block callout-success">
+                                    <div class="icon-holder">
+                                        <i class="fas fa-thumbs-up"></i>
+                                    </div><!--//icon-holder-->
+                                    <div class="content">
+                                        <h4 class="callout-title">Congratulations!</h4>
+                                        <p>
+                                            You've successfully created your first flying agent!
+                                        </p>
+                                    </div><!--//content-->
+                                </div><!--//callout-block-->
                             </section><!--//doc-section-->
                         </div><!--//content-inner-->
                     </div><!--//doc-content-->
                     <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
                         <div id="doc-nav" class="doc-nav">
-	                        
 	                            <nav id="doc-menu" class="nav doc-menu flex-column sticky">
 	                                <a class="nav-link scrollto" href="#download-section">Download</a>
 	                                <a class="nav-link scrollto" href="#quickstart-section">Quickstart</a>
                                     <nav class="doc-sub-menu nav flex-column">
-                                        <a class="nav-link scrollto" href="#step1">Step One</a>
-                                        <a class="nav-link scrollto" href="#step2">Step Two</a>
-                                        <a class="nav-link scrollto" href="#step3">Step Three</a>
+                                        <a class="nav-link scrollto" href="#step1">Step 1</a>
+                                        <a class="nav-link scrollto" href="#step2">Step 2</a>
+                                        <a class="nav-link scrollto" href="#step3">Step 3</a>
+                                        <a class="nav-link scrollto" href="#step4">Step 4</a>
+                                        <a class="nav-link scrollto" href="#step5">Step 5</a>
+                                        <a class="nav-link scrollto" href="#step6">Step 6</a>
+                                        <a class="nav-link scrollto" href="#step7">Step 7</a>
+                                        <a class="nav-link scrollto" href="#step8">Step 8</a>
+                                        <a class="nav-link scrollto" href="#step9">Step 9</a>
+                                        <a class="nav-link scrollto" href="#step10">Step 10</a>
+                                        <a class="nav-link scrollto" href="#step11">Step 11</a>
+                                        <a class="nav-link scrollto" href="#step12">Step 12</a>
+                                        <a class="nav-link scrollto" href="#step13">Step 13</a>
                                     </nav><!--//nav-->
 	                                <a class="nav-link scrollto" href="#code-section">Code</a>
                                     <nav class="doc-sub-menu nav flex-column">
@@ -533,9 +549,10 @@ echo $y;
     <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>    
     <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>      
-    <script type="text/javascript" src="assets/plugins/stickyfill/dist/stickyfill.min.js"></script>                                                             
+    <script type="text/javascript" src="assets/plugins/stickyfill/dist/stickyfill.min.js"></script>               
+    <script type="text/javascript" src="assets/plugins/lightbox/dist/ekko-lightbox.min.js"></script>                                                 
     <script type="text/javascript" src="assets/js/main.js"></script>
-    
+
 </body>
 </html> 
 

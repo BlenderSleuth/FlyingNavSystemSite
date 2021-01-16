@@ -57,23 +57,44 @@ a:focus {
   text-decoration: none;
 }
 
+.u-disableLigatures {
+  font-variant-ligatures: common-ligatures
+}
+
 code {
-  background: rgb(212, 198, 198);
+  background: rgba(212, 212, 212, 0.4);
   color: black;
-  font-size: 14px;
-  font-weight: bold;
-  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 12px;
+  font-weight: normal;
+  font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   padding: 2px 8px;
   padding-top: 4px;
   display: inline-block;
-  border-radius: 5px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
   line-height: 1;
 }
 pre code {
-  background: #272822;
+  background: #272822; /* Match prism background*/
   white-space: pre;
 }
 
+/* 
+.spoiler {
+  border: 0px solid #ddd;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+} */
+
+.spoiler-body {
+	padding: 0px;
+}
 
 .btn, a.btn {
   -webkit-transition: all 0.4s ease-in-out;
