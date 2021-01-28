@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
-    <title>Bootstrap 4 project documentation theme for developers</title>
+    <title>Flying Navigation System Docs</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -56,158 +56,12 @@
             <div class="container">
                 <div id="doc-header" class="doc-header text-center">
                     <h1 class="doc-title"><span aria-hidden="true" class="icon icon_datareport_alt"></span> Charts</h1>
-                    <div class="meta"><i class="far fa-clock"></i> Last updated: Jan 2nd, 2021</div>
+                    <div class="meta"><i class="far fa-clock"></i> Last updated: Jan 17th, 2021</div>
                 </div><!--//doc-header-->
                 <div class="doc-body row">
                     <div class="doc-content col-md-9 col-12 order-1">
                         <div class="content-inner">
                             <section id="chartjs" class="doc-section">
-                                <h2 class="section-title">Chart.js</h2>
-                                <div class="section-block">
-                                    <h3 class="block-title">1. Screenshot</h3>
-                                    <p>The screenshots used in this page are taken from <a href="https://themes.3rdwavemedia.com/bootstrap-templates/product/appify-bootstrap-4-admin-template-for-app-developers/" target="_blank">Appify</a>. Appify is a Bootstrap 4 admin template made for app developers.</p>
-                                    <div class="screenshot-holder">
-                                        <a href="https://themes.3rdwavemedia.com/bootstrap-templates/product/appify-bootstrap-4-admin-template-for-app-developers/" target="_blank"><img class="img-fluid" src="assets/images/demo/appify-chart-chartjs.jpg" alt="screenshot" /></a>
-                                        <a class="mask" href="https://themes.3rdwavemedia.com/bootstrap-templates/product/appify-bootstrap-4-admin-template-for-app-developers/" target="_blank"><i class="icon fa fa-link"></i></a>
-                                    </div> 
-                                </div><!--//section-block-->
-                                <div class="section-block">
-                                    <h3 class="block-title">2. Global Configurations</h3>
-                                    <p><strong><i class="fas fa-external-link-square-alt"></i> Source:</strong> <a href="https://www.chartjs.org/docs/" target="_blank">https://www.chartjs.org/docs/</a></p>
-                                    <div class="code-block">
-                                        <pre><code class="language-javascript">Chart.defaults.global = {
-    // Boolean - Whether to animate the chart
-    animation: true,
-
-    // Number - Number of animation steps
-    animationSteps: 60,
-
-    // String - Animation easing effect
-    // Possible effects are:
-    // [easeInOutQuart, linear, easeOutBounce, easeInBack, easeInOutQuad,
-    //  easeOutQuart, easeOutQuad, easeInOutBounce, easeOutSine, easeInOutCubic,
-    //  easeInExpo, easeInOutBack, easeInCirc, easeInOutElastic, easeOutBack,
-    //  easeInQuad, easeInOutExpo, easeInQuart, easeOutQuint, easeInOutCirc,
-    //  easeInSine, easeOutExpo, easeOutCirc, easeOutCubic, easeInQuint,
-    //  easeInElastic, easeInOutSine, easeInOutQuint, easeInBounce,
-    //  easeOutElastic, easeInCubic]
-    animationEasing: &#x22;easeOutQuart&#x22;,
-
-    // Boolean - If we should show the scale at all
-    showScale: true,
-
-    // Boolean - If we want to override with a hard coded scale
-    scaleOverride: false,
-
-    // ** Required if scaleOverride is true **
-    // Number - The number of steps in a hard coded scale
-    scaleSteps: null,
-    // Number - The value jump in the hard coded scale
-    scaleStepWidth: null,
-    // Number - The scale starting value
-    scaleStartValue: null,
-
-    // String - Colour of the scale line
-    scaleLineColor: &#x22;rgba(0,0,0,.1)&#x22;,
-
-    // Number - Pixel width of the scale line
-    scaleLineWidth: 1,
-
-    // Boolean - Whether to show labels on the scale
-    scaleShowLabels: true,
-
-    // Interpolated JS string - can access value
-    scaleLabel: &#x22;&#x3C;%=value%&#x3E;&#x22;,
-
-    // Boolean - Whether the scale should stick to integers, not floats even if drawing space is there
-    scaleIntegersOnly: true,
-
-    // Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-    scaleBeginAtZero: false,
-
-    // String - Scale label font declaration for the scale label
-    scaleFontFamily: &#x22;&#x27;Helvetica Neue&#x27;, &#x27;Helvetica&#x27;, &#x27;Arial&#x27;, sans-serif&#x22;,
-
-    // Number - Scale label font size in pixels
-    scaleFontSize: 12,
-
-    // String - Scale label font weight style
-    scaleFontStyle: &#x22;normal&#x22;,
-
-    // String - Scale label font colour
-    scaleFontColor: &#x22;#666&#x22;,
-
-    // Boolean - whether or not the chart should be responsive and resize when the browser does.
-    responsive: false,
-
-    // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-    maintainAspectRatio: true,
-
-    // Boolean - Determines whether to draw tooltips on the canvas or not
-    showTooltips: true,
-
-    // Function - Determines whether to execute the customTooltips function instead of drawing the built in tooltips (See [Advanced - External Tooltips](#advanced-usage-custom-tooltips))
-    customTooltips: false,
-
-    // Array - Array of string names to attach tooltip events
-    tooltipEvents: [&#x22;mousemove&#x22;, &#x22;touchstart&#x22;, &#x22;touchmove&#x22;],
-
-    // String - Tooltip background colour
-    tooltipFillColor: &#x22;rgba(0,0,0,0.8)&#x22;,
-
-    // String - Tooltip label font declaration for the scale label
-    tooltipFontFamily: &#x22;&#x27;Helvetica Neue&#x27;, &#x27;Helvetica&#x27;, &#x27;Arial&#x27;, sans-serif&#x22;,
-
-    // Number - Tooltip label font size in pixels
-    tooltipFontSize: 14,
-
-    // String - Tooltip font weight style
-    tooltipFontStyle: &#x22;normal&#x22;,
-
-    // String - Tooltip label font colour
-    tooltipFontColor: &#x22;#fff&#x22;,
-
-    // String - Tooltip title font declaration for the scale label
-    tooltipTitleFontFamily: &#x22;&#x27;Helvetica Neue&#x27;, &#x27;Helvetica&#x27;, &#x27;Arial&#x27;, sans-serif&#x22;,
-
-    // Number - Tooltip title font size in pixels
-    tooltipTitleFontSize: 14,
-
-    // String - Tooltip title font weight style
-    tooltipTitleFontStyle: &#x22;bold&#x22;,
-
-    // String - Tooltip title font colour
-    tooltipTitleFontColor: &#x22;#fff&#x22;,
-
-    // Number - pixel width of padding around tooltip text
-    tooltipYPadding: 6,
-
-    // Number - pixel width of padding around tooltip text
-    tooltipXPadding: 6,
-
-    // Number - Size of the caret on the tooltip
-    tooltipCaretSize: 8,
-
-    // Number - Pixel radius of the tooltip border
-    tooltipCornerRadius: 6,
-
-    // Number - Pixel offset from point x to tooltip edge
-    tooltipXOffset: 10,
-
-    // String - Template string for single tooltips
-    tooltipTemplate: &#x22;&#x3C;%if (label){%&#x3E;&#x3C;%=label%&#x3E;: &#x3C;%}%&#x3E;&#x3C;%= value %&#x3E;&#x22;,
-
-    // String - Template string for multiple tooltips
-    multiTooltipTemplate: &#x22;&#x3C;%= value %&#x3E;&#x22;,
-
-    // Function - Will fire on animation progression.
-    onAnimationProgress: function(){},
-
-    // Function - Will fire on animation completion.
-    onAnimationComplete: function(){}
-}</code></pre>
-                                    </div><!--//code-block-->
-                                </div><!--//section-block-->
                             </section><!--//doc-section-->
                             
                             <section id="flot" class="doc-section">

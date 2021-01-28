@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>The Flying Navigation System for Unreal Engine Documentation</title>
+    <title>Flying Navigation System Docs</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -45,23 +45,13 @@
                     <li class="breadcrumb-item active">Quick Start</li>
                 </ol>
                 
-                <div class="top-search-box">
-	                 <form class="form-inline search-form justify-content-center" action="" method="get">
-	            
-			            <input type="text" placeholder="Search..." name="search" class="form-control search-input">
-			            
-			            <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
-			            
-			        </form>
-                </div>
-                
             </div><!--//container-->
         </header><!--//header-->
         <div class="doc-wrapper">
             <div class="container">
                 <div id="doc-header" class="doc-header text-center">
                     <h1 class="doc-title"><i class="icon fa fa-paper-plane"></i> Quick Start</h1>
-                    <div class="meta"><i class="far fa-clock"></i> Last updated: Jan 2nd, 2021</div>
+                    <div class="meta"><i class="far fa-clock"></i> Last updated: Jan 17th, 2021</div>
                 </div><!--//doc-header-->
                 <div class="doc-body row">
                     <div class="doc-content col-md-9 col-12 order-1">
@@ -85,17 +75,16 @@
                                         Once the plugin is downloaded to your engine version, create a Flying template project. 
                                     </p>
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart1.png" data-toggle="lightbox">
+                                        <a href="assets/images/quickstart1.png" data-toggle="lightbox" data-title="Create a Flying template project">
                                             <img class="img-fluid" src="assets/images/quickstart1.png" alt="Create a Flying template project"/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
                                     <p>
                                         Make sure to enable the plugin (Under <code>Navigation</code>) in the Plugins window and restart the editor.
                                     </p>
-                                    
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart2.png" data-toggle="lightbox">
-                                            <img class="img-fluid" src="assets/images/quickstart2.png" alt="Enable plugin from plugin window"/>
+                                        <a href="assets/images/quickstart2.png" data-toggle="lightbox" data-title="Enable from plugin window">
+                                            <img class="img-fluid" src="assets/images/quickstart2.png" alt="Enable from plugin window"/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
 
@@ -124,7 +113,7 @@
                                         </div><!--//content-->
                                     </div><!--//callout-block-->
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart3.png" data-toggle="lightbox">
+                                        <a href="assets/images/quickstart3.png" data-toggle="lightbox" data-title="Create a flying navigation agent in the project settings">
                                             <img class="img-fluid" src="assets/images/quickstart3.png" alt="Create a flying navigation agent in the project settings"/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
@@ -145,8 +134,8 @@
                                     <h6>Step 3</h6>
                                     <p>Once the Supported Agents are set up, you can add a standard Nav Mesh Bounds Volume from the side panel.</p>
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart4.png" data-toggle="lightbox">
-                                            <img class="img-fluid" src="assets/images/quickstart4.png" alt="Add a nav mesh bounds volume to the level"/>
+                                        <a href="assets/images/quickstart4.png" data-toggle="lightbox" data-title="Add a Nav Mesh Bounds volume to the level">
+                                            <img class="img-fluid" src="assets/images/quickstart4.png" alt="Add a Nav Mesh Bounds volume to the level"/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
                                     <p>
@@ -154,7 +143,7 @@
                                         If you also created a Recast agent you should also see a <code>RecastNavMesh-RecastAgent</code> or similar actor.
                                     </p>
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart5.png" data-toggle="lightbox">
+                                        <a href="assets/images/quickstart5.png" data-toggle="lightbox" data-title="Make sure a Flying navigation data actor appears in the level.">
                                             <img class="img-fluid" src="assets/images/quickstart5.png" alt="Make sure a Flying navigation data actor appears in the level."/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
@@ -175,7 +164,7 @@
                                     <h6>Step 4</h6>
                                     <p>You can now scale the bounds volume to fit your scene. For the FlyingExampleMap, that looks like this:</p>
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart6.png" data-toggle="lightbox">
+                                        <a href="assets/images/quickstart6.png" data-toggle="lightbox" data-title="Scale and move the nav mesh bounds volume to fit the scene">
                                             <img class="img-fluid" src="assets/images/quickstart6.png" alt="Scale and move the nav mesh bounds volume to fit the scene"/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
@@ -201,7 +190,7 @@
                                         Make sure <code>Enable Drawing</code> and <code>Show/Navigation</code> in the viewport (press <code>P</code>) are both checked, and you should get something like this:
                                     </p>
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart7.png" data-toggle="lightbox">
+                                        <a href="assets/images/quickstart7.png" data-toggle="lightbox" data-title="The blocked voxels are displayed">
                                             <img class="img-fluid" src="assets/images/quickstart7.png" alt="The blocked voxels are displayed"/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
@@ -213,13 +202,13 @@
                                         This will be problematic for the pathfinding, as the destingation point (the spaceship) will be inside a blocked area.
                                     </p>
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart8.png" data-toggle="lightbox">
+                                        <a href="assets/images/quickstart8.png" data-toggle="lightbox" data-title="Spaceship causes blocked voxels">
                                             <img class="img-fluid" src="assets/images/quickstart8.png" alt="Spaceship causes blocked voxels"/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
                                     <p>To fix this, disable <code>Collision/Can Ever Affect Navigation</code> on the Flying Pawn's mesh:</p>
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart9.png" data-toggle="lightbox">
+                                        <a href="assets/images/quickstart9.png" data-toggle="lightbox" data-title="Uncheck Can Ever Affect Navigation under the Collision category on the static mesh">
                                             <img class="img-fluid" src="assets/images/quickstart9.png" alt="Uncheck Can Ever Affect Navigation under the Collision category on the static mesh"/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
@@ -245,7 +234,7 @@
                                         Create a new Behavior Tree asset (<code>Right Click -> Artificial Intelligence</code>) called <code>BT_FollowingBehavior</code>. <br>
                                     </p>
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart10.png" data-toggle="lightbox">
+                                        <a href="assets/images/quickstart10.png" data-toggle="lightbox" data-title="A folder containing the required AI assets"> 
                                             <img class="img-fluid" src="assets/images/quickstart10.png" alt="A folder containing the required AI assets"/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
@@ -254,7 +243,7 @@
                                         Make sure to disable <code>Collision/Can Ever Affect Navigation</code> on each mesh.
                                     </p>
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart11.png" data-toggle="lightbox">
+                                        <a href="assets/images/quickstart11.png" data-toggle="lightbox" data-title="Uncheck Can Ever Affect Navigation under the Collision category on each static mesh on the pawn">
                                             <img class="img-fluid" src="assets/images/quickstart11.png" alt="Uncheck Can Ever Affect Navigation under the Collision category on each static mesh on the pawn"/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
@@ -267,8 +256,8 @@
                                         The movement component settings (<code>Nav Movement/Movement Capabilities</code>) define which navigation system your agent should use:
                                     </p>
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart12.png" data-toggle="lightbox">
-                                            <img class="img-fluid" src="assets/images/quickstart12.png" alt="Uncheck Can Ever Affect Navigation under the Collision category on each static mesh on the pawn"/>
+                                        <a href="assets/images/quickstart12.png" data-toggle="lightbox" data-title="Set Preferred Nav Data in the Movement Component Settings">
+                                            <img class="img-fluid" src="assets/images/quickstart12.png" alt="Set Preferred Nav Data in the Movement Component Settings"/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
                                     <div class="callout-block callout-info">
@@ -278,9 +267,9 @@
                                         <div class="content">
                                             <h4 class="callout-title"><code>Can Crouch</code> etc. checkboxes</h4>
                                             <p>
-                                                As far as I can tell, the <code>Can Crouch</code>, <code>Can Walk</code>, <code>Can Fly</code> etc. checkboxes do nothing in code and will not impact how the pawn behaves. <br>
+                                                As far as I can tell, the <code>Can Crouch</code>, <code>Can Walk</code>, <code>Can Fly</code> etc. checkboxes are only used by <code>CharacterMovementComponent</code> and will not impact how this pawn behaves. <br>
                                                 However, the other options are used for determining which navigation data to use if you have set up multiple agents with the same <code>Preferred Nav Data</code> in Project Settings.
-                                                Please see <a href="components.html" target="_blank">here</a> for more info. TODO!
+                                                Please see <a href="usage.html#FNavAgentProperties" target="_blank">here</a> for more info.
                                             </p>
                                         </div><!--//content-->
                                     </div><!--//callout-block-->
@@ -289,7 +278,7 @@
                                     <h6>Step 9</h6>
                                     <p>Add a <code>TargetActor</code> Object value to the blackboard, with <code>Actor</code> as the <code>Base Class</code>.</p>
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart13.png" data-toggle="lightbox">
+                                        <a href="assets/images/quickstart13.png" data-toggle="lightbox" data-title="Add a target actor variable to the blackboard.">
                                             <img class="img-fluid" src="assets/images/quickstart13.png" alt="Add a target actor variable to the blackboard."/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
@@ -298,7 +287,7 @@
                                         To set the player pawn to <code>TargetActor</code>, use the <code>Set Value as Object</code> node with a string literal in the key name (in this case <code>TargetActor</code>).
                                     </p>
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart14.png" data-toggle="lightbox">
+                                        <a href="assets/images/quickstart14.png" data-toggle="lightbox" data-title="Set up the blackboard with the player pawn as the target actor">
                                             <img class="img-fluid" src="assets/images/quickstart14.png" alt="Set up the blackboard with the player pawn as the target actor"/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
@@ -387,7 +376,7 @@ End Object</code></pre>
                                         Also, set the <code>Use Controller Rotation *</code> checkboxes, so that the pawn rotates to follow the path.
                                     </p>
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart15.png" data-toggle="lightbox">
+                                        <a href="assets/images/quickstart15.png" data-toggle="lightbox" data-title="Attach AI controller to pawn"> 
                                             <img class="img-fluid" src="assets/images/quickstart15.png" alt="Attach AI controller to pawn"/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
@@ -399,7 +388,7 @@ End Object</code></pre>
                                         First, set the <code>Blackboard Asset</code> to <code>BB_FollowingPawn</code>.
                                     </p>
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart16.png" data-toggle="lightbox">
+                                        <a href="assets/images/quickstart16.png" data-toggle="lightbox" data-title="Set the Blackboard Asset to BB_FollowingPawn">
                                             <img class="img-fluid" src="assets/images/quickstart16.png" alt="Set the Blackboard Asset to BB_FollowingPawn"/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
@@ -407,7 +396,7 @@ End Object</code></pre>
                                         Create a Sequence, then a Wait node and a Move To node.
                                     </p>
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart17.png" data-toggle="lightbox">
+                                        <a href="assets/images/quickstart17.png" data-toggle="lightbox" data-title="Create a Sequence, then a Wait node and a Move To node in the behaviour tree">
                                             <img class="img-fluid" src="assets/images/quickstart17.png" alt="Create a Sequence, then a Wait node and a Move To node in the behaviour tree"/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
@@ -429,7 +418,7 @@ End Object</code></pre>
                                         The pathfinding algorithm will try to guess the closest point to the target if it’s in a blocked area.
                                     </p>
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart18.png" data-toggle="lightbox">
+                                        <a href="assets/images/quickstart18.png" data-toggle="lightbox" data-title="Turn off Allow Partial path on the Move To node">
                                             <img class="img-fluid" src="assets/images/quickstart18.png" alt="Turn off Allow Partial path on the Move To node"/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
@@ -440,7 +429,7 @@ End Object</code></pre>
                                         Drag your <code>BP_FollowingPawn</code> into your level, press play and give it a go! Our following pawn should follow you around the level, even underneath the floor!
                                     </p>
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart19.png" data-toggle="lightbox">
+                                        <a href="assets/images/quickstart19.png" data-toggle="lightbox" data-title="Playing the flying quickstart level">
                                             <img class="img-fluid" src="assets/images/quickstart19.png" alt="Playing the flying quickstart level"/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
@@ -462,7 +451,7 @@ End Object</code></pre>
                                         I found it rather difficult to see what the AI was actually doing in the flying simulator, so I deleted the <code>FlyingPawn</code> from the template level and added a <code>DefaultPawn</code> (Search <code>DefaultPawn</code> under <code>Engine C++ Classes</code>). 
                                     </p>
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart20.png" data-toggle="lightbox">
+                                        <a href="assets/images/quickstart20.png" data-toggle="lightbox" data-title="Finding the default pawn class in the engine c++ classed folder">
                                             <img class="img-fluid" src="assets/images/quickstart20.png" alt="Finding the default pawn class in the engine c++ classed folder"/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
@@ -470,7 +459,7 @@ End Object</code></pre>
                                         If you set <code>Auto Possess Player</code> to <code>Player 0</code> and bump up the <code>Max Speed</code> on the <code>DefaultPawn</code>, you can give the AI a run for its money.
                                     </p>
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart21.png" data-toggle="lightbox">
+                                        <a href="assets/images/quickstart21.png" data-toggle="lightbox" data-title="Set auto posesses player to player 0 and increase the max speed to 6000 on the default pawn">
                                             <img class="img-fluid" src="assets/images/quickstart21.png" alt="Set auto posesses player to player 0 and increase the max speed to 6000 on the default pawn"/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
@@ -487,8 +476,17 @@ End Object</code></pre>
                                     </div><!--//content-->
                                 </div><!--//callout-block-->
                             </section><!--//doc-section-->
+                            <section id="where-section" class="doc-section">
+                                <h2 class="section-title">Where to next?</h2>
+                                <br>
+                                <p>
+                                    For more details on the Flying Navigation System, check out the <a href="usage.html">usage</a> page.<br>
+                                    If you have problems, check out the <a href="faqs.html">troubleshooting</a> page.
+                                </p>
+                            </section>
                         </div><!--//content-inner-->
                     </div><!--//doc-content-->
+
                     <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
                         <div id="doc-nav" class="doc-nav">
 	                            <nav id="doc-menu" class="nav doc-menu flex-column sticky">
@@ -509,22 +507,7 @@ End Object</code></pre>
                                         <a class="nav-link scrollto" href="#step12">Step 12</a>
                                         <a class="nav-link scrollto" href="#step13">Step 13</a>
                                     </nav><!--//nav-->
-	                                <a class="nav-link scrollto" href="#code-section">Code</a>
-                                    <nav class="doc-sub-menu nav flex-column">
-                                        <a class="nav-link scrollto" href="#html">HTML</a>
-                                        <a class="nav-link scrollto" href="#css">CSS</a>
-                                        <a class="nav-link scrollto" href="#sass">Sass</a>
-                                        <a class="nav-link scrollto" href="#less">LESS</a>
-                                        <a class="nav-link scrollto" href="#javascript">JavaScript</a>
-                                        <a class="nav-link scrollto" href="#python">Python</a>
-                                        <a class="nav-link scrollto" href="#php">PHP</a>
-                                        <a class="nav-link scrollto" href="#handlebars">Handlebars</a>
-                                    </nav><!--//nav-->
-	                                <a class="nav-link scrollto" href="#callouts-section">Callouts</a>
-	                                <a class="nav-link scrollto" href="#tables-section">Tables</a>
-	                                <a class="nav-link scrollto" href="#buttons-section">Buttons</a>
-	                                <a class="nav-link scrollto" href="#video-section">Video</a>
-	                                <a class="nav-link scrollto" href="#icons-section">Icons</a>
+	                                <a class="nav-link scrollto" href="#where-section">Where to next?</a>
 	                            </nav><!--//doc-menu-->
 	                        
                         </div>
@@ -532,7 +515,25 @@ End Object</code></pre>
                 </div><!--//doc-body-->              
             </div><!--//container-->
         </div><!--//doc-wrapper-->
-        
+
+        <div id="promo-block" class="promo-block">
+            <div class="container">
+                <div class="promo-block-inner">
+                    <h3 class="promo-title text-center"><i class="fas fa-heart"></i> <a href="https://www.unrealengine.com/marketplace/en-US/store" target="_blank">If you like the Flying Navigation System</a></h3>
+                    <div class="content-holder col-lg-7 col-md-6 col-12">
+                        <div class="content-holder-inner">
+                            <div class="desc">
+                                <h4 class="content-title"> Please consider leaving a review on the Unreal Marketplace</h4>
+                                <a class="btn btn-cta" href="https://www.unrealengine.com/marketplace/en-US/store" target="_blank"><i class="fas fa-external-link-alt"></i> Leave Review</a>
+                                <p>Thank you for your support</p>
+                            </div><!--//desc-->
+                            <div class="author"><a href="https://ninepointeightgame.com/about">Ben Sutherland</a></div>
+                        </div><!--//content-holder-inner-->
+                    </div><!--//content-holder-->
+                </div><!--//promo-block-inner-->
+            </div><!--//container-->
+        </div><!--//promo-block-->
+
     </div><!--//page-wrapper-->
     
     <footer id="footer" class="footer text-center">
