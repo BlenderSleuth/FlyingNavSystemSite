@@ -295,6 +295,11 @@ select {
   margin-left: auto;
   max-width: 1500px; /* or 950px */
 }
+/* make jumbotron smaller */
+.jumbotron {
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+}
 
 .branding {
   text-transform: uppercase;
