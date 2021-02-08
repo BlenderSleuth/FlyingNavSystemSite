@@ -61,6 +61,27 @@ a:focus {
   font-variant-ligatures: common-ligatures
 }
 
+.left-border {
+  border-left: 1px solid #b5e1f7
+}
+.right-border {
+  border-right: 1px solid #b5e1f7
+}
+.top-border {
+  border-top: 1px solid #dee2e6
+}
+.bottom-border {
+  border-bottom: 1px solid #dee2e6
+}
+
+.table th {
+  text-align: center;
+  vertical-align: middle;
+}
+.table td {
+  text-align: right;
+}
+
 code {
   background: rgba(212, 212, 212, 0.4);
   color: black;
@@ -293,7 +314,7 @@ select {
 .container {
   margin-right: auto;
   margin-left: auto;
-  max-width: 1500px; /* or 950px */
+  max-width: 1550px; /* or 950px */
 }
 /* make jumbotron smaller */
 .jumbotron {

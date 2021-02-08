@@ -32,4 +32,12 @@ $(document).ready(function() {
         e.preventDefault()
         $(this).parent().children('.spoiler-body').collapse('toggle')
     });
+
+    // Popover tooltip
+    $(document).ready(function() {
+        $('[data-toggle="popover"]').popover({
+            trigger: 'hover',
+            placement: 'bottom'
+        });
+    });
 });

@@ -70,7 +70,7 @@
                                 <br>
                                 <h3>Part 1: Creating the Octree</h3>
                                 <div id="step1" class="section-block">
-                                    <h6>Step 1</h6>
+                                    <h5>Step 1</h5>
                                     <p>
                                         Once the plugin is downloaded to your engine version, create a Flying template project. 
                                     </p>
@@ -90,7 +90,7 @@
 
                                 </div>
                                 <div id="step2" class="section-block">
-                                    <h6>Step 2</h6>
+                                    <h5>Step 2</h5>
                                     <p>
                                         Head over to Project Settings, then <code>Engine/Navigation System</code>. 
                                         Now, what we want to do is create at least one Navigation Agent. 
@@ -131,7 +131,7 @@
                                     <p>You should also note the <code>Nav Agent Radius</code> property, as this will become useful later.</p>
                                 </div>
                                 <div id="step3" class="section-block">
-                                    <h6>Step 3</h6>
+                                    <h5>Step 3</h5>
                                     <p>Once the Supported Agents are set up, you can add a standard Nav Mesh Bounds Volume from the side panel.</p>
                                     <div class="screenshot-holder">
                                         <a href="assets/images/quickstart4.png" data-toggle="lightbox" data-title="Add a Nav Mesh Bounds volume to the level">
@@ -161,7 +161,7 @@
                                     </div><!--//callout-block-->
                                 </div>
                                 <div id="step4" class="section-block">
-                                    <h6>Step 4</h6>
+                                    <h5>Step 4</h5>
                                     <p>You can now scale the bounds volume to fit your scene. For the FlyingExampleMap, that looks like this:</p>
                                     <div class="screenshot-holder">
                                         <a href="assets/images/quickstart6.png" data-toggle="lightbox" data-title="Scale and move the nav mesh bounds volume to fit the scene">
@@ -184,7 +184,7 @@
                                     </div><!--//callout-block-->
                                 </div>
                                 <div id="step5" class="section-block">
-                                    <h6>Step 5</h6>
+                                    <h5>Step 5</h5>
                                     <p>
                                         Select the FlyingNavigationData actor, and click <code>Rebuild Navigation Data</code> (Or click <code>Build/Build Paths</code> in the toolbar). 
                                         Make sure <code>Enable Drawing</code> and <code>Show/Navigation</code> in the viewport (press <code>P</code>) are both checked, and you should get something like this:
@@ -196,7 +196,7 @@
                                     </div> <!--//screenshot-holder-->
                                 </div>
                                 <div id="step6" class="section-block">
-                                    <h6>Step 6</h6>
+                                    <h5>Step 6</h5>
                                     <p>
                                         We’re not quite finished yet: You might notice that the player spaceship is being treated as a blocking mesh. 
                                         This will be problematic for the pathfinding, as the destingation point (the spaceship) will be inside a blocked area.
@@ -226,7 +226,7 @@
                                 <h3>Part 2: Building a flying AI</h3>
                                 <p>This is a basic UE4 AI setup; programming more advanced AI in UE4 can be found elsewhere. This AI will follow the player wherever they go.</p>
                                 <div id="step7" class="section-block">
-                                    <h6>Step 7</h6>
+                                    <h5>Step 7</h5>
                                     <p>
                                         Create a new <code>AIController</code> Blueprint (you'll need to search for it under <code>All Classes</code>) called <code>AIC_FollowingController</code>. <br>
                                         Create a new Blackboard asset (<code>Right Click -> Artificial Intelligence</code>) called <code>BB_FollowingPawn</code>. <br>
@@ -249,7 +249,7 @@
                                     </div> <!--//screenshot-holder-->
                                 </div>
                                 <div id="step8" class="section-block">
-                                    <h6>Step 8</h6>
+                                    <h5>Step 8</h5>
                                     <p>
                                         Add a <code>FloatingPawnMovement</code> component.
                                         All pawns require some kind of movement component to participate in navigation (This could be the <code>CharacterMovementComponent</code> in the Character Class). <br>
@@ -275,7 +275,7 @@
                                     </div><!--//callout-block-->
                                 </div>
                                 <div id="step9" class="section-block">
-                                    <h6>Step 9</h6>
+                                    <h5>Step 9</h5>
                                     <p>Add a <code>TargetActor</code> Object value to the blackboard, with <code>Actor</code> as the <code>Base Class</code>.</p>
                                     <div class="screenshot-holder">
                                         <a href="assets/images/quickstart13.png" data-toggle="lightbox" data-title="Add a target actor variable to the blackboard.">
@@ -370,7 +370,7 @@ End Object</code></pre>
                                     </div>
                                 </div>
                                 <div id="step10" class="section-block">
-                                    <h6>Step 10</h6>
+                                    <h5>Step 10</h5>
                                     <p>
                                         In <code>BP_FollowingPawn</code>, set <code>Pawn/AI Controller Class</code> to <code>AIC_FollowingController</code>. 
                                         Also, set the <code>Use Controller Rotation *</code> checkboxes, so that the pawn rotates to follow the path.
@@ -382,7 +382,7 @@ End Object</code></pre>
                                     </div> <!--//screenshot-holder-->
                                 </div>
                                 <div id="step11" class="section-block">
-                                    <h6>Step 11</h6>
+                                    <h5>Step 11</h5>
                                     <p>
                                         The only thing left is to fill in the <code>BT_FollowingBehavior</code> behavior tree. 
                                         First, set the <code>Blackboard Asset</code> to <code>BB_FollowingPawn</code>.
@@ -424,7 +424,7 @@ End Object</code></pre>
                                     </div> <!--//screenshot-holder-->
                                 </div>
                                 <div id="step12" class="section-block">
-                                    <h6>Step 12</h6>
+                                    <h5>Step 12</h5>
                                     <p>
                                         Drag your <code>BP_FollowingPawn</code> into your level, press play and give it a go! Our following pawn should follow you around the level, even underneath the floor!
                                     </p>
@@ -446,7 +446,7 @@ End Object</code></pre>
                                     </div><!--//callout-block-->
                                 </div>
                                 <div id="step13" class="section-block">
-                                    <h6>Step 13</h6>
+                                    <h5>Step 13</h5>
                                     <p>
                                         I found it rather difficult to see what the AI was actually doing in the flying simulator, so I deleted the <code>FlyingPawn</code> from the template level and added a <code>DefaultPawn</code> (Search <code>DefaultPawn</code> under <code>Engine C++ Classes</code>). 
                                     </p>

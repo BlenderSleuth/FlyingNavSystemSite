@@ -39,14 +39,14 @@
                 </div><!--//branding-->
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">FAQs and Troubleshooting</li>
+                    <li class="breadcrumb-item active">Troubleshooting</li>
                 </ol>
             </div><!--//container-->
         </header><!--//header-->
         <div class="doc-wrapper">
             <div class="container">
                 <div id="doc-header" class="doc-header text-center">
-                    <h1 class="doc-title"><span aria-hidden="true" class="icon icon_lifesaver"></span> FAQs and Troubleshooting</h1>
+                    <h1 class="doc-title"><span aria-hidden="true" class="icon icon_lifesaver"></span> Troubleshooting</h1>
                     <div class="meta"><i class="far fa-clock"></i> Last updated: Jan 30th, 2021</div>
                 </div><!--//doc-header-->
                 <div class="doc-body row">
@@ -62,12 +62,11 @@
                             
                             <section id="limitations" class="doc-section">
                                 <h2 class="section-title">Limitations</h2>
-                                <div id="octree" class="section-block">
-                                    <h3 class="question"><i class="fas fa-dragon"></i> One Octree per Level</h3>
+                                <div id="ai-implementation" class="section-block">
+                                    <h3 class="question"><i class="fas fa-dragon"></i> AI Implementation</h3>
                                     <div class="answer">
-                                        Can only generate <i>one</i> octree per world per agent.
-                                        Can be optimised by only placing navigation volumes around where your meshes are, as only the meshes in volumes will be taken into account.
-                                        Multiple agent types (different radii) will generate multiple octrees per level.
+                                        This plugin does not contain any movement components or behaviour trees.
+                                        It only implements 3D pathfinding, which is accessible from them.
                                     </div>
                                 </div><!--//section-block-->
                                 <div id="runtime" class="section-block">
@@ -105,6 +104,14 @@
                                         There is also the option of asynchronous pathfinding using
                                         <pre><code class="language-cpp">uint32 FindPathAsync(const FNavAgentProperties& AgentProperties, FPathFindingQuery Query, const FNavPathQueryDelegate& ResultDelegate, EPathFindingMode::Type Mode = EPathFindingMode::Regular);</code></pre>
                                         in <code>UNavigationSystemV1</code>. However, at the present time this requires AI to be written (at least partially) in C++ as this function is not exposed to blueprints.
+                                    </div>
+                                </div><!--//section-block-->
+                                <div id="octree" class="section-block">
+                                    <h3 class="question"><i class="fas fa-dragon"></i> One Octree per Level</h3>
+                                    <div class="answer">
+                                        Can only generate <i>one</i> octree per world per agent.
+                                        Can be optimised by only placing navigation volumes around where your meshes are, as only the meshes in volumes will be taken into account.
+                                        Multiple agent types (different radii) will generate multiple octrees per level.
                                     </div>
                                 </div><!--//section-block-->
                                 <br>
@@ -203,11 +210,6 @@
                                             <code>FNavigationSystem::GetNavDataForActor(AActor)</code> and <code>UCharacterMovementComponent::GetNavData()</code> will not return a <code>AFlyingNavigationData</code> in 4.24, as it casts to <code>ARecastNavMesh</code>.<br>
                                             <b>Note:</b> Fixed in 4.25 and up.
                                         </p>
-                                        <div class="screenshot-holder">
-                                            <a href="assets/images/troubleshooting3.png" data-toggle="lightbox">
-                                                <img class="img-fluid" src="assets/images/troubleshooting3.png" alt="Navigation/Is Dynamic Obstacle in static mesh asset settings"/>
-                                            </a>
-                                        </div> <!--//screenshot-holder-->
                                     </div>
                                 </div><!--//section-block-->
                                 <br>
@@ -225,11 +227,12 @@
                             <nav id="doc-menu" class="nav doc-menu flex-column sticky">
                                 <a class="nav-link scrollto" href="#limitations">Limitations</a>
                                 <nav class="doc-sub-menu nav flex-column">
-                                    <a class="nav-link scrollto" href="#octree">One Octree per Level</a>
+                                    <a class="nav-link scrollto" href="#ai-implementation">AI Implementation</a>
                                     <a class="nav-link scrollto" href="#runtime">Runtime Generation</a>
                                     <a class="nav-link scrollto" href="#navarea">Navigation Areas and Modifier Volumes</a>
                                     <a class="nav-link scrollto" href="#streaming">Level Streaming</a>
                                     <a class="nav-link scrollto" href="#performance">Pathfinding Performance</a>
+                                    <a class="nav-link scrollto" href="#octree">One Octree per Level</a>
                                 </nav><!--//nav-->
                                 <a class="nav-link scrollto" href="#troubleshooting">Troubleshooting</a>
                                 <nav class="doc-sub-menu nav flex-column">
