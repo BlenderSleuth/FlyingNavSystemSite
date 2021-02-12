@@ -47,7 +47,7 @@
             <div class="container">
                 <div id="doc-header" class="doc-header text-center">
                     <h1 class="doc-title"><span aria-hidden="true" class="icon icon_puzzle_alt"></span> Usage</h1>
-                    <div class="meta"><i class="far fa-clock"></i> Last updated: Jan 28th, 2021</div>
+                    <div class="meta"><i class="far fa-clock"></i> Last updated: Feb 12th, 2021</div>
                 </div><!--//doc-header-->
                 <div class="doc-body row" >
                     <div class="doc-content col-md-9 col-12 order-1">
@@ -164,6 +164,10 @@
                             </section><!--//doc-section-->
                             <section id="generation" class="doc-section">
                                 <h2 class="section-title">Generation</h2>
+                                <p>
+                                    For all of these properties, each time they're updated, the viewport display is also updated.
+                                    For a responsive details panel, disable the <code>Enable Drawing</code> checkbox before changing any values.
+                                </p>
                                 <div id="clear-data" class="section-block">
                                     <h4>Clear Navigation Data</h4>
                                     <p>Deletes SVO stored by this navigation data.</p>
@@ -175,7 +179,13 @@
                                         This button does the same thing as <code>Build->Build Paths</code> in the toolbar.
                                     </p>
                                 </div><!--//section-block-->
-                                <div id="maxdetailsize" class="section-block">
+                                <div id="cancel-rebuild" class="section-block">
+                                    <h4>Stop Rebuild</h4>
+                                    <p>
+                                        Cancels rebuild of SVO.
+                                    </p>
+                                </div><!--//section-block-->
+                                <div id="max-detail-size" class="section-block">
                                     <h4>Max Detail Size</h4>
                                     <p>Size in Unreal Units (cm) of the smallest details that can be captured. Display only.</p>
                                 </div><!--//section-block-->
@@ -434,6 +444,25 @@
                                     <h4>Draw Debug Paths</h4>
                                     <p>Draw NavPath when queried (such as when MoveTo is called). Editor only.</p>
                                 </div><!--//section-block-->
+                                <div id="game-drawing" class="section-block">
+                                    <h4>Allow Drawing In Game World</h4>
+                                    <p>
+                                        Allow octree visualisation in PIE or Game World.
+                                        To see navigation in a game world, type <code>`</code> then <code>show Navigation</code> (only in non-shipping builds).
+                                    </p>
+                                    <div class="callout-block callout-danger">
+                                        <div class="icon-holder">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </div><!--//icon-holder-->
+                                        <div class="content">
+                                            <h4 class="callout-title">Warning: Dynamic Rebuilding</h4>
+                                            <p>
+                                                Using a small detail size and hi-res level WILL cause a performance hit when rebuilding in a game world.
+                                                This is what causes the performance hit, because the visualisation data gathering runs on the game thread.
+                                            </p>
+                                        </div><!--//content-->
+                                    </div><!--//callout-block-->
+                                </div><!--//section-block-->
                             </section><!--//doc-section-->
                             <section id="interface" class="doc-section">
                                 <h2 class="section-title">UFlyingObjectInterface</h2>
@@ -498,7 +527,7 @@
                                     <br>
                                     <br>
                                     Constantly moving objects such as moving platforms are not taken into account. 
-                                    This is a limitation of the UE4 geometry gathering system, rather than the Flying Navigation System (Recast has this limitation too). 
+                                    This is a limitation of the UE4 geometry gathering system, rather than the Flying Navigation System (Recast has this limitation too).
                                     <br>
                                     <br>
                                     It is recommended that a blocking volume is placed anywhere a moving object might be, to prevent AI collision. 
@@ -568,23 +597,25 @@
                                     </div> <!--//screenshot-holder-->
                                     <p>It's recommended that you use an <code>Is Valid</code> node to make sure the return value exists.</p>
                                 </div><!--//section-block-->
-                                <div id="rebuild-flying-nav" class="section-block">
-                                    <h4>Rebuild Flying Navigation</h4>
+                                <div id="rebuild-all-flying-nav" class="section-block">
+                                    <h4>Rebuild All Flying Navigation</h4>
                                     <p>
                                         Rebuild all Flying Navigation Data agents. <br>
                                         To build a specific navigation data, use <code>Get Flying Navigation Data</code> and call <code>Rebuild Navigation Data</code> on it.
                                     </p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage7.png" alt="Rebuild Flying Navigation node"/>
+                                        <img class="img-fluid" src="assets/images/usage7.png" alt="Rebuild All Flying Navigation node"/>
                                     </div> <!--//screenshot-holder-->
                                 </div><!--//section-block-->
                                 <div id="rebuild-navdata" class="section-block">
-                                    <h4>Rebuild Navigation Data</h4>
+                                    <h4>Rebuild Navigation Data / Rebuild Flying Navigation</h4>
                                     <p>
-                                        Rebuild cached SVO Data for the given Flying Navigation Actor
+                                        Rebuild cached SVO Data for the given Flying Navigation Actor.
+                                        <code>Rebuild Navigation Data</code> will return instantly and not wait for the building to complete.
+                                        <code>Rebuild Flying Navigation</code> will only trigger once building is completed (or cancelled).
                                     </p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage8.png" alt="Rebuild Navigation Data node"/>
+                                        <img class="img-fluid" src="assets/images/usage8.png" alt="Rebuild Navigation Data and Rebuild Flying Navigation nodes"/>
                                     </div> <!--//screenshot-holder-->
                                 </div><!--//section-block-->
                                 <div class="callout-block callout-danger">
@@ -595,44 +626,114 @@
                                         <h4 class="callout-title">Warning: Dynamic Rebuilding</h4>
                                         <p>
                                             Using a small detail size and hi-res level can cause a performance hit when rebuilding, use with caution (and profiling).
-                                            Limiting MaxThreads may help with this.
+                                            Turning off <code>Allow Drawing In Game World</code> helps.
                                         </p>
                                     </div><!--//content-->
                                 </div><!--//callout-block-->
+                                <div id="stop-rebuild" class="section-block">
+                                    <h4>Stop Rebuild</h4>
+                                    <p>
+                                        Cancels rebuild of cached Navigation Data.
+                                        Will trigger <code>Rebuild Flying Navigation</code> completed pin,
+                                        so check <code>Is Navigation Data Built</code> to make sure data is available.
+                                        Rebuild will not overwrite data until completed.
+                                    </p>
+                                    <div class="screenshot-holder">
+                                        <img class="img-fluid" src="assets/images/usage9.png" alt="Stop Rebuild node"/>
+                                    </div> <!--//screenshot-holder-->
+                                </div><!--//section-block-->
+                                <div id="data-built" class="section-block">
+                                    <h4>Is Navigation Data Built</h4>
+                                    <p>
+                                        Checks if navigation data is available for pathfinding or raycasting.
+                                    </p>
+                                    <div class="screenshot-holder">
+                                        <img class="img-fluid" src="assets/images/usage10.png" alt="Is Navigation Data Built node"/>
+                                    </div> <!--//screenshot-holder-->
+                                </div><!--//section-block-->
+                                <div id="built-voxel-size" class="section-block">
+                                    <h4>Currently Built Voxel Size</h4>
+                                    <p>
+                                        Returns voxel size of currently built navigation data. Returns 0 if not built.
+                                    </p>
+                                    <div class="screenshot-holder">
+                                        <img class="img-fluid" src="assets/images/usage11.png" alt="Is Navigation Data Built node"/>
+                                    </div> <!--//screenshot-holder-->
+                                </div><!--//section-block-->
                                 <div id="raycast" class="section-block">
                                     <h4>Octree Raycast</h4>
                                     <p>
-                                        Fast raycast against the octree
+                                        Fast raycast against the octree. Returns true if object was hit.
                                     </p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage9.png" alt="Rebuild Navigation Data node"/>
+                                        <img class="img-fluid" src="assets/images/usage12.png" alt="Octree raycast node"/>
                                     </div> <!--//screenshot-holder-->
                                 </div><!--//section-block-->
                                 <div id="draw-navpath" class="section-block">
                                     <h4>Draw Nav Path (Development Only)</h4>
                                     <p>
-                                        Draw the navigation path returned by the <code>Find Path To Actor/Location Synchronously</code> node.
+                                        Draw the navigation path returned by the <code>Find Path To Actor/Location Synchronously/Asynchronously</code> node.
+                                        <code>Path Offset</code> will translate the path by a fixed amount. <code>Persistent</code> draws will persist between frames.
                                     </p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage10.png" alt="Draw Nav Path node"/>
+                                        <img class="img-fluid" src="assets/images/usage13.png" alt="Draw Nav Path node"/>
                                     </div> <!--//screenshot-holder-->
-                                    <div class="callout-block callout-info">
-                                        <div class="icon-holder">
-                                            <i class="fas fa-info-circle"></i>
-                                        </div><!--//icon-holder-->
-                                        <div class="content">
-                                            <h4 class="callout-title">Multiple Agents and Pathfinding</h4>
-                                            <p>
-                                                When using the <code>Find Path To Actor/Location Synchronously</code>, to prevent bugs it’s a good idea
-                                                to use the controlled pawn (<code>GetControlledPawn</code>) as the <code>Pathfinding Context</code> socket, to make sure it chooses the correct navigation data.
-                                                This is only important if you have multiple agents defined in Project Settings.
-                                            </p>
-                                            <div class="screenshot-holder">
-                                                <img class="img-fluid" src="assets/images/usage11.png" alt="Find Path To Actor Synchronously node with controlled pawn"/>
-                                            </div> <!--//screenshot-holder-->
-                                        </div><!--//content-->
-                                    </div><!--//callout-block-->
                                 </div><!--//section-block-->
+                                <div id="pathfind-location" class="section-block">
+                                    <h4>Find Path To Location Asynchronously</h4>
+                                    <p>
+                                        Finds path on separate thread. The <code>Completed</code> pin is triggered once a path has been found<br>
+                                        The <code>Pathfinding Context</code> could be one of following: <code>NavigationData</code> (like <code>FlyingNavigationData</code> actor), <code>Pawn</code> or <code>Controller</code>.
+                                        This parameter determines which navigation data actor is chosen and allows override of SVO Query Settings (see <a href="usage.html#interface">UFlyingObjectInterface</a>).
+                                    </p>
+                                    <div class="screenshot-holder">
+                                        <img class="img-fluid" src="assets/images/usage14.png" alt="Find Path To Location Asynchronously"/>
+                                    </div> <!--//screenshot-holder-->
+                                </div><!--//section-block-->
+                                <div id="pathfind-actor" class="section-block">
+                                    <h4>Find Path To Location Asynchronously</h4>
+                                    <p>
+                                        Finds path on separate thread. The <code>Completed</code> pin is triggered once a path has been found<br>
+                                        Main advantage over <code>Find Path To Location Asynchronously</code> is that the resulting path will automatically get updated if the goal actor moves more than <code>Tether Distance</code> away from last path node.
+                                        Updates when the <code>Goal Actor</code> moves are also asynchronous, but only when doing Flying pathfinding (Recast query updates are processed in the usual fashion).
+                                        The <code>Pathfinding Context</code> could be one of following: <code>NavigationData</code> (like <code>FlyingNavigationData</code> actor), <code>Pawn</code> or <code>Controller</code>.
+                                        This parameter determines which navigation data actor is chosen and allows override of SVO Query Settings (see <a href="usage.html#interface">UFlyingObjectInterface</a>).
+                                    </p>
+                                    <div class="screenshot-holder">
+                                        <img class="img-fluid" src="assets/images/usage15.png" alt="Find Path To Location Asynchronously"/>
+                                    </div> <!--//screenshot-holder-->
+                                    <p>This can be used in a setup similar to the following:</p>
+                                    <div class="screenshot-holder">
+                                        <img class="img-fluid" src="assets/images/usage16.png" alt="Find Path To Actor Asynchronously use case"/>
+                                    </div> <!--//screenshot-holder-->
+                                    <p>
+                                        On <code>BeginPlay</code>, the actor tries to find a path to the player. Before the pathfinding completes, <code>BeginPlay</code> exits and the level loads normally.
+                                        The <code>Tick</code> event runs every frame, but doesn't do anything because the <code>Found Path</code> variable is invalid.
+                                        Once the pathfinding is finished, the <code>Completed</code> pin triggers, and saves the path in <code>Found Path</code>.
+                                        <code>Tick</code> can now run <code>Draw Nav Path</code> each frame, and as the player moves the path will update periodically without stalling the game thread.
+                                    </p>
+                                </div><!--//section-block-->
+                                <div class="callout-block callout-info">
+                                    <div class="icon-holder">
+                                        <i class="fas fa-info-circle"></i>
+                                    </div><!--//icon-holder-->
+                                    <div class="content">
+                                        <h4 class="callout-title">Pathfinding Context</h4>
+                                        <p>
+                                            When using the <code>Find Path To Actor/Location Synchronously/Asynchronously</code> family of nodes, to prevent bugs it’s a good idea
+                                            to use the controlled pawn (<code>GetControlledPawn</code> from a <code>Controller</code>) or <code>NavigationData</code> as the <code>Pathfinding Context</code>.
+                                            The <code>Pathfinding Context</code> is used to choose the correct navigation data.
+                                            This is only important if you have multiple agents defined in Project Settings.
+                                        </p>
+                                        <div class="screenshot-holder">
+                                            <img class="img-fluid" src="assets/images/usage17.png" alt="Find Path To Actor Synchronously node with controlled pawn"/>
+                                        </div> <!--//screenshot-holder-->
+                                        <p>
+                                            The <code>Pathfinding Context</code> is also important for providing custom <code>FSVOQuerySettings</code>.
+                                            <code>Pathfinding Context</code> can implement the <code>FFlyingObjectInterface</code> to override the default settings.
+                                        </p>
+                                    </div><!--//content-->
+                                </div><!--//callout-block-->
                             </section><!--//doc-section-->
                             <section id="cpp-api" class="doc-section">
                                 <h2 class="section-title">C++ API Reference</h2>
@@ -647,9 +748,9 @@
                                     <br><br>
                                     Here I have put together an easy reference of the most common classes.
                                     If you're doing custom querying, you should call <code>GetSVOData()</code> on the <code>AFlyingNavigationData</code> actor, which will return a reference to a <code>FSVOData</code> struct.
-                                    You should save it in a <code>FSVODataRef</code> if you're holding on to the reference. This will give you access to the underlying octree data (Layers, Nodes and SubNodes).
+                                    You should save it in a <code>FSVODataRef</code> if you're holding on to it for a while. This will give you access to the underlying octree data (Layers, Nodes and SubNodes).
                                     <br><br>
-                                    There is also the <code>FSVOPathfindingGraph</code> struct for the underlying pathfinding algorithm, which can be accessed from <code>AFlyingNavigationData::GetPathfindingGraph()</code>.
+                                    There is also the <code>FSVOPathfindingGraph</code> struct for the underlying pathfinding algorithm, which can be accessed from <code>AFlyingNavigationData::GetSyncPathfindingGraph()</code> on the game thread.
                                 </p>
                                 <div id="nav-system-types" class="section-block">
                                     <h4>In FlyingNavSystemTypes.h</h4>
@@ -770,7 +871,6 @@ struct FSVOLeafNode
 
 	// Pointer to parent
 	FSVOLink Parent;
-
 
     // SubNodes stored in Morton Order
 	void SetIndexBlocked(const small_morton_t Index);
@@ -977,71 +1077,64 @@ struct FSVOData : TSharedFromThis&lt;FSVOData, ESPMode::ThreadSafe&gt;
                                     <h4>In FlyingNavigationData.h</h4>
                                     <br>
                                     <h6><code>AFlyingNavigationData</code> class:</h6>
-                                    <pre><code class="language-cpp">/**
+                                    <pre><code class="language-cpp">DECLARE_DYNAMIC_MULTICAST_DELEGATE(FFlyingNavGenerationFinishedEvent);
+
+/**
  * Actor to store navigation data for flying agents
  * Stores single octree
  */
 class AFlyingNavigationData : public ANavigationData
 {
+public:
 	// Event to broadcast when finished building
 	FFlyingNavGenerationFinishedEvent OnFlyingNavGenerationFinished;
 
-	// Builds Data on game thread (for debugging purposes)
+	// Rebuild cached Navigation Data.
+    void RebuildNavigationData();
+
+	// Cancels rebuild of cached Navigation Data
+    void StopRebuild();
+
+	// Checks if navigation data is available for pathfinding or raycasting
+    bool IsNavigationDataBuilt() const;
+
+	// Returns voxel size of currently built navigation data. Returns 0 if not built
+    float CurrentlyBuiltVoxelSize() const;
+
+	// Builds Data on game thread (for debugging purposes). Requires RuntimeGeneration = Dynamic
 	void SyncBuild();
-
-	FSVOPathfindingGraph* GetPathfindingGraph() const;
-	
-	// Begin ANavigationData overrides
-	virtual void CleanUp() override;
-	
-	virtual bool NeedsRebuild() const override;
-	virtual bool SupportsRuntimeGeneration() const override;
-	virtual bool SupportsStreaming() const override;
-	virtual void OnNavigationBoundsChanged() override;
-	virtual void ConditionalConstructGenerator() override;
-
-#if WITH_EDITOR
-	void DrawDebug() const;
-#endif // WITH_EDITOR
 
 	// Random point in navigable space
 	virtual FNavLocation GetRandomPoint(FSharedConstNavQueryFilter Filter = nullptr, const UObject* Querier = nullptr) const override;
 	// Random *reachable* point in radius
-	virtual bool GetRandomReachablePointInRadius(const FVector&amp; Origin, float Radius, FNavLocation&amp; OutResult, FSharedConstNavQueryFilter Filter = nullptr, const UObject* Querier = nullptr) const override;
+	virtual bool GetRandomReachablePointInRadius(const FVector&#x26; Origin, float Radius, FNavLocation&#x26; OutResult, FSharedConstNavQueryFilter Filter = nullptr, const UObject* Querier = nullptr) const override;
 	// Random point in radius
-	virtual bool GetRandomPointInNavigableRadius(const FVector&amp; Origin, float Radius, FNavLocation&amp; OutResult, FSharedConstNavQueryFilter Filter = nullptr, const UObject* Querier = nullptr) const override;
+	virtual bool GetRandomPointInNavigableRadius(const FVector&#x26; Origin, float Radius, FNavLocation&#x26; OutResult, FSharedConstNavQueryFilter Filter = nullptr, const UObject* Querier = nullptr) const override;
 
-	// Projects point to neighbouring empty space if point is inside blocked area. 'Extent' has been renamed to ConnectedComponentPoint, for sorting projection points based on a position
-	virtual bool ProjectPoint(const FVector&amp; Point, FNavLocation&amp; OutLocation, const FVector&amp; ConnectedComponentPoint, FSharedConstNavQueryFilter Filter = nullptr, const UObject* Querier = nullptr) const override;
+	// Projects point to neighbouring empty space if point is inside blocked area. &#x27;Extent&#x27; has been renamed to ConnectedComponentPoint, for sorting projection points based on a position
+	virtual bool ProjectPoint(const FVector&#x26; Point, FNavLocation&#x26; OutLocation, const FVector&#x26; ConnectedComponentPoint, FSharedConstNavQueryFilter Filter = nullptr, const UObject* Querier = nullptr) const override;
 	virtual bool IsNodeRefValid(NavNodeRef NodeRef) const override;
 
-	/** Project batch of points. 'Extent' has been renamed to ConnectedComponentPoint, for sorting projection points based on a position */
-	virtual void BatchProjectPoints(TArray&lt;FNavigationProjectionWork&gt;&amp; Workload, const FVector&amp; ConnectedComponentPoint, FSharedConstNavQueryFilter Filter = nullptr, const UObject* Querier = nullptr) const override;
+	/** Project batch of points. &#x27;Extent&#x27; has been renamed to ConnectedComponentPoint, for sorting projection points based on a position */
+	virtual void BatchProjectPoints(TArray&#x3C;FNavigationProjectionWork&#x3E;&#x26; Workload, const FVector&#x26; ConnectedComponentPoint, FSharedConstNavQueryFilter Filter = nullptr, const UObject* Querier = nullptr) const override;
 
-	/** Project batch of points using shared search filter. This version is not requiring user to pass in Extent, 
+	/** Project batch of points using shared search filter. This version is not requiring user to pass in Extent,
 	 *	and is instead relying on FNavigationProjectionWork.ProjectionLimit.
-	 *	@note function will assert if item's FNavigationProjectionWork.ProjectionLimit is invalid */
-	virtual void BatchProjectPoints(TArray&lt;FNavigationProjectionWork&gt;&amp; Workload, FSharedConstNavQueryFilter Filter = nullptr, const UObject* Querier = nullptr) const override;
+	 *	@note function will assert if item&#x27;s FNavigationProjectionWork.ProjectionLimit is invalid */
+	virtual void BatchProjectPoints(TArray&#x3C;FNavigationProjectionWork&#x3E;&#x26; Workload, FSharedConstNavQueryFilter Filter = nullptr, const UObject* Querier = nullptr) const override;
 
 	// NOTE: Path cost and path length are the same.
-	virtual ENavigationQueryResult::Type CalcPathCost(const FVector&amp; PathStart, const FVector&amp; PathEnd, float&amp; OutPathCost, FSharedConstNavQueryFilter Filter = nullptr, const UObject* Querier = nullptr) const override;
-	virtual ENavigationQueryResult::Type CalcPathLength(const FVector&amp; PathStart, const FVector&amp; PathEnd, float&amp; OutPathLength, FSharedConstNavQueryFilter QueryFilter = nullptr, const UObject* Querier = nullptr) const override;
-	virtual ENavigationQueryResult::Type CalcPathLengthAndCost(const FVector&amp; PathStart, const FVector&amp; PathEnd, float&amp; OutPathLength, float&amp; OutPathCost, FSharedConstNavQueryFilter QueryFilter = nullptr, const UObject* Querier = nullptr) const override;
+	virtual ENavigationQueryResult::Type CalcPathCost(const FVector&#x26; PathStart, const FVector&#x26; PathEnd, float&#x26; OutPathCost, FSharedConstNavQueryFilter Filter = nullptr, const UObject* Querier = nullptr) const override;
+	virtual ENavigationQueryResult::Type CalcPathLength(const FVector&#x26; PathStart, const FVector&#x26; PathEnd, float&#x26; OutPathLength, FSharedConstNavQueryFilter QueryFilter = nullptr, const UObject* Querier = nullptr) const override;
+	virtual ENavigationQueryResult::Type CalcPathLengthAndCost(const FVector&#x26; PathStart, const FVector&#x26; PathEnd, float&#x26; OutPathLength, float&#x26; OutPathCost, FSharedConstNavQueryFilter QueryFilter = nullptr, const UObject* Querier = nullptr) const override;
 
 	// Checks if a given NavNodeRef (converted to FSVOLink) contains the given location.
-	virtual bool DoesNodeContainLocation(NavNodeRef NodeRef, const FVector&amp; WorldSpaceLocation) const override;
-
-	virtual UPrimitiveComponent* ConstructRenderingComponent() override;
+	virtual bool DoesNodeContainLocation(NavNodeRef NodeRef, const FVector&#x26; WorldSpaceLocation) const override;
 
 	/** Returns bounding box for the flying volume. */
-	virtual FBox GetBounds() const override { return GetFlyingBounds(); }
+	virtual FBox GetBounds() const override;
 
-	/** Called on world origin changes **/
-	virtual void ApplyWorldOffset(const FVector&amp; InOffset, bool bWorldShift) override;
-
-	virtual void BatchRaycast(TArray&lt;FNavigationRaycastWork&gt;&amp; Workload, FSharedConstNavQueryFilter QueryFilter, const UObject* Querier = nullptr) const override;
-
-	// End ANavigationData overrides
+	virtual void BatchRaycast(TArray&#x3C;FNavigationRaycastWork&#x3E;&#x26; Workload, FSharedConstNavQueryFilter QueryFilter, const UObject* Querier = nullptr) const override;
 
 	// Returns bounding box for the whole flying volume.
 	FBox GetFlyingBounds() const;
@@ -1056,23 +1149,41 @@ class AFlyingNavigationData : public ANavigationData
 	void OnOctreeGenerationFinished();
 
 	// Returns point more likely to be in unblocked space. Prefers unblocked space accessible by ConnectedPoint
-	FVector ModifyPathEndpoints(const FVector&amp; TargetPoint, const FVector&amp; ConnectedPoint, const float AgentHalfHeight) const;
+	FVector ModifyPathEndpoints(const FVector&#x26; TargetPoint, const FVector&#x26; ConnectedPoint, const float AgentHalfHeight) const;
 
 	// Pathfinding overrides
-	static FPathFindingResult FindPath(const FNavAgentProperties&amp; AgentProperties, const FPathFindingQuery&amp; Query);
-	static bool TestPath(const FNavAgentProperties&amp; AgentProperties, const FPathFindingQuery&amp; Query, int32* NumVisitedNodes = nullptr);
 
-	// Fast raycast against the octree.
-	bool OctreeRaycast(const FVector& RayStart, const FVector& RayEnd, FVector& HitLocation) const;
+	// If Query.Owner implements FFlyingObjectInterface, then DefaultQuerySettings will be overridden
+	static FPathFindingResult FindPath(const FNavAgentProperties&#x26; AgentProperties, const FPathFindingQuery&#x26; Query);
+	// Precomputed in octree building
+	static bool TestPath(const FNavAgentProperties&#x26; AgentProperties, const FPathFindingQuery&#x26; Query, int32* NumVisitedNodes = nullptr);
+
+	// Fast raycast against the octree
+	static bool OctreeRaycast(const ANavigationData* Self, const FVector&#x26; RayStart, const FVector&#x26; RayEnd, FVector&#x26; HitLocation, FSharedConstNavQueryFilter QueryFilter, const UObject* Querier);
+
+	// Fast raycast against the octree
+	bool OctreeRaycast(const FVector&#x26; RayStart, const FVector&#x26; RayEnd, FVector&#x26; HitLocation) const;
 
 	// SVO Data accessors, make sure to use SVODataLock if using threading
-	FSVOData&amp; GetSVOData();
-	const FSVOData&amp; GetSVOData() const;
-	FSVOData&amp; GetBuildingSVOData();
-	const FSVOData&amp; GetBuildingSVOData() const;
+	FSVOData&#x26; GetSVOData();
+	const FSVOData&#x26; GetSVOData() const;
+	FSVOData&#x26; GetBuildingSVOData();
+	const FSVOData&#x26; GetBuildingSVOData() const;
 
 	// Read-Write lock on NavData
 	mutable FRWLock SVODataLock;
+
+	// Just for neighbour information
+	const FSVOGraph* GetNeighbourGraph() const;
+	// Use this Navigation Graph on the game thread
+	FSVOPathfindingGraph* GetSyncPathfindingGraph() const;
+	// Use this Navigation Graph on any thread other than the game thread. Remember to lock AsyncGraphCriticalSection when using
+	FSVOPathfindingGraph* GetAsyncPathfindingGraph() const;
+	
+	mutable FCriticalSection AsyncGraphCriticalSection;
+	
+	// Finds the Side length of the SVO cube
+	float GetOctreeSideLength() const;
 };</code></pre>
                                 </div><!--//section-block-->
                                 <div id="svograph" class="section-block">
