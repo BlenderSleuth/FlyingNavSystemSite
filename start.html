@@ -51,7 +51,7 @@
             <div class="container">
                 <div id="doc-header" class="doc-header text-center">
                     <h1 class="doc-title"><i class="icon fa fa-paper-plane"></i> Quick Start</h1>
-                    <div class="meta"><i class="far fa-clock"></i> Last updated: Jan 17th, 2021</div>
+                    <div class="meta"><i class="far fa-clock"></i> Last updated: Feb 15th, 2021</div>
                 </div><!--//doc-header-->
                 <div class="doc-body row">
                     <div class="doc-content col-md-9 col-12 order-1">
@@ -67,6 +67,11 @@
                             
                             <section id="quickstart-section" class="doc-section">
                                 <h2 class="section-title">Quickstart Guide</h2>
+                                <br>
+                                <p>
+                                    In order for 3D pathfinding to work, an octree needs to be created in the level.
+                                    It is used by the pathfinding algorithm to navigate around obstacles.
+                                </p>
                                 <br>
                                 <h3>Part 1: Creating the Octree</h3>
                                 <div id="step1" class="section-block">
@@ -93,8 +98,8 @@
                                     <h5>Step 2</h5>
                                     <p>
                                         Head over to Project Settings, then <code>Engine/Navigation System</code>. 
-                                        Now, what we want to do is create at least one Navigation Agent. 
-                                        Here I have created two, one that uses the Flying Navigation System and another that uses the standard Recast Navmesh system. Which system the agent uses is dependent on the <code>Preferred Nav Data</code> property. 
+                                        Now we want to create at least one Navigation Agent.
+                                        Here two have been created, one that uses the Flying Navigation System and another that uses the standard Recast Navmesh system. Which system the agent uses is dependent on the <code>Preferred Nav Data</code> property.
                                     </p>
                                     <ol>
                                         <li>Set an Agent to <code>FlyingNavigationData</code> to make it use the Flying Navigation System</li>
@@ -105,11 +110,11 @@
                                     </p>
                                     <div class="callout-block callout-warning">
                                         <div class="icon-holder">
-                                            <i class="fas fa-bug"></i>
+                                            <i class="fas fa-exclamation"></i>
                                         </div><!--//icon-holder-->
                                         <div class="content">
                                             <h4 class="callout-title">IMPORTANT</h4>
-                                            <p>Also make sure to set the <code>Navigation/Default Agent Name</code> to a valid name or None. There seems to be a bug in which pathfinding requests will sometimes fail if an invalid name is set.</p>
+                                            <p>Also make sure to set the <code>Navigation/Default Agent Name</code> to a valid name or None. Pathfinding requests will sometimes fail if an invalid name is set.</p>
                                         </div><!--//content-->
                                     </div><!--//callout-block-->
                                     <div class="screenshot-holder">
@@ -124,7 +129,7 @@
                                         <div class="content">
                                             <h4 class="callout-title"><code>Nav Data Class</code> vs <code>Preferred Nav Data</code></h4>
                                             <p>
-                                                The <code>Nav Data Class</code> property is (I think) legacy, but setting it will automatically set <code>Preferred Nav Data</code> to the same value. The pathfinding method is only determined by <code>Preferred Nav Data</code>.
+                                                The <code>Nav Data Class</code> property is legacy, but setting it will automatically set <code>Preferred Nav Data</code> to the same value. The pathfinding method is only determined by <code>Preferred Nav Data</code>.
                                             </p>
                                         </div><!--//content-->
                                     </div><!--//callout-block-->
@@ -139,7 +144,7 @@
                                         </a>
                                     </div> <!--//screenshot-holder-->
                                     <p>
-                                        Everything up to this point has worked if you see a <code>FlyingNavigationData-FlyingAgent</code> or similar actor spawned in your level. 
+                                        At this point you should see a <code>FlyingNavigationData-FlyingAgent</code> or similar actor spawned in your level.
                                         If you also created a Recast agent you should also see a <code>RecastNavMesh-RecastAgent</code> or similar actor.
                                     </p>
                                     <div class="screenshot-holder">
@@ -186,7 +191,7 @@
                                 <div id="step5" class="section-block">
                                     <h5>Step 5</h5>
                                     <p>
-                                        Select the FlyingNavigationData actor, and click <code>Rebuild Navigation Data</code> (Or click <code>Build/Build Paths</code> in the toolbar). 
+                                        Select the FlyingNavigationData actor, and click <code>Rebuild Navigation Data</code> (Or click <code>Build/Build Paths</code> in the toolbar).
                                         Make sure <code>Enable Drawing</code> and <code>Show/Navigation</code> in the viewport (press <code>P</code>) are both checked, and you should get something like this:
                                     </p>
                                     <div class="screenshot-holder">
@@ -198,8 +203,8 @@
                                 <div id="step6" class="section-block">
                                     <h5>Step 6</h5>
                                     <p>
-                                        We’re not quite finished yet: You might notice that the player spaceship is being treated as a blocking mesh. 
-                                        This will be problematic for the pathfinding, as the destingation point (the spaceship) will be inside a blocked area.
+                                        We’re not quite finished yet: you might notice that the player spaceship is being treated as a blocking mesh.
+                                        This will be problematic for the pathfinding, as the destination point (the spaceship) will be inside a blocked area.
                                     </p>
                                     <div class="screenshot-holder">
                                         <a href="assets/images/quickstart8.png" data-toggle="lightbox" data-title="Spaceship causes blocked voxels">
@@ -224,7 +229,7 @@
                                     </div><!--//callout-block-->
                                 </div>
                                 <h3>Part 2: Building a flying AI</h3>
-                                <p>This is a basic UE4 AI setup; programming more advanced AI in UE4 can be found elsewhere. This AI will follow the player wherever they go.</p>
+                                <p>This is a basic UE4 AI setup; there are lots of AI programming tutorials on YouTube, such as <a href="https://youtu.be/zNJEvAGiw7w" target="_blank">this</a> one. Our AI will follow the player wherever they go.</p>
                                 <div id="step7" class="section-block">
                                     <h5>Step 7</h5>
                                     <p>
@@ -252,7 +257,7 @@
                                     <h5>Step 8</h5>
                                     <p>
                                         Add a <code>FloatingPawnMovement</code> component.
-                                        All pawns require some kind of movement component to participate in navigation (This could be the <code>CharacterMovementComponent</code> in the Character Class). <br>
+                                        All pawns require some kind of movement component to participate in navigation. This could be the <code>CharacterMovementComponent</code> in the Character class. <br>
                                         The movement component settings (<code>Nav Movement/Movement Capabilities</code>) define which navigation system your agent should use:
                                     </p>
                                     <div class="screenshot-holder">
@@ -267,7 +272,7 @@
                                         <div class="content">
                                             <h4 class="callout-title"><code>Can Crouch</code> etc. checkboxes</h4>
                                             <p>
-                                                As far as I can tell, the <code>Can Crouch</code>, <code>Can Walk</code>, <code>Can Fly</code> etc. checkboxes are only used by <code>CharacterMovementComponent</code> and will not impact how this pawn behaves. <br>
+                                                The <code>Can Crouch</code>, <code>Can Walk</code>, <code>Can Fly</code> etc. checkboxes are only used by <code>CharacterMovementComponent</code> and will not impact how this pawn behaves. <br>
                                                 However, the other options are used for determining which navigation data to use if you have set up multiple agents with the same <code>Preferred Nav Data</code> in Project Settings.
                                                 Please see <a href="usage.html#FNavAgentProperties" target="_blank">here</a> for more info.
                                             </p>
@@ -408,13 +413,13 @@ End Object</code></pre>
                                             <h4 class="callout-title">The Move To Behavior Tree Node</h4>
                                             <p>
                                                 That’s right, the Flying Navigation System uses the <i>same</i> Move To node as standard nav walking! <br>
-                                                Which system the node uses to find a path is determined by MovementComponent settings of the Pawn it is controlling (<code>Nav Movement/Movement Capabilities</code>). 
+                                                Which system the node uses to find a path is determined by MovementComponent settings of the Pawn it is controlling <br> (<code>Nav Movement/Movement Capabilities</code>).
                                                 We changed this earlier in our <code>BP_FollowingPawn</code>.
                                             </p>
                                         </div><!--//content-->
                                     </div><!--//callout-block-->
                                     <p>
-                                        It’s recommended that you turn off <code>Allow Partial Path</code> on the Move To node, to prevent searching the whole world if the target is inaccessible. 
+                                        It’s highly recommended that you turn off <code>Allow Partial Path</code> on the Move To node, to prevent searching the whole world if the target is inaccessible.
                                         The pathfinding algorithm will try to guess the closest point to the target if it’s in a blocked area.
                                     </p>
                                     <div class="screenshot-holder">
@@ -422,6 +427,15 @@ End Object</code></pre>
                                             <img class="img-fluid" src="assets/images/quickstart18.png" alt="Turn off Allow Partial path on the Move To node"/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
+                                    <div class="callout-block callout-warning">
+                                        <div class="icon-holder">
+                                            <i class="fas fa-bug"></i>
+                                        </div><!--//icon-holder-->
+                                        <div class="content">
+                                            <h4 class="callout-title">IMPORTANT</h4>
+                                            <p>The behaviour tree node does not use async pathfinding (at the moment, updates are planned), which means it should only be used with simple scenes or pathfinding speed optimisations.</p>
+                                        </div><!--//content-->
+                                    </div><!--//callout-block-->
                                 </div>
                                 <div id="step12" class="section-block">
                                     <h5>Step 12</h5>
@@ -448,7 +462,7 @@ End Object</code></pre>
                                 <div id="step13" class="section-block">
                                     <h5>Step 13</h5>
                                     <p>
-                                        I found it rather difficult to see what the AI was actually doing in the flying simulator, so I deleted the <code>FlyingPawn</code> from the template level and added a <code>DefaultPawn</code> (Search <code>DefaultPawn</code> under <code>Engine C++ Classes</code>). 
+                                        It can be rather difficult to see what the AI was actually doing in the flying simulator, so you can delete the <code>FlyingPawn</code> from the template level and add a <code>DefaultPawn</code> (Search <code>DefaultPawn</code> under <code>Engine C++ Classes</code>).
                                     </p>
                                     <div class="screenshot-holder">
                                         <a href="assets/images/quickstart20.png" data-toggle="lightbox" data-title="Finding the default pawn class in the engine c++ classed folder">
@@ -459,8 +473,8 @@ End Object</code></pre>
                                         If you set <code>Auto Possess Player</code> to <code>Player 0</code> and bump up the <code>Max Speed</code> on the <code>DefaultPawn</code>, you can give the AI a run for its money.
                                     </p>
                                     <div class="screenshot-holder">
-                                        <a href="assets/images/quickstart21.png" data-toggle="lightbox" data-title="Set auto posesses player to player 0 and increase the max speed to 6000 on the default pawn">
-                                            <img class="img-fluid" src="assets/images/quickstart21.png" alt="Set auto posesses player to player 0 and increase the max speed to 6000 on the default pawn"/>
+                                        <a href="assets/images/quickstart21.png" data-toggle="lightbox" data-title="Set auto possesses player to player 0 and increase the max speed to 6000 on the default pawn">
+                                            <img class="img-fluid" src="assets/images/quickstart21.png" alt="Set auto possesses player to player 0 and increase the max speed to 6000 on the default pawn"/>
                                         </a>
                                     </div> <!--//screenshot-holder-->
                                 </div>

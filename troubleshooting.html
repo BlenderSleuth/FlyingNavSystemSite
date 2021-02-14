@@ -101,9 +101,13 @@
                                         <br>
                                         Optimisations to increase speed at the cost of accuracy have been implemented, please see <a href="usage.html#pathfinding" target="_blank">here</a> for more details.
                                         <br>
-                                        There is also the option of asynchronous pathfinding using
-                                        <pre><code class="language-cpp">uint32 FindPathAsync(const FNavAgentProperties& AgentProperties, FPathFindingQuery Query, const FNavPathQueryDelegate& ResultDelegate, EPathFindingMode::Type Mode = EPathFindingMode::Regular);</code></pre>
-                                        in <code>UNavigationSystemV1</code>. However, at the present time this requires AI to be written (at least partially) in C++ as this function is not exposed to blueprints.
+                                        There is also the option of asynchronous pathfinding using the C++ function:
+                                        <pre><code class="language-cpp"></code>uint32 FindPathAsync(UNavigationSystemV1* NavSys, const FNavAgentProperties&#x26; AgentProperties, FPathFindingQuery Query, const FNavPathQueryDelegate&#x26; ResultDelegate, EPathFindingMode::Type Mode = EPathFindingMode::Regular);</pre>
+                                        in <code>UFlyingNavFunctionLibrary</code>. From Blueprints you can use the <code>Find Path To Actor/Location Asynchronously</code> nodes.
+                                        <br><br>
+                                        Please Note: when using flying navigation, do not use the default <code>UNavigationSystemV1::FindPathAsync</code>, as it can cause a crash on PIE exit.
+                                        <br><br>
+                                        At the present time, the behaviour tree task <code>MoveTo</code> performs pathfinding synchronously, so optimisations are recommended for complex scenes if you are using behaviour trees.
                                     </div>
                                 </div><!--//section-block-->
                                 <div id="octree" class="section-block">
@@ -129,12 +133,14 @@
                                         This will occur if you have done the following:
                                         <ol class="list">
                                             <li>Created an agent in Project Settings with <code>Preferred Nav Data</code> set to <code>Flying Navigation Data</code>.</li>
-                                            <li>Checked your agent is supported under <code>Supported Agents Mask</code>, in both Project Settings and World Settings (under <code>World/Navigation System Config/Supported Agents Mask</code>)</li>
-                                            <div class="screenshot-holder">
-                                                <a href="assets/images/troubleshooting1.png" data-toggle="lightbox" data-title="World Settings/World/Navigation System Config/Supported Agents Mask">
-                                                    <img class="img-fluid" src="assets/images/troubleshooting1.png" alt="World Settings/World/Navigation System Config/Supported Agents Mask"/>
-                                                </a>
-                                            </div> <!--//screenshot-holder-->
+                                            <li>
+                                                Checked your agent is supported under <code>Supported Agents Mask</code>, in both Project Settings and World Settings (under <code>World/Navigation System Config/Supported Agents Mask</code>)
+                                                <div class="screenshot-holder">
+                                                    <a href="assets/images/troubleshooting1.png" data-toggle="lightbox" data-title="World Settings/World/Navigation System Config/Supported Agents Mask">
+                                                        <img class="img-fluid" src="assets/images/troubleshooting1.png" alt="World Settings/World/Navigation System Config/Supported Agents Mask"/>
+                                                    </a>
+                                                </div> <!--//screenshot-holder-->
+                                            </li>
                                             <li>Placed a <code>Nav Mesh Bounds Volume</code> in the world.</li>
                                             <li>Reopened the level.</li>
                                         </ol>
@@ -147,12 +153,14 @@
                                         <ol class="list">
                                             <li><code>Collision/Can Ever Affect Navigation = true</code></li>
                                             <li><code>Physics/Simulate Physics = false</code></li>
-                                            <li><code>Navigation/Is Dynamic Obstacle = false</code> in the Static Mesh <i>asset</i> settings.</li>
-                                            <div class="screenshot-holder">
-                                                <a href="assets/images/troubleshooting2.png" data-toggle="lightbox">
-                                                    <img class="img-fluid" src="assets/images/troubleshooting2.png" alt="Navigation/Is Dynamic Obstacle in static mesh asset settings"/>
-                                                </a>
-                                            </div> <!--//screenshot-holder-->
+                                            <li>
+                                                <code>Navigation/Is Dynamic Obstacle = false</code> in the Static Mesh <i>asset</i> settings.
+                                                <div class="screenshot-holder">
+                                                    <a href="assets/images/troubleshooting2.png" data-toggle="lightbox">
+                                                        <img class="img-fluid" src="assets/images/troubleshooting2.png" alt="Navigation/Is Dynamic Obstacle in static mesh asset settings"/>
+                                                    </a>
+                                                </div> <!--//screenshot-holder-->
+                                            </li>
                                         </ol>
                                         <p>
                                             Conversely, toggling any of these settings will make the mesh non-blocking. <br>
@@ -165,11 +173,11 @@
                                 </div><!--//section-block-->
                                 <div id="linking-error" class="section-block">
                                     <h3 class="question"><i class="fas fa-bolt"></i>&nbsp; Cannot open include file: '*.h': No such file or directory | A verbose and unhelpful linking error such as:</h3>
-                                    <pre><code class="language-git">unresolved external symbol "__declspec(dllimport) public: bool __cdecl FSVOLink::IsValid(void)const " (__imp_?IsValid@FSVOLink@@QEBA_NXZ) referenced in function "public: enum ENavigationQueryResult::Type __cdecl FSVOPathfindingGraph::FindPath(struct FVector const &,struct FVector const &,struct FSVOQuerySettings const &,class TArray<struct FNavPathPoint,class TSizedDefaultAllocator<32> > &,bool &)" (?FindPath@FSVOPathfindingGraph@@QEAA?AW4Type@ENavigationQueryResult@@AEBUFVector@@0AEBUFSVOQuerySettings@@AEAV?$TArray@UFNavPathPoint@@V?$TSizedDefaultAllocator@$0CA@@@@@AEA_N@Z)</code></pre>
+                                    <pre><code class="language-git">unresolved external symbol &#x22;__declspec(dllimport) public: bool __cdecl FSVOLink::IsValid(void)const &#x22; (__imp_?IsValid@FSVOLink@@QEBA_NXZ) referenced in function &#x22;public: enum ENavigationQueryResult::Type __cdecl FSVOPathfindingGraph::FindPath(struct FVector const &#x26;,struct FVector const &#x26;,struct FSVOQuerySettings const &#x26;,class TArray&#x3C;struct FNavPathPoint,class TSizedDefaultAllocator&#x3C;32&#x3E; &#x3E; &#x26;,bool &#x26;)&#x22; (?FindPath@FSVOPathfindingGraph@@QEAA?AW4Type@ENavigationQueryResult@@AEBUFVector@@0AEBUFSVOQuerySettings@@AEAV?$TArray@UFNavPathPoint@@V?$TSizedDefaultAllocator@$0CA@@@@@AEA_N@Z)</code></pre>
                                     <br>
                                     <div class="answer">
                                         <p>
-                                            If you wish to access the plugin C++ API, you will need to link against <code>FlyingNavSystem</code>, and sometimes <code>NavigationSystem</code> (It depends if you additionally call parts of the builtin <code>NavigationSystem</code>).<br>
+                                            If you wish to access the plugin C++ API, you will need to link against <code>FlyingNavSystem</code>. You will also need to link against the <code>NavigationSystem</code> module if you call parts of the built in Navigation System.<br>
                                             In your project <code>.Build.cs</code> file, you should have:
                                         </p>
                                         <pre><code class="language-c#">PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "NavigationSystem", "FlyingNavSystem"});</code></pre>

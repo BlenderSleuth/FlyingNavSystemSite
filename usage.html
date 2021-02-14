@@ -47,7 +47,7 @@
             <div class="container">
                 <div id="doc-header" class="doc-header text-center">
                     <h1 class="doc-title"><span aria-hidden="true" class="icon icon_puzzle_alt"></span> Usage</h1>
-                    <div class="meta"><i class="far fa-clock"></i> Last updated: Feb 12th, 2021</div>
+                    <div class="meta"><i class="far fa-clock"></i> Last updated: Feb 15th, 2021</div>
                 </div><!--//doc-header-->
                 <div class="doc-body row" >
                     <div class="doc-content col-md-9 col-12 order-1">
@@ -159,6 +159,18 @@
                                         In general, a process that converts a perfect mathematical representation (such as an SVG image) of something into a regular grid (such as a bitmap image). 
                                         In video games this usually refers to converting a scene into screen pixels, but in the Flying Navigation System rasterization is the step in building the octree in which voxels are tested against the world geometry to check if they intersect. 
                                         The building process creates a version of the scene made entirely of voxels ("Volumetric Pixels").
+                                    </p>
+                                </div><!--//section-block-->
+                                <div id="async" class="section-block">
+                                    <h4>Async Processes</h4>
+                                    <p>
+                                        Most of the code we write for video games is run synchronously, which means its designed to run in the same process as the <code>Tick</code> function.
+                                        If this code takes longer than a frame, then the framerate of the entire game drops.
+                                        Asynchronous processes do not block the frame rate if they take too long, and therefore can be used for intensive processes and calculated in the background.
+                                        All Octree building processes are asynchronous except for the visualisation. Disabling <code>Allow Drawing in Game World</code> will make sure there will be no drop in frame rate from dynamic rebuilding.
+                                        <br><br>
+                                        Pathfinding operations from <code>AI Move To</code>, <code>Find Path To Actor/Location Synchronously</code> and behaviour trees are all run on the main thread, and can cause frame rate drops with large scenes.
+                                        <code>Find Path To Actor/Location Asynchronously</code> along with the <code>Request Move</code> node perform pathfinding in the background, this is the recommended approach for scenes with many octree layers (Subdivisions > 7).
                                     </p>
                                 </div><!--//section-block-->
                             </section><!--//doc-section-->
@@ -408,9 +420,19 @@
                                 <div id="thickness" class="section-block">
                                     <h4>Wire Thickness</h4>
                                     <p>
-                                        Thickness of wire in octree visualisation (relative to box size). 1.0 is a solid box. <br>
-                                        Note: don't slide, can lag if on small detail size. 
+                                        Thickness of wire in octree visualisation, relative to box size. 1.0 is a solid box. <br>
                                     </p>
+                                    <div class="callout-block callout-danger">
+                                        <div class="icon-holder">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </div><!--//icon-holder-->
+                                        <div class="content">
+                                            <h4 class="callout-title">Warning!</h4>
+                                            <p>
+                                                Don't use as a slider because the viewport can lag if the octree is built with a small detail size. Enter a discrete value instead.
+                                            </p>
+                                        </div><!--//content-->
+                                    </div><!--//callout-block-->
                                 </div><!--//section-block-->
                                 <div id="neighbour-connections" class="section-block">
                                     <h4>Draw Neighbour Connections</h4>
@@ -422,7 +444,7 @@
                                         <div class="content">
                                             <h4 class="callout-title">Warning!</h4>
                                             <p>
-                                                Uses slow drawing, do not use for high resolution visualisation.
+                                                Uses slow drawing - do not use for high resolution visualisation.
                                             </p>
                                         </div><!--//content-->
                                     </div><!--//callout-block-->
@@ -625,7 +647,7 @@
                                     <div class="content">
                                         <h4 class="callout-title">Warning: Dynamic Rebuilding</h4>
                                         <p>
-                                            Using a small detail size and hi-res level can cause a performance hit when rebuilding, use with caution (and profiling).
+                                            Using a small detail size and hi-res level can cause a performance hit when rebuilding. Use with caution (and profiling).
                                             Turning off <code>Allow Drawing In Game World</code> helps.
                                         </p>
                                     </div><!--//content-->
@@ -734,6 +756,17 @@
                                         </p>
                                     </div><!--//content-->
                                 </div><!--//callout-block-->
+                                <div id="request-move" class="section-block">
+                                    <h4>Request Move</h4>
+                                    <p>Takes a path output from <code>Find Path To Actor/Location Synchronously/Asynchronously</code> and requests an <code>AIController</code>  to follow it.</p>
+                                    <div class="screenshot-holder">
+                                        <img class="img-fluid" src="assets/images/usage18.png" alt="Request Move"/>
+                                    </div> <!--//screenshot-holder-->
+                                    <p>For example, to make a pawn find the player when the level starts:</p>
+                                    <div class="screenshot-holder">
+                                        <img class="img-fluid" src="assets/images/usage19.png" alt="Request Move use case"/>
+                                    </div> <!--//screenshot-holder-->
+                                </div><!--//section-block-->
                             </section><!--//doc-section-->
                             <section id="cpp-api" class="doc-section">
                                 <h2 class="section-title">C++ API Reference</h2>
@@ -742,7 +775,7 @@
                                     <br><br>
                                     If you downloaded the plugin from the Marketplace, the source will be found at<br>
                                     <code>C:\Program Files\Epic Games\UE_4.XX\Engine\Plugins\Marketplace\FlyingNavSystem\Source\FlyingNavSystem</code><br>
-                                    for Windows, and<br>
+                                    for Windows and<br>
                                     <code>/Users/Shared/Epic Games/UE_4.XX/Engine/Plugins/Marketplace/FlyingNavSystem/Source/FlyingNavSystem</code><br>
                                     for macOS. You should know where it is if you built for Linux &#128540;.
                                     <br><br>
@@ -1301,6 +1334,9 @@ public:
                                 <a class="nav-link scrollto" href="#memory-usage">Checking Memory Usage</a>
                                 <a class="nav-link scrollto" href="#compile-recast">bCompileRecast</a>
                                 <a class="nav-link scrollto" href="#blueprint">Blueprint Functions</a>
+                                <nav class="doc-sub-menu nav flex-column">
+                                    <a class="nav-link scrollto" href="#pathfind-location">Asynchronous</a>
+                                </nav><!--//nav-->
                                 <a class="nav-link scrollto" href="#cpp-api">C++ API</a>
                             </nav><!--//doc-menu-->
                         </div><!--//doc-nav-->

@@ -49,7 +49,7 @@
         <div class="container">
             <div id="doc-header" class="doc-header text-center">
                 <h1 class="doc-title"><span aria-hidden="true" class="icon icon_datareport_alt"></span> Benchmarks</h1>
-                <div class="meta"><i class="far fa-clock"></i> Last updated: Feb 8th, 2021</div>
+                <div class="meta"><i class="far fa-clock"></i> Last updated: Feb 15th, 2021</div>
             </div><!--//doc-header-->
             <div class="doc-body row">
                 <div class="doc-content col-md-9 col-12 order-1">
@@ -60,7 +60,45 @@
                                 These numbers were generated from the FlyingNavBenchmark project, available on <a
                                     href="https://github.com/BlenderSleuth/FlyingNavSystemSupport/tree/main/FlyingNavBenchmark"
                                     target="_blank">GitHub</a>.
-                                <br><br>
+                            </p>
+                            <div class="section-block">
+                                <div class="row">
+                                    <div class="col-md-4 col-12 mb-3">
+                                        <div class="theme-card">
+                                            <a href="assets/images/benchmarks1.png" data-toggle="lightbox" data-title="Path Configuration">
+                                                <img class="img-fluid" src="assets/images/benchmarks1.png" alt="A star"/>
+                                            </a>
+                                            <div class="card-block">
+                                                <h4 class="card-title">Path Configuration</h4>
+                                                <p class="card-text"></p>
+                                            </div><!--//card-block-->
+                                        </div><!--//theme-card-->
+                                    </div>
+                                    <div class="col-md-4 col-12 mb-3">
+                                        <div class="theme-card">
+                                            <a href="assets/images/benchmarks2.png" data-toggle="lightbox" data-title="Theta* Path Overview">
+                                                <img class="img-fluid" src="assets/images/benchmarks2.png" alt="Theta star"/>
+                                            </a>
+                                            <div class="card-block">
+                                                <h4 class="card-title">Theta* Path Overview</h4>
+                                                <p class="card-text"></p>
+                                            </div><!--//card-block-->
+                                        </div><!--//theme-card-->
+                                    </div>
+                                    <div class="col-md-4 col-12 mb-3">
+                                        <div class="theme-card">
+                                            <a href="assets/images/benchmarks3.png" data-toggle="lightbox" data-title="Path with Octree Visualisation">
+                                                <img class="img-fluid" src="assets/images/benchmarks3.png" alt="Lazy theta star"/>
+                                            </a>
+                                            <div class="card-block">
+                                                <h4 class="card-title">Path with Octree Visualisation</h4>
+                                                <p class="card-text"></p>
+                                            </div><!--//card-block-->
+                                        </div><!--//theme-card-->
+                                    </div>
+                                </div><!--//row-->
+                            </div><!--//section-block-->
+                            <p>
                                 All algorithms are CPU based, and were run on a Intel Core i7 4930K @ 3.9GHz in Windows
                                 10. I packaged up the project in a Shipping build, so this should be running optimised
                                 code.
@@ -73,10 +111,12 @@
                                 Node Compensation</code> options, testing for A*, Lazy Theta* and Theta* algorithms.
                                 Details of these can be found in the <a href="usage.html#pathfinding" target="_blank">Usage</a>
                                 section.
+                                I have also tested the octree raycast algorithm, and compared it to the standard Physics Line Trace.
                                 <br><br>
                                 I have used <code>Time (in milliseconds)</code>, <code>Number of Iterations</code> and
                                 <code>Distance Proportion</code> to measure performance and accuracy. The pathfinding
                                 algorithm explores one node per iteration.
+                                The iterations for Theta* and Lazy Theta* take longer than A* due to the line-of-sight check.
                                 The distance proportion is a measure of how accurate the path is; these optimisation
                                 options take shortcuts and therefore aren't guaranteed to find the shortest path.
                                 The benchmark will compare the optimal path (Theta* with no optimisation) to the found
@@ -98,6 +138,33 @@
                         </section><!--//doc-section-->
                         <section id="path-benchmarks" class="doc-section">
                             <h2 class="section-title">Pathfinding Benchmarks</h2>
+                            <br>
+                            <h4>Remarks</h4>
+                            <p>
+                                The test scene was designed to be a worst case scenario for A* style algorithms,
+                                in which most of the search space would need to be explored to complete the path.
+                                It should be noted that even on the lowest resolution, a perfectly acceptable path can be found for most flying agents,
+                                so it really isn't necessary to crank up the number of layers as much as you might think.
+                                <br><br>
+                                With only <code>bUseUnitCost = true</code>, we see almost a halving in iterations across the board (around 1.6-1.7x better) with a consistent 10% increase in path distance for the any-angle algorithms.
+                                It's a 20-40% for A*, but I believe this is because the extra steps in the path from the optimisation are not smoothed out by the line-of-sight check.
+                                For the 4 layers case, this is pretty much the end of the story. No other optimisations improved on that score.
+                                <br><br>
+                                As the number of layers increase, the other optimisations come into play.
+                                With <code>bUseNodeCompensation = true</code>, we get a similar improvement (1.7x) in the 9 layers case, but no improvement with 4 layers.
+                                However, when using both options, we get a comfortable one third of the original number of iterations for 9 layers.
+                                The middle layers fall proportionally between these examples.
+                                <br><br>
+                                Interestingly, the heuristic scale does not make much of a difference or even hinder the performance when both of these options are turned on,
+                                but that could be due to the nature of the test scene.
+                                The heuristic is not very useful for most of the path journey, but in real scenes often that won't be the case.
+                                Complicated mazes such as this might benefit from keeping the heuristic at 1.0.
+                                <br><br>
+                                As you can see, increasing the number of layers drastically increases the pathfinding and generation time.
+                                You can get away with this by using asynchronous pathfinding, but this is not supported with behaviour trees at the moment.
+                                Check out the <a href="usage.html#pathfind-location" target="_blank">Usage</a> page for more information.
+                                However, asynchronous processing is still using resources, so a larger max detail size is a better solution.
+                            </p>
                             <div id="table1" class="section-block">
                                 <h4>No Optimisations</h4>
                                 <ul>
@@ -121,9 +188,18 @@
                                                         data-toggle="popover"
                                                         data-content="Time in milliseconds to build octree from scratch"><i
                                                         class="fas fa-question-circle"></i></a></th>
-                                            <th colspan="3" class="left-border right-border">A *</th>
-                                            <th colspan="3" class="left-border right-border">Lazy Theta *</th>
-                                            <th colspan="3" class="left-border right-border">Theta *</th>
+                                            <th colspan="3" class="left-border right-border">A* <a
+                                                    data-toggle="popover"
+                                                    data-content="The standard algorithm for pathfinding in games. Uses a distance heuristic to find the goal. Creates fixed angle paths."><i
+                                                    class="fas fa-question-circle"></i></a></th>
+                                            <th colspan="3" class="left-border right-border">Lazy Theta* <a
+                                                    data-toggle="popover"
+                                                    data-content="A modification of Theta*, assumes line-of-sight between nodes and postpones raycast check until node is explored. Not as accurate but faster."><i
+                                                    class="fas fa-question-circle"></i></a></th>
+                                            <th colspan="3" class="left-border right-border">Theta* <a
+                                                    data-toggle="popover"
+                                                    data-content="A modification of the A* algorithm, will attempt to skip nodes based on a fast line-of-sight check, allowing for any-angle paths."><i
+                                                    class="fas fa-question-circle"></i></a></th>
                                         </tr>
                                         <tr>
                                             <th>Time&nbsp;(ms)</th>
@@ -215,7 +291,7 @@
                                             <td class="bottom-border right-border">110%</td>
                                             <td class="bottom-border">21444.74</td>
                                             <td class="bottom-border">4,320,052</td>
-                                            <td class="bottom-border right-border">99%</td>
+                                            <td class="bottom-border right-border">100%</td>
                                             <td class="bottom-border">47212.68</td>
                                             <td class="bottom-border">4,320,212</td>
                                             <td class="bottom-border right-border">100%</td>
@@ -238,9 +314,9 @@
                                             <th rowspan="2" class="left-border right-border">#&nbsp;Voxels</th>
                                             <th rowspan="2" class="left-border right-border">Generation Time&nbsp;(ms)
                                             </th>
-                                            <th colspan="3" class="left-border right-border">A *</th>
-                                            <th colspan="3" class="left-border right-border">Lazy Theta *</th>
-                                            <th colspan="3" class="left-border right-border">Theta *</th>
+                                            <th colspan="3" class="left-border right-border">A*</th>
+                                            <th colspan="3" class="left-border right-border">Lazy Theta*</th>
+                                            <th colspan="3" class="left-border right-border">Theta*</th>
                                         </tr>
                                         <tr>
                                             <th>Time&nbsp;(ms)</th>
@@ -355,9 +431,9 @@
                                             <th rowspan="2" class="left-border right-border">#&nbsp;Voxels</th>
                                             <th rowspan="2" class="left-border right-border">Generation Time&nbsp;(ms)
                                             </th>
-                                            <th colspan="3" class="left-border right-border">A *</th>
-                                            <th colspan="3" class="left-border right-border">Lazy Theta *</th>
-                                            <th colspan="3" class="left-border right-border">Theta *</th>
+                                            <th colspan="3" class="left-border right-border">A*</th>
+                                            <th colspan="3" class="left-border right-border">Lazy Theta*</th>
+                                            <th colspan="3" class="left-border right-border">Theta*</th>
                                         </tr>
                                         <tr>
                                             <th>Time&nbsp;(ms)</th>
@@ -472,9 +548,9 @@
                                             <th rowspan="2" class="left-border right-border">#&nbsp;Voxels</th>
                                             <th rowspan="2" class="left-border right-border">Generation Time&nbsp;(ms)
                                             </th>
-                                            <th colspan="3" class="left-border right-border">A *</th>
-                                            <th colspan="3" class="left-border right-border">Lazy Theta *</th>
-                                            <th colspan="3" class="left-border right-border">Theta *</th>
+                                            <th colspan="3" class="left-border right-border">A*</th>
+                                            <th colspan="3" class="left-border right-border">Lazy Theta*</th>
+                                            <th colspan="3" class="left-border right-border">Theta*</th>
                                         </tr>
                                         <tr>
                                             <th>Time&nbsp;(ms)</th>
@@ -589,9 +665,9 @@
                                             <th rowspan="2" class="left-border right-border">#&nbsp;Voxels</th>
                                             <th rowspan="2" class="left-border right-border">Generation Time&nbsp;(ms)
                                             </th>
-                                            <th colspan="3" class="left-border right-border">A *</th>
-                                            <th colspan="3" class="left-border right-border">Lazy Theta *</th>
-                                            <th colspan="3" class="left-border right-border">Theta *</th>
+                                            <th colspan="3" class="left-border right-border">A*</th>
+                                            <th colspan="3" class="left-border right-border">Lazy Theta*</th>
+                                            <th colspan="3" class="left-border right-border">Theta*</th>
                                         </tr>
                                         <tr>
                                             <th>Time&nbsp;(ms)</th>
@@ -706,9 +782,9 @@
                                             <th rowspan="2" class="left-border right-border">#&nbsp;Voxels</th>
                                             <th rowspan="2" class="left-border right-border">Generation Time&nbsp;(ms)
                                             </th>
-                                            <th colspan="3" class="left-border right-border">A *</th>
-                                            <th colspan="3" class="left-border right-border">Lazy Theta *</th>
-                                            <th colspan="3" class="left-border right-border">Theta *</th>
+                                            <th colspan="3" class="left-border right-border">A*</th>
+                                            <th colspan="3" class="left-border right-border">Lazy Theta*</th>
+                                            <th colspan="3" class="left-border right-border">Theta*</th>
                                         </tr>
                                         <tr>
                                             <th>Time&nbsp;(ms)</th>
@@ -823,9 +899,9 @@
                                             <th rowspan="2" class="left-border right-border">#&nbsp;Voxels</th>
                                             <th rowspan="2" class="left-border right-border">Generation Time&nbsp;(ms)
                                             </th>
-                                            <th colspan="3" class="left-border right-border">A *</th>
-                                            <th colspan="3" class="left-border right-border">Lazy Theta *</th>
-                                            <th colspan="3" class="left-border right-border">Theta *</th>
+                                            <th colspan="3" class="left-border right-border">A*</th>
+                                            <th colspan="3" class="left-border right-border">Lazy Theta*</th>
+                                            <th colspan="3" class="left-border right-border">Theta*</th>
                                         </tr>
                                         <tr>
                                             <th>Time&nbsp;(ms)</th>
@@ -939,9 +1015,9 @@
                                             <th rowspan="2" class="left-border right-border">#&nbsp;Layers</th>
                                             <th rowspan="2" class="left-border right-border">#&nbsp;Voxels</th>
                                             <th rowspan="2" class="left-border right-border">Generation Time&nbsp;(ms)</th>
-                                            <th colspan="3" class="left-border right-border">A *</th>
-                                            <th colspan="3" class="left-border right-border">Lazy Theta *</th>
-                                            <th colspan="3" class="left-border right-border">Theta *</th>
+                                            <th colspan="3" class="left-border right-border">A*</th>
+                                            <th colspan="3" class="left-border right-border">Lazy Theta*</th>
+                                            <th colspan="3" class="left-border right-border">Theta*</th>
                                         </tr>
                                         <tr>
                                             <th>Time&nbsp;(ms)</th>
@@ -1055,9 +1131,9 @@
                                             <th rowspan="2" class="left-border right-border">#&nbsp;Layers</th>
                                             <th rowspan="2" class="left-border right-border">#&nbsp;Voxels</th>
                                             <th rowspan="2" class="left-border right-border">Generation Time&nbsp;(ms)</th>
-                                            <th colspan="3" class="left-border right-border">A *</th>
-                                            <th colspan="3" class="left-border right-border">Lazy Theta *</th>
-                                            <th colspan="3" class="left-border right-border">Theta *</th>
+                                            <th colspan="3" class="left-border right-border">A*</th>
+                                            <th colspan="3" class="left-border right-border">Lazy Theta*</th>
+                                            <th colspan="3" class="left-border right-border">Theta*</th>
                                         </tr>
                                         <tr>
                                             <th>Time&nbsp;(ms)</th>
@@ -1171,9 +1247,9 @@
                                             <th rowspan="2" class="left-border right-border">#&nbsp;Layers</th>
                                             <th rowspan="2" class="left-border right-border">#&nbsp;Voxels</th>
                                             <th rowspan="2" class="left-border right-border">Generation Time&nbsp;(ms)</th>
-                                            <th colspan="3" class="left-border right-border">A *</th>
-                                            <th colspan="3" class="left-border right-border">Lazy Theta *</th>
-                                            <th colspan="3" class="left-border right-border">Theta *</th>
+                                            <th colspan="3" class="left-border right-border">A*</th>
+                                            <th colspan="3" class="left-border right-border">Lazy Theta*</th>
+                                            <th colspan="3" class="left-border right-border">Theta*</th>
                                         </tr>
                                         <tr>
                                             <th>Time&nbsp;(ms)</th>
@@ -1276,6 +1352,15 @@
                         </section><!--//doc-section-->
                         <section id="raycast-benchmarks" class="doc-section">
                             <h2 class="section-title">Raycast Benchmarks</h2>
+                            <br>
+                            <h4>Remarks</h4>
+                            <p>
+                                The Physics Line Trace obviously doesn't depend on the octree while the raycasting does.
+                                The octree raycast is used for the line-of-sight checks in the pathfinding algorithm.
+                                I wasn't able to get the raycast time to increase as expected with the layer count, so everything past 5 layers is within the margin of error.
+                                It's clear that the algorithm is very efficient, consistently being 3x faster than a physics line trace.
+                                It should be noted however that both are very fast and that the Physics Line Trace is more flexible.
+                            </p>
                             <div id="table11" class="section-block">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-hover table-condensed">
@@ -1322,13 +1407,12 @@
                                             <td class="right-border">1.63</td>
                                         </tr>
                                         <tr>
-                                            <td class="left-border right-border">9</td>
-                                            <td class="left-border right-border">134,217,728</td>
-                                            <td class="left-border right-border">4275.72</td>
-                                            <td class="left-border right-border">0.77</td>
-                                            <td class="right-border">2.16</td>
+                                            <td class="bottom-border left-border right-border">9</td>
+                                            <td class="bottom-border left-border right-border">134,217,728</td>
+                                            <td class="bottom-border left-border right-border">4275.72</td>
+                                            <td class="bottom-border left-border right-border">0.77</td>
+                                            <td class="bottom-border right-border">2.16</td>
                                         </tr>
-
                                     </table>
                                 </div><!--//table-responsive-->
                             </div><!--//section-block-->
