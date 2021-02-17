@@ -54,6 +54,18 @@
             <div class="doc-body row">
                 <div class="doc-content col-md-9 col-12 order-1">
                     <div class="content-inner">
+                        <div class="callout-block callout-warning">
+                            <div class="icon-holder">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div><!--//icon-holder-->
+                            <div class="content">
+                                <h4 class="callout-title">This page is more technical</h4>
+                                <p>
+                                    This page is a deeper dive into the performance of the Flying Navigation System and is therefore fairly technical.
+                                    However, understanding this page is not required for the functionality of the plugin.
+                                </p>
+                            </div><!--//content-->
+                        </div><!--//callout-block-->
                         <section id="preamble" class="doc-section">
                             <h2 class="section-title">Preamble</h2>
                             <p>
@@ -99,10 +111,10 @@
                                 </div><!--//row-->
                             </div><!--//section-block-->
                             <p>
-                                All algorithms are CPU based, and were run on a Intel Core i7 4930K @ 3.9GHz in Windows
-                                10. I packaged up the project in a Shipping build, so this should be running optimised
+                                All algorithms are CPU based, and were run on an Intel Core i7 4930K @ 3.9GHz in Windows
+                                10. The project was packaged up in a Shipping build, so this should be running optimised
                                 code.
-                                The octree generation is multithreaded, the pathfinding and raycasting is
+                                The octree generation is multithreaded; the pathfinding and raycasting are
                                 singlethreaded.
                                 <br><br>
                                 The tables are designed to illustrate the impact of the various optimisation options for
@@ -141,13 +153,13 @@
                             <br>
                             <h4>Remarks</h4>
                             <p>
-                                The test scene was designed to be a worst case scenario for A* style algorithms,
+                                The test scene was designed to be a worst-case scenario for A* style algorithms,
                                 in which most of the search space would need to be explored to complete the path.
                                 It should be noted that even on the lowest resolution, a perfectly acceptable path can be found for most flying agents,
-                                so it really isn't necessary to crank up the number of layers as much as you might think.
+                                so it really isn't necessary to crank up the number of layers as much as one might think.
                                 <br><br>
                                 With only <code>bUseUnitCost = true</code>, we see almost a halving in iterations across the board (around 1.6-1.7x better) with a consistent 10% increase in path distance for the any-angle algorithms.
-                                It's a 20-40% for A*, but I believe this is because the extra steps in the path from the optimisation are not smoothed out by the line-of-sight check.
+                                It's 20-40% for A*, but I believe this is because the extra steps in the path from the optimisation are not smoothed out by the line-of-sight check.
                                 For the 4 layers case, this is pretty much the end of the story. No other optimisations improved on that score.
                                 <br><br>
                                 As the number of layers increase, the other optimisations come into play.
@@ -157,8 +169,8 @@
                                 <br><br>
                                 Interestingly, the heuristic scale does not make much of a difference or even hinder the performance when both of these options are turned on,
                                 but that could be due to the nature of the test scene.
-                                The heuristic is not very useful for most of the path journey, but in real scenes often that won't be the case.
-                                Complicated mazes such as this might benefit from keeping the heuristic at 1.0.
+                                The heuristic is not very useful for most of the path journey, but in real scenes in fairly open spaces the heuristic would come into its own.
+                                Complicated mazes such as this don't have as much of a benefit from increasing the heuristic from 1.0.
                                 <br><br>
                                 As you can see, increasing the number of layers drastically increases the pathfinding and generation time.
                                 You can get away with this by using asynchronous pathfinding, but this is not supported with behaviour trees at the moment.

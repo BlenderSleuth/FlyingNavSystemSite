@@ -47,7 +47,7 @@
             <div class="container">
                 <div id="doc-header" class="doc-header text-center">
                     <h1 class="doc-title"><span aria-hidden="true" class="icon icon_lifesaver"></span> Troubleshooting</h1>
-                    <div class="meta"><i class="far fa-clock"></i> Last updated: Jan 30th, 2021</div>
+                    <div class="meta"><i class="far fa-clock"></i> Last updated: Feb 17th, 2021</div>
                 </div><!--//doc-header-->
                 <div class="doc-body row">
                     <div class="doc-content col-md-9 col-12 order-1">
@@ -110,6 +110,18 @@
                                         At the present time, the behaviour tree task <code>MoveTo</code> performs pathfinding synchronously, so optimisations are recommended for complex scenes if you are using behaviour trees.
                                     </div>
                                 </div><!--//section-block-->
+                                <div id="viewport-performance" class="section-block">
+                                    <h3 class="question"><i class="fas fa-dragon"></i> Viewport Drawing Performance</h3>
+                                    <div class="answer">
+                                        The octree drawing code is designed to be very performant in the viewport.
+                                        The octree nodes do not use the <code>DebugDraw</code> functions and will therefore scale very well.
+                                        <br><br>
+                                        However, the neighbour connection drawing does use <code>DebugDraw</code> functions, and should not be used for high resolution octrees.<br>
+                                        Also, the visualisation gathering step (copying data from the navigation data to the rendering thread) will block the main thread,
+                                        and runs whenever a navigation data option is modified. This means that changing options will lag slightly,
+                                        depending on the currently built resolution. It's recommended to build on a lower resolution to change options, or clearing and rebuilding the navigation data.
+                                    </div>
+                                </div><!--//section-block-->
                                 <div id="octree" class="section-block">
                                     <h3 class="question"><i class="fas fa-dragon"></i> One Octree per Level</h3>
                                     <div class="answer">
@@ -168,6 +180,18 @@
                                             The <code>Is Dynamic Obstacle</code> option impacts all instances of that Static Mesh, and so could be useful for always non-blocking meshes.
                                             And obviously <code>Simulate Physics = true</code> is a simulated rigid body. <br>
                                             A reload may be required before building the navigation for the changes to take effect.
+                                        </p>
+                                    </div>
+                                </div><!--//section-block-->
+                                <div id="nodeindex" class="section-block">
+                                    <h3 class="question"><i class="fas fa-bolt"></i>&nbsp; Unreal Engine crash with <code>Assertion failed: InNodeIndex < (1 << 22)</code></h3>
+                                    <div class="answer">
+                                        <p>
+                                            This means you have pushed the Max Detail Size too far, and the node index parameter has overflowed.
+                                            To fit nodes compactly, unique identifiers need to fit into a 32 bit integer,
+                                            22 bits of which are reserved for the node index in a given layer.
+                                            The number of nodes in a layer has exceeded <code>2^22 = 4,194,304</code>, and you should really increase that Max Detail Size.
+                                            We can pretty much guarantee that you don't need it that low, but if you think you do open an issue on <a href="https://github.com/BlenderSleuth/FlyingNavSystemSupport/issues" target="_blank">GitHub</a> and we'll see what we can do.
                                         </p>
                                     </div>
                                 </div><!--//section-block-->
@@ -240,12 +264,14 @@
                                     <a class="nav-link scrollto" href="#navarea">Navigation Areas and Modifier Volumes</a>
                                     <a class="nav-link scrollto" href="#streaming">Level Streaming</a>
                                     <a class="nav-link scrollto" href="#performance">Pathfinding Performance</a>
+                                    <a class="nav-link scrollto" href="#viewport-performance">Viewport Performance</a>
                                     <a class="nav-link scrollto" href="#octree">One Octree per Level</a>
                                 </nav><!--//nav-->
                                 <a class="nav-link scrollto" href="#troubleshooting">Troubleshooting</a>
                                 <nav class="doc-sub-menu nav flex-column">
                                     <a class="nav-link scrollto" href="#not-spawning">FlyingNavigationData Actor Not Spawning</a>
                                     <a class="nav-link scrollto" href="#blocking-mesh">Mesh Blocking Settings</a>
+                                    <a class="nav-link scrollto" href="#nodeindex">Assertion failed: InNodeIndex < (1 << 22)</a>
                                     <a class="nav-link scrollto" href="#linking-error">Include/Linking Errors</a>
                                     <a class="nav-link scrollto" href="#goal-blocked">Goal Location Blocked</a>
                                     <a class="nav-link scrollto" href="#sphere">Sphere Meshes</a>
