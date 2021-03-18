@@ -103,6 +103,18 @@ pre code {
   white-space: pre;
 }
 
+#fns-logo {
+  /*width: 50%;
+  height: 50%;
+  alignment: right;*/
+/*  position:fixed;
+  top:0;
+  right:0;
+  margin-right: 0;*/
+  max-height: 30px;
+  max-width: 50px;
+}
+
 /* 
 .spoiler {
   border: 0px solid #ddd;
