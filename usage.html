@@ -1009,6 +1009,7 @@ struct FSVOData : TSharedFromThis&lt;FSVOData, ESPMode::ThreadSafe&gt;
 
 	// Sets octree bounds (centre and side length). Octree is always a cube, even if InBounds is not
 	void SetBounds(const FBox&amp; InBounds);
+    void SetBounds(const FVector&amp; InCentre, const float InSideLength)
 
 	// Checks if SVO is empty (true if no colliding geometry was used)
 	bool IsEmptySpace() const;
@@ -1079,6 +1080,9 @@ struct FSVOData : TSharedFromThis&lt;FSVOData, ESPMode::ThreadSafe&gt;
 
 	// Checks if a position is blocked in the SVO representation
 	bool IsPositionBlocked(const FVector&amp; NodePosition) const;
+
+    // World Origin Rebasing support
+	void ApplyWorldOffset(const FVector&amp; WorldOffset)
 
 	// Fills an array with references to nodes that are empty below a given node reference. Includes leaf and SubNodes
 	void GetChildlessNodes(const FSVOLink CurrentNode, TArray&lt;FSVOLink&gt;&amp; ChildlessNodes) const;
