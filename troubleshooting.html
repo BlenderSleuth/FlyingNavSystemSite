@@ -271,6 +271,26 @@
                                         </p>
                                     </div>
                                 </div><!--//section-block-->
+                                <div id="lazygeometry" class="section-block">
+                                    <h3 class="question"><i class="fas fa-bolt"></i>&nbsp; Some octants of the bounds are not rasterised properly (landscapes)</h3>
+                                    <div class="answer">
+                                        <div class="screenshot-holder">
+                                            <a href="assets/images/troubleshooting4.png" data-toggle="lightbox">
+                                                <img class="img-fluid" src="assets/images/troubleshooting4.png" alt="Data gathering settings"/>
+                                            </a>
+                                        </div> <!--//screenshot-holder-->
+                                        <p>
+                                            If "Data Gathering Mode" is set to "Lazy" and "Generate Navigation Only Around Navigation Invokers" is turned on, the landscape geometry is not available on every thread.
+                                            Therefore, only some octants have access to that data. The current workaround is to set Data Gathering Mode to "Instant" and reload the level.
+                                            This only needs to be done at build time, so it can be changed back to "Lazy" for production.
+                                        </p>
+                                        <div class="screenshot-holder">
+                                            <a href="assets/images/troubleshooting5.png" data-toggle="lightbox">
+                                                <img class="img-fluid" src="assets/images/troubleshooting5.png" alt="Data gathering settings"/>
+                                            </a>
+                                        </div> <!--//screenshot-holder-->
+                                    </div>
+                                </div><!--//section-block-->
                                 <br>
                                 <p>If you're still having problems, please don't hesitate to open an issue on <a href="https://github.com/BlenderSleuth/FlyingNavSystemSupport/issues" target="_blank">GitHub</a>.</p>
                                 <br>
