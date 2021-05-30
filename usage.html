@@ -327,6 +327,23 @@
                                         Lazy Theta* is faster but less accurate than Theta* (recommended).
                                     </p>
                                 </div><!--//section-block-->
+                                <div id="partialpaths" class="section-block">
+                                    <h4>Allow Partial Paths</h4>
+                                    <p>
+                                        Whether to find a path despite the goal not being accessible.
+                                    </p>
+                                    <div class="callout-block callout-danger">
+                                        <div class="icon-holder">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </div><!--//icon-holder-->
+                                        <div class="content">
+                                            <h4 class="callout-title">Warning!</h4>
+                                            <p>
+                                                Can cause a large performance due to the algorithm searching the entirety of the available space. Not recommended.
+                                            </p>
+                                        </div><!--//content-->
+                                    </div><!--//callout-block-->
+                                </div><!--//section-block-->
                                 <div id="heuristic-scale" class="section-block">
                                     <h4>Heuristic Scale</h4>
                                     <p>
@@ -726,7 +743,7 @@
                                     </div> <!--//screenshot-holder-->
                                     <p>This can be used in a setup similar to the following:</p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage16.png" alt="Find Path To Actor Asynchronously use case"/>
+                                        <img class="img-fluid" src="assets/images/usage16_1.png" alt="Find Path To Actor Asynchronously use case"/>
                                     </div> <!--//screenshot-holder-->
                                     <p>
                                         On <code>BeginPlay</code>, the actor tries to find a path to the player. Before the pathfinding completes, <code>BeginPlay</code> exits and the level loads normally.
@@ -756,9 +773,26 @@
                                         </p>
                                     </div><!--//content-->
                                 </div><!--//callout-block-->
+                                <div id="getpathfindingresult" class="section-block">
+                                    <h4>Get Pathfinding Result</h4>
+                                    <p>
+                                        Takes a path output from <code>Find Path To Actor/Location Synchronously/Asynchronously</code> and returns if it was invalid, an error, fail or success:<br>
+                                        <code>Invalid</code>: If start or end point is blocked or out of bounds. <br>
+                                        <code>Error</code>: Algorithm got stuck in infinite loop. <br>
+                                        <code>Fail</code>: If start and end points are not connected and partial paths are not enabled. <br>
+                                        <code>Success</code>: Path is valid.
+                                    </p>
+                                    <div class="screenshot-holder">
+                                        <img class="img-fluid" src="assets/images/usage16_2.png" alt="Get Pathfinding Result"/>
+                                    </div> <!--//screenshot-holder-->
+                                    <p>For example, to switch on the result:</p>
+                                    <div class="screenshot-holder">
+                                        <img class="img-fluid" src="assets/images/usage16_3.png" alt="Get Pathfinding Result use case"/>
+                                    </div> <!--//screenshot-holder-->
+                                </div><!--//section-block-->
                                 <div id="request-move" class="section-block">
                                     <h4>Request Move</h4>
-                                    <p>Takes a path output from <code>Find Path To Actor/Location Synchronously/Asynchronously</code> and requests an <code>AIController</code>  to follow it.</p>
+                                    <p>Takes a path output from <code>Find Path To Actor/Location Synchronously/Asynchronously</code> and requests an <code>AIController</code> to follow it.</p>
                                     <div class="screenshot-holder">
                                         <img class="img-fluid" src="assets/images/usage18.png" alt="Request Move"/>
                                     </div> <!--//screenshot-holder-->
