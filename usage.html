@@ -47,7 +47,7 @@
             <div class="container">
                 <div id="doc-header" class="doc-header text-center">
                     <h1 class="doc-title"><span aria-hidden="true" class="icon icon_puzzle_alt"></span> Usage</h1>
-                    <div class="meta"><i class="far fa-clock"></i> Last updated: May 30th, 2021</div>
+                    <div class="meta"><i class="far fa-clock"></i> Last updated: July 5th, 2021</div>
                 </div><!--//doc-header-->
                 <div class="doc-body row" >
                     <div class="doc-content col-md-9 col-12 order-1">
@@ -157,7 +157,7 @@
                                     <h4>Rasterization (or Rasterisation)</h4>
                                     <p>
                                         In general, a process that converts a perfect mathematical representation (such as an SVG image) of something into a regular grid (such as a bitmap image). 
-                                        In video games this usually refers to converting a scene into screen pixels, but in the Flying Navigation System rasterization is the step in building the octree in which voxels are tested against the world geometry to check if they intersect. 
+                                        In video games this usually refers to converting a scene into screen pixels, but in the Flying Navigation System rasterisation is the step in building the octree in which voxels are tested against the world geometry to check if they intersect.
                                         The building process creates a version of the scene made entirely of voxels ("Volumetric Pixels").
                                     </p>
                                 </div><!--//section-block-->
@@ -236,7 +236,7 @@
                                             Due to the Ceiling operation, <code>ActualVoxelSize <= MaxDetailSize</code>.
                                             <br>
                                             <br>
-                                            Please note that the minimum number of subdivions is 4, so the maximum Actual Voxel Size is <code>SideLength / 16</code>.
+                                            Please note that the minimum number of subdivisions is 4, so the maximum Actual Voxel Size is <code>SideLength / 16</code>.
                                         </p>
                                     </div><!--//content-->
                                 </div><!--//callout-block-->
@@ -267,13 +267,16 @@
                                 </div><!--//section-block-->
                                 <div id="multithreaded" class="section-block">
                                     <h4>Multithreaded</h4>
-                                    <p>Build on multiple threads (highly recommended). Can use up to 8 threads (due to the algorithm design).</p>
+                                    <p>Build on multiple threads (highly recommended). Runs 8<sup>Thread Subdivisions </sup> threads.</p>
+                                </div><!--//section-block-->
+                                <div id="ThreadSubdivisions" class="section-block">
+                                    <h4>Thread Subdivisions</h4>
+                                    <p>How many times to initially subdivide the generation volume. Runs each subdivision on a separate thread. Increases the allowed minimum subdivisions.</p>
                                 </div><!--//section-block-->
                                 <div id="max-threads" class="section-block">
                                     <h4>Max Threads</h4>
                                     <p>
-                                        Maximum number of threads to spawn when rasterizing the level (recommended 8). 
-                                        I don’t think there’s any reason to change this option.
+                                        Maximum number of threads to spawn when rasterising the level. If set to >= available CPU threads, can lock your computer for a while.
                                     </p>
                                 </div><!--//section-block-->
                                 <div id="use-agent-radius" class="section-block">
