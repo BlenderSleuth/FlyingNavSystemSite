@@ -389,6 +389,12 @@
                                         This option will translate the path up to compensate, to make sure the pawn flies through its centre.
                                     </p>
                                 </div><!--//section-block-->
+                                <div id="debug-colour" class="section-block">
+                                    <h4>Debug Path Color</h4>
+                                    <p>
+                                        The color used to debug draw the navigation paths (see Display/DrawDebugPaths)
+                                    </p>
+                                </div><!--//section-block-->
                             </section><!--//doc-section-->
                             <section id="geometry" class="doc-section">
                                 <h2 class="section-title">Geometry</h2>
@@ -793,15 +799,26 @@
                                         <img class="img-fluid" src="assets/images/usage16_3.png" alt="Get Pathfinding Result use case"/>
                                     </div> <!--//screenshot-holder-->
                                 </div><!--//section-block-->
+                                <div id="nav-path-points" class="section-block">
+                                    <h4>Set Navigation Path Points</h4>
+                                    <p>Allows custom blueprint post-processing of paths. Takes an existing navigation path, and replaces the path points with the given array of vectors.</p>
+                                    <div class="screenshot-holder">
+                                        <img class="img-fluid" src="assets/images/usage18.png" alt="Set Navigation Path Points"/>
+                                    </div> <!--//screenshot-holder-->
+                                    <p>For example, this node can be used to flatten a path to the x-y plane by clearing the z-component of each path point.</p>
+                                    <div class="screenshot-holder">
+                                        <img class="img-fluid" src="assets/images/usage19.png" alt="Set Navigation Path Points use case"/>
+                                    </div> <!--//screenshot-holder-->
+                                </div><!--//section-block-->
                                 <div id="request-move" class="section-block">
                                     <h4>Request Move</h4>
                                     <p>Takes a path output from <code>Find Path To Actor/Location Synchronously/Asynchronously</code> and requests an <code>AIController</code> to follow it.</p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage18.png" alt="Request Move"/>
+                                        <img class="img-fluid" src="assets/images/usage20.png" alt="Request Move"/>
                                     </div> <!--//screenshot-holder-->
                                     <p>For example, to make a pawn find the player when the level starts:</p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage19.png" alt="Request Move use case"/>
+                                        <img class="img-fluid" src="assets/images/usage21.png" alt="Request Move use case"/>
                                     </div> <!--//screenshot-holder-->
                                 </div><!--//section-block-->
                             </section><!--//doc-section-->
@@ -861,6 +878,9 @@
 	const FVector&amp; FloatToVec(const float* Coords, const int32 Index);
 	FVector&amp; FloatToVec(float* Coords, const int32 Index);
 	FVector&amp; FloatToVec(TArray&lt;float&gt;&amp; Coords, const int32 Index);
+
+    // Copies and converts an array of FNavPathPoints to an array of FVectors
+	void ConvertNavPathPointsToVector(const TArray&lt;FNavPathPoint&gt;&amp; In, TArray&lt;FVector&gt;&amp; Out);
 }</code></pre>
                                     <br>
                                     <h6><code>FSVOLink</code> struct:</h6>
