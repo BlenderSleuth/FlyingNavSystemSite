@@ -821,6 +821,30 @@
                                         <img class="img-fluid" src="assets/images/usage21.png" alt="Request Move use case"/>
                                     </div> <!--//screenshot-holder-->
                                 </div><!--//section-block-->
+                                <div id="smooth-path" class="section-block">
+                                    <h4>Smooth Path</h4>
+                                    <p>Smooths navigation path (from <code>Find Path To Actor/Location Synchronously/Asynchronously</code>) by constructing a centripetal Catmull-Rom Spline and sampling points at equidistant intervals.</p>
+                                    <p>The <code>Sample Length</code> is the distance between samples along the path in Unreal units.</p>
+                                    <div class="screenshot-holder">
+                                        <img class="img-fluid" src="assets/images/usage22.png" alt="Request Move"/>
+                                    </div> <!--//screenshot-holder-->
+                                    <p>Smoothing looks like this:</p>
+                                    <div class="screenshot-holder">
+                                        <img class="img-fluid" src="assets/images/usage23.png" alt="Request Move use case"/>
+                                    </div> <!--//screenshot-holder-->
+                                    <p>Generated using this graph:</p>
+                                    <div class="screenshot-holder">
+                                        <img class="img-fluid" src="assets/images/usage24.png" alt="Request Move use case"/>
+                                    </div> <!--//screenshot-holder-->
+                                </div><!--//section-block-->
+                                <div id="cr-spline-functions" class="section-block">
+                                    <h4>CatmullRomSpline Object</h4>
+                                    <p>A Catmull-Rom Spline object can be created and sampled at will using the <code>Make Catmull Rom Spline</code> node. <code>Path Points</code> must have at least 2 points.</p>
+                                    <p>This can be used to move objects along splines manually, without sampling at intervals and passing to <code>Request Move</code>.</p>
+                                    <div class="screenshot-holder">
+                                        <img class="img-fluid" src="assets/images/usage25.png" alt="Request Move"/>
+                                    </div> <!--//screenshot-holder-->
+                                </div><!--//section-block-->
                             </section><!--//doc-section-->
                             <section id="cpp-api" class="doc-section">
                                 <h2 class="section-title">C++ API Reference</h2>
