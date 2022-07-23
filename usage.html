@@ -47,7 +47,7 @@
             <div class="container">
                 <div id="doc-header" class="doc-header text-center">
                     <h1 class="doc-title"><span aria-hidden="true" class="icon icon_puzzle_alt"></span> Usage</h1>
-                    <div class="meta"><i class="far fa-clock"></i> Last updated: August 7th, 2021</div>
+                    <div class="meta"><i class="far fa-clock"></i> Last updated: July 23rd, 2022</div>
                 </div><!--//doc-header-->
                 <div class="doc-body row" >
                     <div class="doc-content col-md-9 col-12 order-1">
@@ -554,10 +554,10 @@
                                     The <code>Build on Begin Play</code>  option (under <code>Generation</code>) is probably what you want for option 2.
                                     <br>
                                     <br>
-                                    Manually triggering a rebuild is useful for opening a new area of the map. For example, pressing a button opens a door. A rebuild can be triggered once the door is open and stopped moving, allowing AI to move through it.
+                                    Manually triggering a full-level rebuild is useful for opening a new area of the map. For example, pressing a button opens a door. A rebuild can be triggered once the door is open and stopped moving, allowing AI to move through it.
                                     <br>
                                     <br>
-                                    This can be achieved by the <code>Get Flying Navigation Data</code> function in blueprints, which takes a Pawn as reference and returns corresponding <code>FlyingNavigationData</code> actor. A rebuild of the data can be called, and optionally an <code>On Flying Nav Generation Finished</code> delegate can be set up, to handle unlocking the game.
+                                    This can be achieved by the <code>Get Flying Navigation Data</code> function in blueprints. The function takes a Pawn as reference and returns the corresponding <code>FlyingNavigationData</code> actor. A rebuild of the data can be called on this data (which rebuilds the nav data for the entire level), and optionally an <code>On Flying Nav Generation Finished</code> delegate can be set up, to handle unlocking the game.
                                     <br>
                                     <br>
                                     Something like this in Blueprints:
