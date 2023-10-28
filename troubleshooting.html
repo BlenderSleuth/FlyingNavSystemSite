@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Flying Navigation System Docs</title>
     <!-- Meta -->
@@ -7,22 +8,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author" content="">    
-    <link rel="shortcut icon" href="favicon.ico">  
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link
+        href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+        rel='stylesheet' type='text/css'>
     <!-- FontAwesome JS -->
     <script defer src="assets/fontawesome/js/all.js"></script>
     <!-- Global CSS -->
-    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">   
-    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->
     <link rel="stylesheet" href="assets/plugins/prism/prism.css">
     <link rel="stylesheet" href="assets/plugins/lightbox/dist/ekko-lightbox.css">
     <link rel="stylesheet" href="assets/plugins/elegant_font/css/style.css">
 
     <!-- Theme CSS -->
     <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
-    
-</head> 
+
+</head>
 
 <body class="body-purple">
     <div class="page-wrapper">
@@ -53,8 +56,9 @@
         <div class="doc-wrapper">
             <div class="container">
                 <div id="doc-header" class="doc-header text-center">
-                    <h1 class="doc-title"><span aria-hidden="true" class="icon icon_lifesaver"></span> Troubleshooting</h1>
-                    <div class="meta"><i class="far fa-clock"></i> Last updated: August 7th, 2021</div>
+                    <h1 class="doc-title"><span aria-hidden="true" class="icon icon_lifesaver"></span> Troubleshooting
+                    </h1>
+                    <div class="meta"><i class="far fa-clock"></i> Last updated: October 28th, 2023</div>
                 </div><!--//doc-header-->
                 <div class="doc-body row">
                     <div class="doc-content col-md-9 col-12 order-1">
@@ -66,7 +70,7 @@
                                     <div class="answer">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</div>
                                 </div>&lt;!&ndash;//section-block&ndash;&gt;
                             </section>&lt;!&ndash;//doc-section&ndash;&gt;-->
-                            
+
                             <section id="limitations" class="doc-section">
                                 <h2 class="section-title">Limitations</h2>
                                 <div id="ai-implementation" class="section-block">
@@ -74,72 +78,104 @@
                                     <div class="answer">
                                         This plugin does not contain any movement components or behaviour trees.
                                         It only implements 3D pathfinding algorithms. <br> <br>
-                                        The CrowdSystem is currently not supported for flying agents (as it requires specific features of the navmesh).
+                                        The CrowdSystem is currently not supported for flying agents (as it requires
+                                        specific features of the navmesh).
                                     </div>
                                 </div><!--//section-block-->
                                 <div id="runtime" class="section-block">
                                     <h3 class="question"><i class="fas fa-dragon"></i> Runtime Generation</h3>
                                     <div class="answer">
                                         Runtime Generation is partially supported.
-                                        Setting Runtime Generation to <code>Dynamic</code> allows for procedural levels, or a manually triggered rebuild.
-                                        However, constantly moving objects (such as moving platforms) as blocking meshes are not supported, nor are blocking rigid bodies.
-                                        Please see <a href="usage.html#runtime" target="_blank">here</a> for more details.
+                                        Setting Runtime Generation to <code>Dynamic</code> allows for procedural levels,
+                                        or a manually triggered rebuild.
+                                        However, constantly moving objects (such as moving platforms) as blocking meshes
+                                        are not supported, nor are blocking rigid bodies.
+                                        Please see <a href="usage.html#runtime" target="_blank">here</a> for more
+                                        details.
                                     </div>
                                 </div><!--//section-block-->
                                 <div id="navarea" class="section-block">
-                                    <h3 class="question"><i class="fas fa-dragon"></i> Navigation Areas and Modifier Volumes</h3>
+                                    <h3 class="question"><i class="fas fa-dragon"></i> Navigation Areas and Modifier
+                                        Volumes</h3>
                                     <div class="answer">
                                         Does not currently support navigation areas or modifier volumes.
-                                        All areas within the octree have the same cost of traversal, however the pathfinding algorithm has various optimisations to bias the result towards larger areas.
-                                        Please see <a href="usage.html#pathfinding" target="_blank">here</a> for more details.
+                                        All areas within the octree have the same cost of traversal, however the
+                                        pathfinding algorithm has various optimisations to bias the result towards
+                                        larger areas.
+                                        Please see <a href="usage.html#pathfinding" target="_blank">here</a> for more
+                                        details.
                                     </div>
                                 </div><!--//section-block-->
                                 <div id="streaming" class="section-block">
                                     <h3 class="question"><i class="fas fa-dragon"></i> Level Streaming</h3>
                                     <div class="answer">
-                                        Does not currently support level streaming, and will load the entirety of the world’s navigation data on level load.
-                                        Due to the compact nature of the data structure, all the navigation data for all streaming levels is held in the Persistent Level.
+                                        Does not currently support level streaming, and will load the entirety of the
+                                        world’s navigation data on level load. Due to the compact nature of the data
+                                        structure, chunking of the octree data structure is not currently implemented.
+                                        However, enabling the <code>Spawn Nav Data in Nav Bounds Level</code> setting in
+                                        Project Settings means different navigation data can be serialised to different
+                                        sublevels and manually loaded as required.
                                     </div>
                                 </div><!--//section-block-->
                                 <div id="performance" class="section-block">
                                     <h3 class="question"><i class="fas fa-dragon"></i> Pathfinding Performance</h3>
                                     <div class="answer">
-                                        3D pathfinding is inherently not as fast as the default 2D navmesh pathfinding (due to the very large search space),
+                                        3D pathfinding is inherently not as fast as the default 2D navmesh pathfinding
+                                        (due to the very large search space),
                                         and therefore finding the absolute shortest path is often not performant.
                                         <br>
-                                        Optimisations to increase speed at the cost of accuracy have been implemented, please see <a href="usage.html#pathfinding" target="_blank">here</a> for more details.
+                                        Optimisations to increase speed at the cost of accuracy have been implemented,
+                                        please see <a href="usage.html#pathfinding" target="_blank">here</a> for more
+                                        details.
                                         <br>
                                         There is also the option of asynchronous pathfinding using the C++ function:
                                         <pre><code class="language-cpp"></code>uint32 FindPathAsync(UNavigationSystemV1* NavSys, const FNavAgentProperties&#x26; AgentProperties, FPathFindingQuery Query, const FNavPathQueryDelegate&#x26; ResultDelegate, EPathFindingMode::Type Mode = EPathFindingMode::Regular);</pre>
-                                        in <code>UFlyingNavFunctionLibrary</code>. From Blueprints you can use the <code>Find Path To Actor/Location Asynchronously</code> nodes.
+                                        in <code>UFlyingNavFunctionLibrary</code>. From Blueprints you can use the
+                                        <code>Find Path To Actor/Location Asynchronously</code> nodes.
                                         <br><br>
-                                        Please Note: when using flying navigation, do not use the default <code>UNavigationSystemV1::FindPathAsync</code>, as it can cause a crash on PIE exit.
+                                        Please Note: when using flying navigation, do not use the default
+                                        <code>UNavigationSystemV1::FindPathAsync</code>, as it can cause a crash on PIE
+                                        exit.
                                         <br><br>
-                                        At the present time, the behaviour tree task <code>MoveTo</code> performs pathfinding synchronously, so optimisations are recommended for complex scenes if you are using behaviour trees.
+                                        At the present time, the behaviour tree task <code>MoveTo</code> performs
+                                        pathfinding synchronously, so optimisations are recommended for complex scenes
+                                        if you are using behaviour trees.
                                     </div>
                                 </div><!--//section-block-->
                                 <div id="viewport-performance" class="section-block">
                                     <h3 class="question"><i class="fas fa-dragon"></i> Viewport Drawing Performance</h3>
                                     <div class="answer">
                                         The octree drawing code is designed to be very performant in the viewport.
-                                        The octree nodes do not use the <code>DebugDraw</code> functions and will therefore scale very well.
+                                        The octree nodes do not use the <code>DebugDraw</code> functions and will
+                                        therefore scale very well.
                                         <br><br>
-                                        However, the neighbour connection drawing does use <code>DebugDraw</code> functions, and should not be used for high resolution octrees.<br>
-                                        Also, the visualisation gathering step (copying data from the navigation data to the rendering thread) will block the main thread,
-                                        and runs whenever a navigation data option is modified. This means that changing options will lag slightly,
-                                        depending on the currently built resolution. It's recommended to build on a lower resolution to change options, or clearing and rebuilding the navigation data.
+                                        However, the neighbour connection drawing does use <code>DebugDraw</code>
+                                        functions, and should not be used for high resolution octrees.<br>
+                                        Also, the visualisation gathering step (copying data from the navigation data to
+                                        the rendering thread) will block the main thread,
+                                        and runs whenever a navigation data option is modified. This means that changing
+                                        options will lag slightly,
+                                        depending on the currently built resolution. It's recommended to build on a
+                                        lower resolution to change options, or clearing and rebuilding the navigation
+                                        data.
                                     </div>
                                 </div><!--//section-block-->
                                 <div id="octree" class="section-block">
                                     <h3 class="question"><i class="fas fa-dragon"></i> One Octree per Level</h3>
                                     <div class="answer">
                                         Can only generate <i>one</i> octree per world per agent.
-                                        Can be optimised by only placing navigation volumes around where your meshes are, as only the meshes in volumes will be taken into account.
-                                        However, you can generate octrees in different places by defining multiple agent types in project settings.
+                                        Can be optimised by only placing navigation volumes around where your meshes
+                                        are, as only the meshes in volumes will be taken into account.
+                                        However, you can generate octrees in different places by defining multiple agent
+                                        types in project settings.
+                                        By creaing differently named blank subclasses of
+                                        <code>AFlyingNavigationData</code> in C++ (one per agent type), the requirement
+                                        for different agent radii and heights can be mitigated.
                                     </div>
                                 </div><!--//section-block-->
                                 <br>
-                                <a href="https://github.com/BlenderSleuth/FlyingNavSystemSupport/issues" class="btn btn-blue btn-cta" target="_blank">
+                                <a href="https://github.com/BlenderSleuth/FlyingNavSystemSupport/issues"
+                                    class="btn btn-blue btn-cta" target="_blank">
                                     <i class="fas fa-dna fa-lg"></i> Request a feature on GitHub
                                 </a>
                             </section><!--//doc-section-->
@@ -149,39 +185,61 @@
                                 <div id="actor-not-moving" class="section-block">
                                     <h3 class="question"><i class="fas fa-bolt"></i>&nbsp; My Actor Isn't Moving!</h3>
                                     <div class="answer">
-                                        There are quite a few things that could lead to an AI actor being non-responsive. Listed are the most common reasons, if these don't work please open an issue on GitHub.
+                                        There are quite a few things that could lead to an AI actor being
+                                        non-responsive. Listed are the most common reasons, if these don't work please
+                                        open an issue on GitHub.
                                         <ol class="list">
-                                            <li>A FlyingNavigationData actor is required, which should be automatically spawned in the level (see below).</li>
-                                            <li>If an invalid default agent is selected in Project Settings, pathfinding can fail.
+                                            <li>A FlyingNavigationData actor is required, which should be automatically
+                                                spawned in the level (see below).</li>
+                                            <li>If an invalid default agent is selected in Project Settings, pathfinding
+                                                can fail.
                                                 <div class="screenshot-holder">
-                                                    <a href="assets/images/troubleshooting0.png" data-toggle="lightbox" data-title="World Settings/World/Navigation System Config/Default Agent Name">
-                                                        <img class="img-fluid" src="assets/images/troubleshooting0.png" alt="World Settings/World/Navigation System Config/Default Agent Name"/>
+                                                    <a href="assets/images/troubleshooting0.png" data-toggle="lightbox"
+                                                        data-title="World Settings/World/Navigation System Config/Default Agent Name">
+                                                        <img class="img-fluid" src="assets/images/troubleshooting0.png"
+                                                            alt="World Settings/World/Navigation System Config/Default Agent Name" />
                                                     </a>
                                                 </div> <!--//screenshot-holder-->
                                             </li>
                                             <li>
                                                 The AI controller needs to be requested to move.
-                                                Using <code>MoveTo</code> or a behaviour tree does this for you, but for the <code>FindPath*</code> nodes you need to use the <a href="usage.html#request-move" target="_blank">Request Move</a> node.
+                                                Using <code>MoveTo</code> or a behaviour tree does this for you, but for
+                                                the <code>FindPath*</code> nodes you need to use the <a
+                                                    href="usage.html#request-move" target="_blank">Request Move</a>
+                                                node.
                                             </li>
                                             <li>
-                                                The PathFollowingComponent of the AIController might be a CrowdFollowingComponent. Make sure you're not using a DetourAICrowdController. <br>
-                                                The CrowdSystem is currently not supported for flying agents (as it requires specific features of the navmesh).
+                                                The PathFollowingComponent of the AIController might be a
+                                                CrowdFollowingComponent. Make sure you're not using a
+                                                DetourAICrowdController. <br>
+                                                The CrowdSystem is currently not supported for flying agents (as it
+                                                requires specific features of the navmesh).
                                             </li>
                                         </ol>
                                     </div>
                                 </div><!--//section-block-->
                                 <div id="not-spawning" class="section-block">
-                                    <h3 class="question"><i class="fas fa-bolt"></i>&nbsp; FlyingNavigationData Actor Not Spawning</h3>
+                                    <h3 class="question"><i class="fas fa-bolt"></i>&nbsp; FlyingNavigationData Actor
+                                        Not Spawning</h3>
                                     <div class="answer">
-                                        In order for pathfinding queries to work, a FlyingNavigationData actor needs to spawn in the world. <br>
+                                        In order for pathfinding queries to work, a FlyingNavigationData actor needs to
+                                        spawn in the world. <br>
                                         This will occur if you have done the following:
                                         <ol class="list">
-                                            <li>Created an agent in Project Settings with <code>Preferred Nav Data</code> set to <code>Flying Navigation Data</code>.</li>
+                                            <li>Created an agent in Project Settings with
+                                                <code>Preferred Nav Data</code> set to
+                                                <code>Flying Navigation Data</code>.
+                                            </li>
                                             <li>
-                                                Checked your agent is supported under <code>Supported Agents Mask</code>, in both Project Settings and World Settings (under <code>World/Navigation System Config/Supported Agents Mask</code>)
+                                                Checked your agent is supported under
+                                                <code>Supported Agents Mask</code>, in both Project Settings and World
+                                                Settings (under
+                                                <code>World/Navigation System Config/Supported Agents Mask</code>)
                                                 <div class="screenshot-holder">
-                                                    <a href="assets/images/troubleshooting1.png" data-toggle="lightbox" data-title="World Settings/World/Navigation System Config/Supported Agents Mask">
-                                                        <img class="img-fluid" src="assets/images/troubleshooting1.png" alt="World Settings/World/Navigation System Config/Supported Agents Mask"/>
+                                                    <a href="assets/images/troubleshooting1.png" data-toggle="lightbox"
+                                                        data-title="World Settings/World/Navigation System Config/Supported Agents Mask">
+                                                        <img class="img-fluid" src="assets/images/troubleshooting1.png"
+                                                            alt="World Settings/World/Navigation System Config/Supported Agents Mask" />
                                                     </a>
                                                 </div> <!--//screenshot-holder-->
                                             </li>
@@ -191,115 +249,166 @@
                                     </div>
                                 </div><!--//section-block-->
                                 <div id="blocking-mesh" class="section-block">
-                                    <h3 class="question"><i class="fas fa-bolt"></i>&nbsp; Mesh is Blocking and Shouldn’t Be / Non-blocking and Should Be</h3>
+                                    <h3 class="question"><i class="fas fa-bolt"></i>&nbsp; Mesh is Blocking and
+                                        Shouldn’t Be / Non-blocking and Should Be</h3>
                                     <div class="answer">
-                                        <p>There are 3 options which affect a mesh's blocking status. In order for a mesh to be blocking, it must have these options:</p>
+                                        <p>There are 3 options which affect a mesh's blocking status. In order for a
+                                            mesh to be blocking, it must have these options:</p>
                                         <ol class="list">
                                             <li><code>Collision/Can Ever Affect Navigation = true</code></li>
                                             <li><code>Physics/Simulate Physics = false</code></li>
                                             <li>
-                                                <code>Navigation/Is Dynamic Obstacle = false</code> in the Static Mesh <i>asset</i> settings.
+                                                <code>Navigation/Is Dynamic Obstacle = false</code> in the Static Mesh
+                                                <i>asset</i> settings.
                                                 <div class="screenshot-holder">
                                                     <a href="assets/images/troubleshooting2.png" data-toggle="lightbox">
-                                                        <img class="img-fluid" src="assets/images/troubleshooting2.png" alt="Navigation/Is Dynamic Obstacle in static mesh asset settings"/>
+                                                        <img class="img-fluid" src="assets/images/troubleshooting2.png"
+                                                            alt="Navigation/Is Dynamic Obstacle in static mesh asset settings" />
                                                     </a>
                                                 </div> <!--//screenshot-holder-->
                                             </li>
                                         </ol>
                                         <p>
-                                            Conversely, toggling any of these settings will make the mesh non-blocking. <br>
-                                            In most cases the best option is setting <code>Collision/Can Ever Affect Navigation = false</code> on the Static Mesh spawned or placed in a level.
-                                            The <code>Is Dynamic Obstacle</code> option impacts all instances of that Static Mesh, and so could be useful for always non-blocking meshes.
-                                            And obviously <code>Simulate Physics = true</code> is a simulated rigid body. <br>
-                                            A reload may be required before building the navigation for the changes to take effect.
+                                            Conversely, toggling any of these settings will make the mesh non-blocking.
+                                            <br>
+                                            In most cases the best option is setting
+                                            <code>Collision/Can Ever Affect Navigation = false</code> on the Static Mesh
+                                            spawned or placed in a level.
+                                            The <code>Is Dynamic Obstacle</code> option impacts all instances of that
+                                            Static Mesh, and so could be useful for always non-blocking meshes.
+                                            And obviously <code>Simulate Physics = true</code> is a simulated rigid
+                                            body. <br>
+                                            A reload may be required before building the navigation for the changes to
+                                            take effect.
                                         </p>
                                     </div>
                                 </div><!--//section-block-->
                                 <div id="nodeindex" class="section-block">
-                                    <h3 class="question"><i class="fas fa-bolt"></i>&nbsp; Unreal Engine crash with <code>Assertion failed: InNodeIndex < (1 << 22)</code></h3>
+                                    <h3 class="question"><i class="fas fa-bolt"></i>&nbsp; Unreal Engine crash with
+                                        <code>Assertion failed: InNodeIndex < (1 << 22)</code>
+                                    </h3>
                                     <div class="answer">
                                         <p>
-                                            This means you have pushed the Max Detail Size too far, and the node index parameter has overflowed.
-                                            To fit nodes compactly, unique identifiers need to fit into a 32 bit integer,
+                                            This means you have pushed the Max Detail Size too far, and the node index
+                                            parameter has overflowed.
+                                            To fit nodes compactly, unique identifiers need to fit into a 32 bit
+                                            integer,
                                             22 bits of which are reserved for the node index in a given layer.
-                                            The number of nodes in a layer has exceeded <code>2^22 = 4,194,304</code>, and you should really increase that Max Detail Size.
-                                            We can pretty much guarantee that you don't need it that low, but if you think you do open an issue on <a href="https://github.com/BlenderSleuth/FlyingNavSystemSupport/issues" target="_blank">GitHub</a> and we'll see what we can do.
+                                            The number of nodes in a layer has exceeded <code>2^22 = 4,194,304</code>,
+                                            and you should really increase that Max Detail Size.
+                                            We can pretty much guarantee that you don't need it that low, but if you
+                                            think you do open an issue on <a
+                                                href="https://github.com/BlenderSleuth/FlyingNavSystemSupport/issues"
+                                                target="_blank">GitHub</a> and we'll see what we can do.
                                         </p>
                                     </div>
                                 </div><!--//section-block-->
                                 <div id="linking-error" class="section-block">
-                                    <h3 class="question"><i class="fas fa-bolt"></i>&nbsp; Cannot open include file: '*.h': No such file or directory | A verbose and unhelpful linking error such as:</h3>
+                                    <h3 class="question"><i class="fas fa-bolt"></i>&nbsp; Cannot open include file:
+                                        '*.h': No such file or directory | A verbose and unhelpful linking error such
+                                        as:</h3>
                                     <pre><code class="language-git">unresolved external symbol &#x22;__declspec(dllimport) public: bool __cdecl FSVOLink::IsValid(void)const &#x22; (__imp_?IsValid@FSVOLink@@QEBA_NXZ) referenced in function &#x22;public: enum ENavigationQueryResult::Type __cdecl FSVOPathfindingGraph::FindPath(struct FVector const &#x26;,struct FVector const &#x26;,struct FSVOQuerySettings const &#x26;,class TArray&#x3C;struct FNavPathPoint,class TSizedDefaultAllocator&#x3C;32&#x3E; &#x3E; &#x26;,bool &#x26;)&#x22; (?FindPath@FSVOPathfindingGraph@@QEAA?AW4Type@ENavigationQueryResult@@AEBUFVector@@0AEBUFSVOQuerySettings@@AEAV?$TArray@UFNavPathPoint@@V?$TSizedDefaultAllocator@$0CA@@@@@AEA_N@Z)</code></pre>
                                     <br>
                                     <div class="answer">
                                         <p>
-                                            If you wish to access the plugin C++ API, you will need to link against <code>FlyingNavSystem</code>. You will also need to link against the <code>NavigationSystem</code> module if you call parts of the built in Navigation System.<br>
+                                            If you wish to access the plugin C++ API, you will need to link against
+                                            <code>FlyingNavSystem</code>. You will also need to link against the
+                                            <code>NavigationSystem</code> module if you call parts of the built in
+                                            Navigation System.<br>
                                             In your project <code>.Build.cs</code> file, you should have:
                                         </p>
                                         <pre><code class="language-c#">PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "NavigationSystem", "FlyingNavSystem"});</code></pre>
                                         <p>
-                                            For example, in the benchmark project I use <code>FNavigationQueryFilter</code> to perform a path query, which requires linking to <code>NavigationSystem</code>.
+                                            For example, in the benchmark project I use
+                                            <code>FNavigationQueryFilter</code> to perform a path query, which requires
+                                            linking to <code>NavigationSystem</code>.
                                         </p>
                                     </div>
                                 </div><!--//section-block-->
                                 <div id="goal-blocked" class="section-block">
-                                    <h3 class="question"><i class="fas fa-bolt"></i>&nbsp; Goal Location in Blocked Volume when using a Pawn as a Pathfinding Goal</h3>
+                                    <h3 class="question"><i class="fas fa-bolt"></i>&nbsp; Goal Location in Blocked
+                                        Volume when using a Pawn as a Pathfinding Goal</h3>
                                     <div class="answer">
                                         <p>
-                                            When using a Pawn as a pathfinding goal, it is a good idea to set the <code>Base Eye Height</code> to zero.
-                                            Otherwise, the pathfinding algorithm will use the bottom (or ‘feet’) of the Pawn as the goal location, rather than the centre.
+                                            When using a Pawn as a pathfinding goal, it is a good idea to set the
+                                            <code>Base Eye Height</code> to zero.
+                                            Otherwise, the pathfinding algorithm will use the bottom (or ‘feet’) of the
+                                            Pawn as the goal location, rather than the centre.
                                             The feet are more likely to be inside a blocked area. <br>
-                                            <b>Note:</b> This does not apply to Characters, which unfortunately uses a hardcoded <code>CapsuleComponent->Bounds.BoxExtent.Z</code> offset for the feet.
+                                            <b>Note:</b> This does not apply to Characters, which unfortunately uses a
+                                            hardcoded <code>CapsuleComponent->Bounds.BoxExtent.Z</code> offset for the
+                                            feet.
                                         </p>
                                     </div>
                                 </div><!--//section-block-->
                                 <div id="sphere" class="section-block">
-                                    <h3 class="question"><i class="fas fa-bolt"></i>&nbsp; Sphere Meshes Poke out of the Voxels</h3>
+                                    <h3 class="question"><i class="fas fa-bolt"></i>&nbsp; Sphere Meshes Poke out of the
+                                        Voxels</h3>
                                     <div class="answer">
                                         <p>
-                                            Using a sphere primitive as the simple collision on a mesh can sometimes be inaccurate, as the builtin geometry gathering code converts it to a low-res triangle approximation.
-                                            This can mean bits of spheres poke out of the voxels, but this can be rectified with the <code>Use Agent Radius</code> checkbox under the advanced <code>Generation</code> options.
+                                            Using a sphere primitive as the simple collision on a mesh can sometimes be
+                                            inaccurate, as the builtin geometry gathering code converts it to a low-res
+                                            triangle approximation.
+                                            This can mean bits of spheres poke out of the voxels, but this can be
+                                            rectified with the <code>Use Agent Radius</code> checkbox under the advanced
+                                            <code>Generation</code> options.
                                         </p>
                                         <div class="screenshot-holder">
                                             <a href="assets/images/troubleshooting3.png" data-toggle="lightbox">
-                                                <img class="img-fluid" src="assets/images/troubleshooting3.png" alt="Navigation/Is Dynamic Obstacle in static mesh asset settings"/>
+                                                <img class="img-fluid" src="assets/images/troubleshooting3.png"
+                                                    alt="Navigation/Is Dynamic Obstacle in static mesh asset settings" />
                                             </a>
                                         </div> <!--//screenshot-holder-->
                                     </div>
                                 </div><!--//section-block-->
                                 <div id="getnavdata" class="section-block">
-                                    <h3 class="question"><i class="fas fa-bolt"></i>&nbsp; FNavigationSystem::GetNavDataForActor(AActor) returns <code>nullptr</code></h3>
+                                    <h3 class="question"><i class="fas fa-bolt"></i>&nbsp;
+                                        FNavigationSystem::GetNavDataForActor(AActor) returns <code>nullptr</code></h3>
                                     <div class="answer">
                                         <p>
-                                            <code>FNavigationSystem::GetNavDataForActor(AActor)</code> and <code>UCharacterMovementComponent::GetNavData()</code> will not return a <code>AFlyingNavigationData</code> in 4.24, as it casts to <code>ARecastNavMesh</code>.<br>
+                                            <code>FNavigationSystem::GetNavDataForActor(AActor)</code> and
+                                            <code>UCharacterMovementComponent::GetNavData()</code> will not return a
+                                            <code>AFlyingNavigationData</code> in 4.24, as it casts to
+                                            <code>ARecastNavMesh</code>.<br>
                                             <b>Note:</b> Fixed in 4.25 and up.
                                         </p>
                                     </div>
                                 </div><!--//section-block-->
                                 <div id="lazygeometry" class="section-block">
-                                    <h3 class="question"><i class="fas fa-bolt"></i>&nbsp; Some octants of the bounds are not rasterised properly (landscapes)</h3>
+                                    <h3 class="question"><i class="fas fa-bolt"></i>&nbsp; Some octants of the bounds
+                                        are not rasterised properly (landscapes)</h3>
                                     <div class="answer">
                                         <div class="screenshot-holder">
                                             <a href="assets/images/troubleshooting4.png" data-toggle="lightbox">
-                                                <img class="img-fluid" src="assets/images/troubleshooting4.png" alt="Data gathering settings"/>
+                                                <img class="img-fluid" src="assets/images/troubleshooting4.png"
+                                                    alt="Data gathering settings" />
                                             </a>
                                         </div> <!--//screenshot-holder-->
                                         <p>
-                                            If "Data Gathering Mode" is set to "Lazy" and "Generate Navigation Only Around Navigation Invokers" is turned on, the landscape geometry is not available on every thread.
-                                            Therefore, only some octants have access to that data. The current workaround is to set Data Gathering Mode to "Instant" and reload the level.
-                                            This only needs to be done at build time, so it can be changed back to "Lazy" for production.
+                                            If "Data Gathering Mode" is set to "Lazy" and "Generate Navigation Only
+                                            Around Navigation Invokers" is turned on, the landscape geometry is not
+                                            available on every thread.
+                                            Therefore, only some octants have access to that data. The current
+                                            workaround is to set Data Gathering Mode to "Instant" and reload the level.
+                                            This only needs to be done at build time, so it can be changed back to
+                                            "Lazy" for production.
                                         </p>
                                         <div class="screenshot-holder">
                                             <a href="assets/images/troubleshooting5.png" data-toggle="lightbox">
-                                                <img class="img-fluid" src="assets/images/troubleshooting5.png" alt="Data gathering settings"/>
+                                                <img class="img-fluid" src="assets/images/troubleshooting5.png"
+                                                    alt="Data gathering settings" />
                                             </a>
                                         </div> <!--//screenshot-holder-->
                                     </div>
                                 </div><!--//section-block-->
                                 <br>
-                                <p>If you're still having problems, please don't hesitate to open an issue on <a href="https://github.com/BlenderSleuth/FlyingNavSystemSupport/issues" target="_blank">GitHub</a> or have a chat on the <a href="https://discord.gg/hcJVQKCzNQ" target="_blank">Discord</a>.</p>
+                                <p>If you're still having problems, please don't hesitate to open an issue on <a
+                                        href="https://github.com/BlenderSleuth/FlyingNavSystemSupport/issues"
+                                        target="_blank">GitHub</a> or have a chat on the <a
+                                        href="https://discord.gg/hcJVQKCzNQ" target="_blank">Discord</a>.</p>
                                 <br>
-                                <a href="https://github.com/BlenderSleuth/FlyingNavSystemSupport/issues" class="btn btn-orange btn-cta" target="_blank">
+                                <a href="https://github.com/BlenderSleuth/FlyingNavSystemSupport/issues"
+                                    class="btn btn-orange btn-cta" target="_blank">
                                     <i class="fas fa-bug fa-lg"></i> Report a bug on GitHub
                                 </a>
                             </section><!--//doc-section-->
@@ -313,7 +422,8 @@
                                 <nav class="doc-sub-menu nav flex-column">
                                     <a class="nav-link scrollto" href="#ai-implementation">AI Implementation</a>
                                     <a class="nav-link scrollto" href="#runtime">Runtime Generation</a>
-                                    <a class="nav-link scrollto" href="#navarea">Navigation Areas and Modifier Volumes</a>
+                                    <a class="nav-link scrollto" href="#navarea">Navigation Areas and Modifier
+                                        Volumes</a>
                                     <a class="nav-link scrollto" href="#streaming">Level Streaming</a>
                                     <a class="nav-link scrollto" href="#performance">Pathfinding Performance</a>
                                     <a class="nav-link scrollto" href="#viewport-performance">Viewport Performance</a>
@@ -322,42 +432,48 @@
                                 <a class="nav-link scrollto" href="#troubleshooting">Troubleshooting</a>
                                 <nav class="doc-sub-menu nav flex-column">
                                     <a class="nav-link scrollto" href="#actor-not-moving">My Actor Isn't Moving!</a>
-                                    <a class="nav-link scrollto" href="#not-spawning">FlyingNavigationData Actor Not Spawning</a>
+                                    <a class="nav-link scrollto" href="#not-spawning">FlyingNavigationData Actor Not
+                                        Spawning</a>
                                     <a class="nav-link scrollto" href="#blocking-mesh">Mesh Blocking Settings</a>
-                                    <a class="nav-link scrollto" href="#nodeindex">Assertion failed: InNodeIndex < (1 << 22)</a>
-                                    <a class="nav-link scrollto" href="#linking-error">Include/Linking Errors</a>
-                                    <a class="nav-link scrollto" href="#goal-blocked">Goal Location Blocked</a>
-                                    <a class="nav-link scrollto" href="#sphere">Sphere Meshes</a>
-                                    <a class="nav-link scrollto" href="#getnavdata">GetNavDataForActor() returns nullptr</a>
-                                    <a class="nav-link scrollto" href="#lazygeometry">Some octants not rasterised properly</a>
+                                    <a class="nav-link scrollto" href="#nodeindex">Assertion failed: InNodeIndex < (1 <<
+                                            22)</a>
+                                            <a class="nav-link scrollto" href="#linking-error">Include/Linking
+                                                Errors</a>
+                                            <a class="nav-link scrollto" href="#goal-blocked">Goal Location Blocked</a>
+                                            <a class="nav-link scrollto" href="#sphere">Sphere Meshes</a>
+                                            <a class="nav-link scrollto" href="#getnavdata">GetNavDataForActor() returns
+                                                nullptr</a>
+                                            <a class="nav-link scrollto" href="#lazygeometry">Some octants not
+                                                rasterised properly</a>
                                 </nav><!--//nav-->
                             </nav><!--//doc-menu-->
                         </div>
                     </div><!--//doc-sidebar-->
-                </div><!--//doc-body-->              
+                </div><!--//doc-body-->
             </div><!--//container-->
         </div><!--//doc-wrapper-->
-        
+
     </div><!--//page-wrapper-->
-    
+
     <footer id="footer" class="footer text-center">
         <div class="container">
             <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
-            <small class="copyright">Designed with <i class="fas fa-heart"></i> by <a href="https://themes.3rdwavemedia.com/" target="_blank">Xiaoying Riley</a> for developers</small>
-            
+            <small class="copyright">Designed with <i class="fas fa-heart"></i> by <a
+                    href="https://themes.3rdwavemedia.com/" target="_blank">Xiaoying Riley</a> for developers</small>
+
         </div><!--//container-->
     </footer><!--//footer-->
-    
-     
-    <!-- Main Javascript -->          
+
+
+    <!-- Main Javascript -->
     <script type="text/javascript" src="assets/plugins/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>    
-    <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>  
-    <script type="text/javascript" src="assets/plugins/lightbox/dist/ekko-lightbox.min.js"></script>   
-    <script type="text/javascript" src="assets/plugins/stickyfill/dist/stickyfill.min.js"></script>                                                                
+    <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/lightbox/dist/ekko-lightbox.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/stickyfill/dist/stickyfill.min.js"></script>
     <script type="text/javascript" src="assets/js/main.js"></script>
-    
-</body>
-</html> 
 
+</body>
+
+</html>
