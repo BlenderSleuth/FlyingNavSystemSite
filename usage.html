@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Flying Navigation System Docs</title>
     <!-- Meta -->
@@ -7,22 +8,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author" content="">    
-    <link rel="shortcut icon" href="favicon.ico">  
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link
+        href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+        rel='stylesheet' type='text/css'>
     <!-- FontAwesome JS -->
     <script defer src="assets/fontawesome/js/all.js"></script>
     <!-- Global CSS -->
-    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">   
-    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->
     <link rel="stylesheet" href="assets/plugins/prism/prism.css">
     <link rel="stylesheet" href="assets/plugins/lightbox/dist/ekko-lightbox.css">
     <link rel="stylesheet" href="assets/plugins/elegant_font/css/style.css">
 
     <!-- Theme CSS -->
     <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
-    
-</head> 
+
+</head>
 
 <body class="body-pink">
     <div class="page-wrapper">
@@ -47,76 +50,110 @@
             <div class="container">
                 <div id="doc-header" class="doc-header text-center">
                     <h1 class="doc-title"><span aria-hidden="true" class="icon icon_puzzle_alt"></span> Usage</h1>
-                    <div class="meta"><i class="far fa-clock"></i> Last updated: July 23rd, 2022</div>
+                    <div class="meta"><i class="far fa-clock"></i> Last updated: April 28rd, 2024</div>
                 </div><!--//doc-header-->
-                <div class="doc-body row" >
+                <div class="doc-body row">
                     <div class="doc-content col-md-9 col-12 order-1">
                         <div class="content-inner">
                             <section id="terminology" class="doc-section">
                                 <h2 class="section-title">Terminology</h2>
-                                
+
                                 <div id="recast" class="section-block">
                                     <h4>Recast</h4>
                                     <p>
-                                        <a href="https://github.com/recastnavigation/recastnavigation" target="_blank">Recast</a> is a third-party library for automatic navmesh generation, distributed with Unreal Engine. 
-                                        This is the normal navigation you would be familiar with for NavWalking characters.
+                                        <a href="https://github.com/recastnavigation/recastnavigation"
+                                            target="_blank">Recast</a> is a third-party library for automatic navmesh
+                                        generation, distributed with Unreal Engine.
+                                        This is the normal navigation you would be familiar with for NavWalking
+                                        characters.
                                     </p>
                                 </div><!--//section-block-->
                                 <div id="UNavigationSystem" class="section-block">
                                     <h4>UNavigationSystem</h4>
                                     <p>
-                                        A singleton class owned by the <code>World</code> which handles all navigation queries and building requests, delegating to the relevant <code>NavigationData</code> actor. 
+                                        A singleton class owned by the <code>World</code> which handles all navigation
+                                        queries and building requests, delegating to the relevant
+                                        <code>NavigationData</code> actor.
                                         It is implementation agnostic.
                                     </p>
                                 </div><!--//section-block-->
                                 <div id="ANavigationData" class="section-block">
                                     <h4>ANavigationData</h4>
                                     <p>
-                                        This is an actor that is automatically spawned in the world when a <code>NavMeshBoundsVolume</code> is added to the level. 
+                                        This is an actor that is automatically spawned in the world when a
+                                        <code>NavMeshBoundsVolume</code> is added to the level.
                                         This actor contains a specific navigation implementation.
-                                        <code>ARecastNavMesh</code> and <code>AFlyingNavigationData</code> are both subclasses of <code>ANavigationData</code>, where <code>ARecastNavMesh</code> implements Recast pathfinding and <code>AFlyingNavigationData</code> implements a Sparse Voxel Octree for 3D pathfinding.
+                                        <code>ARecastNavMesh</code> and <code>AFlyingNavigationData</code> are both
+                                        subclasses of <code>ANavigationData</code>, where <code>ARecastNavMesh</code>
+                                        implements Recast pathfinding and <code>AFlyingNavigationData</code> implements
+                                        a Sparse Voxel Octree for 3D pathfinding.
                                     </p>
                                 </div><!--//section-block-->
-                                <div id="FNavAgentProperties"class="section-block">
+                                <div id="FNavAgentProperties" class="section-block">
                                     <h4>FNavAgentProperties</h4>
                                     <p>
-                                        Used in <code>Project Settings->Navigation System/Supported Agents</code> and <code>UNavMovementComponent/Movement Capabilities</code>.
-                                        This is a simple struct that defines an agent to the navigation system. 
-                                        It specifies the agent radius, height, step height and most importantly which <code>ANavigationData</code> actor it uses for pathfinding. 
-                                        To use the Flying Navigation System, set <code>PreferredNavData</code> to <code>AFlyingNavigationData</code> in your flying Pawn's movement component.
+                                        Used in <code>Project Settings->Navigation System/Supported Agents</code> and
+                                        <code>UNavMovementComponent/Movement Capabilities</code>.
+                                        This is a simple struct that defines an agent to the navigation system.
+                                        It specifies the agent radius, height, step height and most importantly which
+                                        <code>ANavigationData</code> actor it uses for pathfinding.
+                                        To use the Flying Navigation System, set <code>PreferredNavData</code> to
+                                        <code>AFlyingNavigationData</code> in your flying Pawn's movement component.
                                     </p>
                                     <div class="callout-block callout-info">
                                         <div class="icon-holder">
                                             <i class="fas fa-info-circle"></i>
                                         </div><!--//icon-holder-->
                                         <div class="content">
-                                            <h4 class="callout-title">How the Navigation System chooses a <code>NavigationData</code> for a given pawn</h4>
+                                            <h4 class="callout-title">How the Navigation System chooses a
+                                                <code>NavigationData</code> for a given pawn
+                                            </h4>
                                             <p>
-                                                The pawn must have a MovementComponent derived from <code>UNavMovementComponent</code> in order to be involved in AI pathfinding. 
-                                                This includes <code>UPawnMovementComponent</code>, and therefore <code>UFloatingPawnMovement</code> and <code>UCharacterMovementComponent</code>. 
+                                                The pawn must have a MovementComponent derived from
+                                                <code>UNavMovementComponent</code> in order to be involved in AI
+                                                pathfinding.
+                                                This includes <code>UPawnMovementComponent</code>, and therefore
+                                                <code>UFloatingPawnMovement</code> and
+                                                <code>UCharacterMovementComponent</code>.
                                                 <br>
                                                 <br>
-                                                <code>UNavMovementComponent</code> has a <code>FNavAgentProperties</code> setting called <code>Movement Capabilities</code>, 
-                                                which determines what kind of agent the pawn is. 
-                                                The Radius and Height can be auto-set with the <code>Update Nav Agent With Owners Collision</code> option, but I wouldn't recommend this for reasons detailed below.
+                                                <code>UNavMovementComponent</code> has a
+                                                <code>FNavAgentProperties</code> setting called
+                                                <code>Movement Capabilities</code>,
+                                                which determines what kind of agent the pawn is.
+                                                The Radius and Height can be auto-set with the
+                                                <code>Update Nav Agent With Owners Collision</code> option, but I
+                                                wouldn't recommend this for reasons detailed below.
                                                 <br>
                                                 <br>
-                                                Setting the <code>PreferredNavData</code> to <code>FlyingNavigationData</code> will make sure the pawn uses the Flying Navigation System.
-                                                However, sometimes you will want to build multiple octrees, one for a large radius and one for a small radius. 
-                                                In this case, you would set up multiple agents in Project Settings, each with a different radius and/or height. 
-                                                This will spawn multiple <code>FlyingNavigationData</code> actors in your level, for which you can set different <code>MaxDetailSize</code> etc.
+                                                Setting the <code>PreferredNavData</code> to
+                                                <code>FlyingNavigationData</code> will make sure the pawn uses the
+                                                Flying Navigation System.
+                                                However, sometimes you will want to build multiple octrees, one for a
+                                                large radius and one for a small radius.
+                                                In this case, you would set up multiple agents in Project Settings, each
+                                                with a different radius and/or height.
+                                                This will spawn multiple <code>FlyingNavigationData</code> actors in
+                                                your level, for which you can set different <code>MaxDetailSize</code>
+                                                etc.
                                                 <br>
                                                 <br>
-                                                Now, to choose which <code>FlyingNavigationData</code> to query, the agent calls:
+                                                Now, to choose which <code>FlyingNavigationData</code> to query, the
+                                                agent calls:
                                             </p>
                                             <pre><code class="language-cpp">NavSys->GetNavDataForProps(AgentProps, AsNavAgent->GetNavAgentLocation());</code></pre>
                                             <p>
-                                                This function iterates through the available <code>NavigationData</code> actors to find the one with the closest Radius and Height.
+                                                This function iterates through the available <code>NavigationData</code>
+                                                actors to find the one with the closest Radius and Height.
                                                 <br>
                                                 <br>
-                                                In essence, all this means is that the first priority is <code>PreferredNavData</code>, then <code>AgentRadius</code> and <code>AgentHeight</code>.
-                                                This is why I wouldn't recommend automatically setting the value with the <code>Update Nav Agent With Owners Collision</code> option.
-                                                If you match up the values exactly between Project Settings and <code>Movement Capabilities</code> everything should work as expected.
+                                                In essence, all this means is that the first priority is
+                                                <code>PreferredNavData</code>, then <code>AgentRadius</code> and
+                                                <code>AgentHeight</code>.
+                                                This is why I wouldn't recommend automatically setting the value with
+                                                the <code>Update Nav Agent With Owners Collision</code> option.
+                                                If you match up the values exactly between Project Settings and
+                                                <code>Movement Capabilities</code> everything should work as expected.
                                             </p>
                                         </div><!--//content-->
                                     </div><!--//callout-block-->
@@ -124,61 +161,108 @@
                                 <div id="Octree" class="section-block">
                                     <h4>Octree</h4>
                                     <p>
-                                        A data structure which partitions a 3D space by recursively subdividing a cube into eight subcubes. Each node as 0 or 8 children.
-                                        A Sparse Voxel Octree (SVO) is an octree which is designed to have most of its volume empty. 
-                                        Storage space and computation time are concentrated in the detailed areas, and not wasted in large open spaces.
+                                        A data structure which partitions a 3D space by recursively subdividing a cube
+                                        into eight subcubes. Each node as 0 or 8 children.
+                                        A Sparse Voxel Octree (SVO) is an octree which is designed to have most of its
+                                        volume empty.
+                                        Storage space and computation time are concentrated in the detailed areas, and
+                                        not wasted in large open spaces.
                                     </p>
                                     <div class="text-center">
-                                        <a title="WhiteTimberwolf, PNG version: Nü, CC BY-SA 3.0 &lt;http://creativecommons.org/licenses/by-sa/3.0/&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Octree2.svg" target="_blank">
-                                            <img class="img-fluid" alt="Octree2" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Octree2.svg/512px-Octree2.svg.png">
+                                        <a title="WhiteTimberwolf, PNG version: Nü, CC BY-SA 3.0 &lt;http://creativecommons.org/licenses/by-sa/3.0/&gt;, via Wikimedia Commons"
+                                            href="https://commons.wikimedia.org/wiki/File:Octree2.svg" target="_blank">
+                                            <img class="img-fluid" alt="Octree2"
+                                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Octree2.svg/512px-Octree2.svg.png">
                                         </a>
                                     </div>
                                 </div><!--//section-block-->
                                 <div id="nodes" class="section-block">
                                     <h4>Nodes and SubNodes</h4>
                                     <p>
-                                        A node of the octree is one of those subdivisions in the diagram above. 
-                                        It’s easiest to visualise it as a node of the tree on the right. 
-                                        For memory efficiency, the Flying Navigation System also has SubNodes, due to the way it stores the smallest voxels. 
-                                        Each ‘Leaf node’ is actually a 4x4x4 voxel grid of SubNodes, stored in a 64-bit integer. 
+                                        A node of the octree is one of those subdivisions in the diagram above.
+                                        It’s easiest to visualise it as a node of the tree on the right.
+                                        For memory efficiency, the Flying Navigation System also has SubNodes, due to
+                                        the way it stores the smallest voxels.
+                                        Each ‘Leaf node’ is actually a 4x4x4 voxel grid of SubNodes, stored in a 64-bit
+                                        integer.
                                         As such, each SubNode uses 1 bit of space.
-                                        <code>Actual Voxel Size</code> in the <code>FlyingNavigationData</code> properties refers to the size of these SubNodes. 
-                                        For more details on how this works, please see <a href="http://www.gameaipro.com/GameAIPro3/GameAIPro3_Chapter21_3D_Flight_Navigation_Using_Sparse_Voxel_Octrees.pdf" target="_blank">3D Flight Navigation Using Sparse Voxel Octrees</a> by Daniel Brewer.
+                                        <code>Actual Voxel Size</code> in the <code>FlyingNavigationData</code>
+                                        properties refers to the size of these SubNodes.
+                                        For more details on how this works, please see <a
+                                            href="http://www.gameaipro.com/GameAIPro3/GameAIPro3_Chapter21_3D_Flight_Navigation_Using_Sparse_Voxel_Octrees.pdf"
+                                            target="_blank">3D Flight Navigation Using Sparse Voxel Octrees</a> by
+                                        Daniel Brewer.
                                     </p>
                                 </div><!--//section-block-->
                                 <div id="NavigationOctree" class="section-block">
                                     <h4>NavigationOctree</h4>
                                     <p>
-                                        It is important to note that the <code>NavigationOctree</code> specifically is not the SVO of the Flying Navigation System. 
-                                        The <code>NavigationOctree</code> is a UE4 default octree structure owned by the <code>NavigationSystem</code>, which stores the world geometry in an efficient manner. 
+                                        It is important to note that the <code>NavigationOctree</code> specifically is
+                                        not the SVO of the Flying Navigation System.
+                                        The <code>NavigationOctree</code> is a UE4 default octree structure owned by the
+                                        <code>NavigationSystem</code>, which stores the world geometry in an efficient
+                                        manner.
                                     </p>
                                 </div><!--//section-block-->
                                 <div id="rasterization" class="section-block">
                                     <h4>Rasterization (or Rasterisation)</h4>
                                     <p>
-                                        In general, a process that converts a perfect mathematical representation (such as an SVG image) of something into a regular grid (such as a bitmap image). 
-                                        In video games this usually refers to converting a scene into screen pixels, but in the Flying Navigation System rasterisation is the step in building the octree in which voxels are tested against the world geometry to check if they intersect.
-                                        The building process creates a version of the scene made entirely of voxels ("Volumetric Pixels").
+                                        In general, a process that converts a perfect mathematical representation (such
+                                        as an SVG image) of something into a regular grid (such as a bitmap image).
+                                        In video games this usually refers to converting a scene into screen pixels, but
+                                        in the Flying Navigation System rasterisation is the step in building the octree
+                                        in which voxels are tested against the world geometry to check if they
+                                        intersect.
+                                        The building process creates a version of the scene made entirely of voxels
+                                        ("Volumetric Pixels").
                                     </p>
                                 </div><!--//section-block-->
                                 <div id="async" class="section-block">
                                     <h4>Async Processes</h4>
                                     <p>
-                                        Most of the code we write for video games is run synchronously, which means its designed to run in the same process as the <code>Tick</code> function.
-                                        If this code takes longer than a frame, then the framerate of the entire game drops.
-                                        Asynchronous processes do not block the frame rate if they take too long, and therefore can be used for intensive processes and calculated in the background.
-                                        All Octree building processes are asynchronous except for the visualisation. Disabling <code>Allow Drawing in Game World</code> will make sure there will be no drop in frame rate from dynamic rebuilding.
+                                        Most of the code we write for video games is run synchronously, which means its
+                                        designed to run in the same process as the <code>Tick</code> function.
+                                        If this code takes longer than a frame, then the framerate of the entire game
+                                        drops.
+                                        Asynchronous processes do not block the frame rate if they take too long, and
+                                        therefore can be used for intensive processes and calculated in the background.
+                                        All Octree building processes are asynchronous except for the visualisation.
+                                        Disabling <code>Allow Drawing in Game World</code> will make sure there will be
+                                        no drop in frame rate from dynamic rebuilding.
                                         <br><br>
-                                        Pathfinding operations from <code>AI Move To</code>, <code>Find Path To Actor/Location Synchronously</code> and behaviour trees are all run on the main thread, and can cause frame rate drops with large scenes.
-                                        <code>Find Path To Actor/Location Asynchronously</code> along with the <code>Request Move</code> node perform pathfinding in the background, this is the recommended approach for scenes with many octree layers (Subdivisions > 7).
+                                        Pathfinding operations from <code>AI Move To</code>,
+                                        <code>Find Path To Actor/Location Synchronously</code> and behaviour trees are
+                                        all run on the main thread, and can cause frame rate drops with large scenes.
+                                        <code>Find Path To Actor/Location Asynchronously</code> along with the
+                                        <code>Request Move</code> node perform pathfinding in the background, this is
+                                        the recommended approach for scenes with many octree layers (Subdivisions > 7).
                                     </p>
                                 </div><!--//section-block-->
+                            </section><!--//doc-section-->
+                            <section id="nav-sys" class="doc-section">
+                                <h2 class="section-title">Navigation System</h2>
+                                <p>
+                                    To enable async pathfinding to take more than 1 frame to calculate (which may be
+                                    required for more complex queries), set the <code>Navigation System</code> property
+                                    in <code>World Settings</code> to be <code>Flying Navigation System</code> (since
+                                    plugin version 1.0.18). This does not interfere with any other navigation method,
+                                    including recast.
+                                </p>
+                                <div class="screenshot-holder">
+                                    <a href="assets/images/usage1.png" data-toggle="lightbox"
+                                        data-title="Navigation System class selection.">
+                                        <img class="img-fluid" src="assets/images/select_navigation_system.png"
+                                            alt="Dropdown in World Settings to select the Navigation System class." />
+                                    </a>
+                                </div> <!--//screenshot-holder-->
                             </section><!--//doc-section-->
                             <section id="generation" class="doc-section">
                                 <h2 class="section-title">Generation</h2>
                                 <p>
-                                    For all of these properties, each time they're updated, the viewport display is also updated.
-                                    For a responsive details panel, disable the <code>Enable Drawing</code> checkbox before changing any values.
+                                    For all of these properties, each time they're updated, the viewport display is also
+                                    updated.
+                                    For a responsive details panel, disable the <code>Enable Drawing</code> checkbox
+                                    before changing any values.
                                 </p>
                                 <div id="clear-data" class="section-block">
                                     <h4>Clear Navigation Data</h4>
@@ -187,8 +271,9 @@
                                 <div id="rebuild-data" class="section-block">
                                     <h4>Rebuild Navigation Data</h4>
                                     <p>
-                                        Rebuilds SVO stored by this navigation data. 
-                                        This button does the same thing as <code>Build->Build Paths</code> in the toolbar.
+                                        Rebuilds SVO stored by this navigation data.
+                                        This button does the same thing as <code>Build->Build Paths</code> in the
+                                        toolbar.
                                     </p>
                                 </div><!--//section-block-->
                                 <div id="cancel-rebuild" class="section-block">
@@ -199,12 +284,14 @@
                                 </div><!--//section-block-->
                                 <div id="max-detail-size" class="section-block">
                                     <h4>Max Detail Size</h4>
-                                    <p>Size in Unreal Units (cm) of the smallest details that can be captured. Display only.</p>
+                                    <p>Size in Unreal Units (cm) of the smallest details that can be captured. Display
+                                        only.</p>
                                 </div><!--//section-block-->
                                 <div id="subdivisions" class="section-block">
                                     <h4>Subdivisions</h4>
                                     <p>
-                                        Number of layers the Sparse Voxel Octree will generate, including the SubNode layers. Display only.<br>
+                                        Number of layers the Sparse Voxel Octree will generate, including the SubNode
+                                        layers. Display only.<br>
                                         Updated on nav bounds or MaxDetailSize change.
                                     </p>
                                 </div><!--//section-block-->
@@ -220,23 +307,29 @@
                                         <i class="fas fa-info-circle"></i>
                                     </div><!--//icon-holder-->
                                     <div class="content">
-                                        <h4 class="callout-title">How the Subdivisions and Actual Voxel Size values are calculated</h4>
+                                        <h4 class="callout-title">How the Subdivisions and Actual Voxel Size values are
+                                            calculated</h4>
                                         <p>
-                                            The SVO cube side length is the largest of the edges of the Nav Mesh Bounds Volume. 
-                                            The number of subdivisions is calculated as the lowest integer N such that <code>(SideLength / 2^N) <= MaxDetailSize</code>.
+                                            The SVO cube side length is the largest of the edges of the Nav Mesh Bounds
+                                            Volume.
+                                            The number of subdivisions is calculated as the lowest integer N such that
+                                            <code>(SideLength / 2^N) <= MaxDetailSize</code>.
                                             In code, this is
                                         </p>
                                         <pre><code class="language-cpp">Subdivisions = FMath::CeilToInt(FMath::Log2(SideLength / MaxDetailSize));</code></pre>
                                         <p>
-                                            ActualVoxelSize will update to the actual (smaller) voxel size when the nav bounds or MaxDetailSize change,
+                                            ActualVoxelSize will update to the actual (smaller) voxel size when the nav
+                                            bounds or MaxDetailSize change,
                                             to indicate the size of the SubNodes.
                                             <br>
                                             <br>
-                                            The actual voxel side length can be calculated as the inverse operation: <code>ActualVoxelSize = SideLength / (2^Subdivisions).</code><br>
+                                            The actual voxel side length can be calculated as the inverse operation:
+                                            <code>ActualVoxelSize = SideLength / (2^Subdivisions).</code><br>
                                             Due to the Ceiling operation, <code>ActualVoxelSize <= MaxDetailSize</code>.
                                             <br>
                                             <br>
-                                            Please note that the minimum number of subdivisions is 4, so the maximum Actual Voxel Size is <code>SideLength / 16</code>.
+                                            Please note that the minimum number of subdivisions is 4, so the maximum
+                                            Actual Voxel Size is <code>SideLength / 16</code>.
                                         </p>
                                     </div><!--//content-->
                                 </div><!--//callout-block-->
@@ -250,7 +343,8 @@
                                 <div id="begin-play" class="section-block">
                                     <h4>Build on Begin Play</h4>
                                     <p>
-                                        When using <code>RuntimeGeneration = Dynamic</code>, whether to build once on <code>BeginPlay</code>. <br>
+                                        When using <code>RuntimeGeneration = Dynamic</code>, whether to build once on
+                                        <code>BeginPlay</code>. <br>
                                         Useful for procedurally generated levels.
                                     </p>
                                     <div class="callout-block callout-danger">
@@ -260,34 +354,42 @@
                                         <div class="content">
                                             <h4 class="callout-title">Warning!</h4>
                                             <p>
-                                                Large performance hit if used with very small detail size or very large scene.
+                                                Large performance hit if used with very small detail size or very large
+                                                scene.
                                             </p>
                                         </div><!--//content-->
                                     </div><!--//callout-block-->
                                 </div><!--//section-block-->
                                 <div id="multithreaded" class="section-block">
                                     <h4>Multithreaded</h4>
-                                    <p>Build on multiple threads (highly recommended). Runs 8<sup>Thread Subdivisions </sup> threads.</p>
+                                    <p>Build on multiple threads (highly recommended). Runs 8<sup>Thread Subdivisions
+                                        </sup> threads.</p>
                                 </div><!--//section-block-->
                                 <div id="ThreadSubdivisions" class="section-block">
                                     <h4>Thread Subdivisions</h4>
-                                    <p>How many times to initially subdivide the generation volume. Runs each subdivision on a separate thread. Increases the allowed minimum subdivisions.</p>
+                                    <p>How many times to initially subdivide the generation volume. Runs each
+                                        subdivision on a separate thread. Increases the allowed minimum subdivisions.
+                                    </p>
                                 </div><!--//section-block-->
                                 <div id="max-threads" class="section-block">
                                     <h4>Max Threads</h4>
                                     <p>
-                                        Maximum number of threads to spawn when rasterising the level. If set to >= available CPU threads, can lock your computer for a while.
+                                        Maximum number of threads to spawn when rasterising the level. If set to >=
+                                        available CPU threads, can lock your computer for a while.
                                     </p>
                                 </div><!--//section-block-->
                                 <div id="use-agent-radius" class="section-block">
                                     <h4>Use Agent Radius</h4>
                                     <p>
-                                        Whether to expand the voxel collision test by the AgentRadius (See <code>Project Settings->Navigation System</code>).
+                                        Whether to expand the voxel collision test by the AgentRadius (See
+                                        <code>Project Settings->Navigation System</code>).
                                         <br>
                                         <br>
-                                        This is useful for making sure large agents don’t collide with objects. 
-                                        The building process will expand triangles along their normals to ‘inflate’ the geometry by the agent radius. 
-                                        However, this option should be used with caution, as you don’t want small agents to end up inside geometry.
+                                        This is useful for making sure large agents don’t collide with objects.
+                                        The building process will expand triangles along their normals to ‘inflate’ the
+                                        geometry by the agent radius.
+                                        However, this option should be used with caution, as you don’t want small agents
+                                        to end up inside geometry.
                                     </p>
                                 </div><!--//section-block-->
                                 <div class="callout-block callout-info">
@@ -295,10 +397,13 @@
                                         <i class="fas fa-info-circle"></i>
                                     </div><!--//icon-holder-->
                                     <div class="content">
-                                        <h4 class="callout-title">MaxDetailSize can be a better option than Use Agent Radius</h4>
+                                        <h4 class="callout-title">MaxDetailSize can be a better option than Use Agent
+                                            Radius</h4>
                                         <p>
-                                            Instead of using this option, a larger <code>MaxDetailSize</code> is a good and fast way to navigate scenes with a large agent. 
-                                            Remember, you can build multiple octrees by specifying multiple agents in <code>Project Settings->Navigation System/Supported Agents</code>.
+                                            Instead of using this option, a larger <code>MaxDetailSize</code> is a good
+                                            and fast way to navigate scenes with a large agent.
+                                            Remember, you can build multiple octrees by specifying multiple agents in
+                                            <code>Project Settings->Navigation System/Supported Agents</code>.
                                         </p>
                                     </div><!--//content-->
                                 </div><!--//callout-block-->
@@ -307,9 +412,10 @@
                                         <i class="fas fa-bug"></i>
                                     </div><!--//icon-holder-->
                                     <div class="content">
-                                        <h4 class="callout-title">BSP level geometry</h4>                                    
+                                        <h4 class="callout-title">BSP level geometry</h4>
                                         <p>
-                                            Utilising BSP level geometry with subtraction volumes can give inaccurate results when using <code>Use Agent Radius</code>, 
+                                            Utilising BSP level geometry with subtraction volumes can give inaccurate
+                                            results when using <code>Use Agent Radius</code>,
                                             because the resulting mesh is non-watertight.
                                         </p>
                                     </div><!--//content-->
@@ -318,7 +424,8 @@
                             <section id="pathfinding" class="doc-section">
                                 <h2 class="section-title">Pathfinding</h2>
                                 <p>
-                                    The default query settings in the details panel of the FlyingNavigationData actor are used by default, 
+                                    The default query settings in the details panel of the FlyingNavigationData actor
+                                    are used by default,
                                     if no AControllers implement the UFlyingObjectInterface.
                                 </p>
                                 <div id="algorithm" class="section-block">
@@ -342,7 +449,8 @@
                                         <div class="content">
                                             <h4 class="callout-title">Warning!</h4>
                                             <p>
-                                                Can cause a large performance due to the algorithm searching the entirety of the available space. Not recommended.
+                                                Can cause a large performance due to the algorithm searching the
+                                                entirety of the available space. Not recommended.
                                             </p>
                                         </div><!--//content-->
                                     </div><!--//callout-block-->
@@ -350,43 +458,58 @@
                                 <div id="heuristic-scale" class="section-block">
                                     <h4>Heuristic Scale</h4>
                                     <p>
-                                        How much to scale the A* heuristic by. High values can speed up pathfinding, at the cost of accuracy.
-                                        All three pathfinding algorithms use the standard distance heuristic to speed up processing time. 
-                                        This scale weights the algorithm towards or away from using the heuristic, using the following formula:
+                                        How much to scale the A* heuristic by. High values can speed up pathfinding, at
+                                        the cost of accuracy.
+                                        All three pathfinding algorithms use the standard distance heuristic to speed up
+                                        processing time.
+                                        This scale weights the algorithm towards or away from using the heuristic, using
+                                        the following formula:
                                     </p>
                                     <pre><code class="language-cpp">float TotalCost = TraversalCost + DistanceToGoal * HeuristicScale;</code></pre>
                                 </div><!--//section-block-->
                                 <div id="unit-cost" class="section-block">
                                     <h4>Use Unit Cost</h4>
                                     <p>
-                                        Makes all nodes, regardless of size, the same cost. Speeds up pathfinding at the cost of accuracy (AI prefers open spaces).
+                                        Makes all nodes, regardless of size, the same cost. Speeds up pathfinding at the
+                                        cost of accuracy (AI prefers open spaces).
                                         <br>
                                         <br>
-                                        By default, the cost to traverse a node will be the distance between nodes. 
-                                        However, this can make the algorithm spend lots of processing time in the dense areas trying to find an optimal route. 
-                                        By making each node cost the same, the algorithm can quickly find a path in open spaces without looking through the smaller nodes.
+                                        By default, the cost to traverse a node will be the distance between nodes.
+                                        However, this can make the algorithm spend lots of processing time in the dense
+                                        areas trying to find an optimal route.
+                                        By making each node cost the same, the algorithm can quickly find a path in open
+                                        spaces without looking through the smaller nodes.
                                     </p>
-                                    
+
                                 </div><!--//section-block-->
                                 <div id="node-compensation" class="section-block">
                                     <h4>Use Node Compensation</h4>
                                     <p>
-                                        Compensates node size even more, by multiplying node cost by 1 for a leaf node, and 0.2 for the root node. It uses the following formula:
+                                        Compensates node size even more, by multiplying node cost by 1 for a leaf node,
+                                        and 0.2 for the root node. It uses the following formula:
                                     </p>
                                     <pre><code class="language-cpp">TotalCost *= (1.f - LayerProportion * 0.8f);</code></pre>
                                     <p>
-                                        Where <code>LayerProportion</code>  is 0 for a leaf neighbour and 1 for the root node.
+                                        Where <code>LayerProportion</code> is 0 for a leaf neighbour and 1 for the root
+                                        node.
                                     </p>
                                 </div><!--//section-block-->
                                 <div id="pawn-centre" class="section-block">
                                     <h4>Use Pawn Centre For Path Following</h4>
                                     <p>
-                                        Compensate path points to make flying pawns follow the path through their centre, rather than their feet.
+                                        Compensate path points to make flying pawns follow the path through their
+                                        centre, rather than their feet.
                                         <br>
                                         <br>
-                                        Due to the fact the Flying Navigation System uses the existing navigation infrastructure, there are certain default behaviours for walking nav agents that are not useful for flying agents. 
-                                        One of these is the <code>PathFollowingComponent</code> of the <code>AIController</code>, which will move the pawn along the ‘feet’ location, defined by the <code>Bounds.BoxExtent.Z</code> of the UpdatedComponent of the MovementComponent.
-                                        This option will translate the path up to compensate, to make sure the pawn flies through its centre.
+                                        Due to the fact the Flying Navigation System uses the existing navigation
+                                        infrastructure, there are certain default behaviours for walking nav agents that
+                                        are not useful for flying agents.
+                                        One of these is the <code>PathFollowingComponent</code> of the
+                                        <code>AIController</code>, which will move the pawn along the ‘feet’ location,
+                                        defined by the <code>Bounds.BoxExtent.Z</code> of the UpdatedComponent of the
+                                        MovementComponent.
+                                        This option will translate the path up to compensate, to make sure the pawn
+                                        flies through its centre.
                                     </p>
                                 </div><!--//section-block-->
                                 <div id="debug-colour" class="section-block">
@@ -402,31 +525,37 @@
                                     <h4>Clear Geometry Drawing</h4>
                                     <p>
                                         Clears lines from viewport. <br>
-                                        Calls <code>FlushPersistentDebugLines</code> to remove drawn debug geometry (will clear other debug drawings).
+                                        Calls <code>FlushPersistentDebugLines</code> to remove drawn debug geometry
+                                        (will clear other debug drawings).
                                     </p>
                                 </div><!--//section-block-->
                                 <div id="draw-geometry" class="section-block">
                                     <h4>Draw Geometry</h4>
                                     <p>
-                                        Draw triangles the flying navigation system will use to rasterise octree. 
-                                        Useful for checking functionality of Use Agent Radius, which expands geometry to prevent clipping.
+                                        Draw triangles the flying navigation system will use to rasterise octree.
+                                        Useful for checking functionality of Use Agent Radius, which expands geometry to
+                                        prevent clipping.
                                     </p>
                                 </div><!--//section-block-->
                             </section><!--//doc-section-->
                             <section id="display" class="doc-section">
                                 <h2 class="section-title">Display</h2>
-                                <p>It is recommended to test out these settings on a large max detail size, so the viewport updates quickly.</p>
+                                <p>It is recommended to test out these settings on a large max detail size, so the
+                                    viewport updates quickly.</p>
                                 <div id="enable-drawing" class="section-block">
                                     <h4>Enable Drawing</h4>
-                                    <p>If set to true then this navigation data will be drawing itself when requested as part of "Show Navigation" (shortcut P).</p>
+                                    <p>If set to true then this navigation data will be drawing itself when requested as
+                                        part of "Show Navigation" (shortcut P).</p>
                                 </div><!--//section-block-->
                                 <div id="draw-nodes" class="section-block">
                                     <h4>Draw Octree Nodes</h4>
-                                    <p>Whether to draw the Nodes of the Octree. This option does not apply to SubNodes.</p>
+                                    <p>Whether to draw the Nodes of the Octree. This option does not apply to SubNodes.
+                                    </p>
                                 </div><!--//section-block-->
                                 <div id="draw-subnodes" class="section-block">
                                     <h4>Draw Octree SubNodes</h4>
-                                    <p>Whether to draw the SubNodes of the Octree. This option does not apply to Nodes.</p>
+                                    <p>Whether to draw the SubNodes of the Octree. This option does not apply to Nodes.
+                                    </p>
                                 </div><!--//section-block-->
                                 <div id="overlapped-subnodes" class="section-block">
                                     <h4>Draw Only Overlapped SubNodes</h4>
@@ -434,19 +563,22 @@
                                 </div><!--//section-block-->
                                 <div id="colour-connected" class="section-block">
                                     <h4>Colour By Connected</h4>
-                                    <p>Colours nodes based on which are connected sections. If disabled, colours from Red to Blue based on layer (Red for root, Blue for SubNode).</p>
+                                    <p>Colours nodes based on which are connected sections. If disabled, colours from
+                                        Red to Blue based on layer (Red for root, Blue for SubNode).</p>
                                 </div><!--//section-block-->
                                 <div id="node-margin" class="section-block">
                                     <h4>Node Margin</h4>
                                     <p>
-                                        Amount to shrink display voxel extent by, to make it easier to read (absolute measure). 
+                                        Amount to shrink display voxel extent by, to make it easier to read (absolute
+                                        measure).
                                         Can be useful to prevent flickering with high Wire Thickness.
                                     </p>
                                 </div><!--//section-block-->
                                 <div id="thickness" class="section-block">
                                     <h4>Wire Thickness</h4>
                                     <p>
-                                        Thickness of wire in octree visualisation, relative to box size. 1.0 is a solid box. <br>
+                                        Thickness of wire in octree visualisation, relative to box size. 1.0 is a solid
+                                        box. <br>
                                     </p>
                                     <div class="callout-block callout-danger">
                                         <div class="icon-holder">
@@ -455,14 +587,18 @@
                                         <div class="content">
                                             <h4 class="callout-title">Warning!</h4>
                                             <p>
-                                                Don't use as a slider because the viewport can lag if the octree is built with a small detail size. Enter a discrete value instead.
+                                                Don't use as a slider because the viewport can lag if the octree is
+                                                built with a small detail size. Enter a discrete value instead.
                                             </p>
                                         </div><!--//content-->
                                     </div><!--//callout-block-->
                                 </div><!--//section-block-->
                                 <div id="neighbour-connections" class="section-block">
                                     <h4>Draw Neighbour Connections</h4>
-                                    <p>Whether to draw neighbour lines between Nodes and SubNodes. For connections between SubNodes, the Draw Only Overlapped SubNodes should be <code>false</code>.</p>
+                                    <p>Whether to draw neighbour lines between Nodes and SubNodes. For connections
+                                        between SubNodes, the Draw Only Overlapped SubNodes should be
+                                        <code>false</code>.
+                                    </p>
                                     <div class="callout-block callout-danger">
                                         <div class="icon-holder">
                                             <i class="fas fa-exclamation-triangle"></i>
@@ -478,7 +614,7 @@
                                 <div id="simplified" class="section-block">
                                     <h4>Draw Simplified Connections</h4>
                                     <p>
-                                        Whether to only draw node connections for performance and clarity. 
+                                        Whether to only draw node connections for performance and clarity.
                                         Disable to show all connections, but not recommended.
                                     </p>
                                 </div><!--//section-block-->
@@ -496,7 +632,8 @@
                                     <h4>Allow Drawing In Game World</h4>
                                     <p>
                                         Allow octree visualisation in PIE or Game World.
-                                        To see navigation in a game world, type <code>`</code> then <code>show Navigation</code> (only in non-shipping builds).
+                                        To see navigation in a game world, type <code>`</code> then
+                                        <code>show Navigation</code> (only in non-shipping builds).
                                     </p>
                                     <div class="callout-block callout-danger">
                                         <div class="icon-holder">
@@ -505,8 +642,10 @@
                                         <div class="content">
                                             <h4 class="callout-title">Warning: Dynamic Rebuilding</h4>
                                             <p>
-                                                Using a small detail size and hi-res level WILL cause a performance hit when rebuilding in a game world.
-                                                This is what causes the performance hit, because the visualisation data gathering runs on the game thread.
+                                                Using a small detail size and hi-res level WILL cause a performance hit
+                                                when rebuilding in a game world.
+                                                This is what causes the performance hit, because the visualisation data
+                                                gathering runs on the game thread.
                                             </p>
                                         </div><!--//content-->
                                     </div><!--//callout-block-->
@@ -515,14 +654,20 @@
                             <section id="interface" class="doc-section">
                                 <h2 class="section-title">UFlyingObjectInterface</h2>
                                 <p>
-                                    By default, pathfinding queries will use the <code>Default Query Settings</code> of the <code>Flying Navigation Data</code> (set in the details panel). 
-                                    If you wish to override these on a per-agent basis, you can implement the <code>UFlyingObjectInterface</code> in the appropriate <code>AController</code>. 
-                                    It only requires one function, <code>Get Pathfinding Query Settings</code>, for which you can make the required structure (or split the return pin). 
-                                    These settings will override the defaults when this controller queries the navigation data.
+                                    By default, pathfinding queries will use the <code>Default Query Settings</code> of
+                                    the <code>Flying Navigation Data</code> (set in the details panel).
+                                    If you wish to override these on a per-agent basis, you can implement the
+                                    <code>UFlyingObjectInterface</code> in the appropriate <code>AController</code>.
+                                    It only requires one function, <code>Get Pathfinding Query Settings</code>, for
+                                    which you can make the required structure (or split the return pin).
+                                    These settings will override the defaults when this controller queries the
+                                    navigation data.
                                 </p>
                                 <div class="screenshot-holder">
-                                    <a href="assets/images/usage1.png" data-toggle="lightbox" data-title="UFlyingObjectInterface usage">
-                                        <img class="img-fluid" src="assets/images/usage1.png" alt="Get pathfinding query settings function"/>
+                                    <a href="assets/images/usage1.png" data-toggle="lightbox"
+                                        data-title="UFlyingObjectInterface usage">
+                                        <img class="img-fluid" src="assets/images/usage1.png"
+                                            alt="Get pathfinding query settings function" />
                                     </a>
                                 </div> <!--//screenshot-holder-->
                             </section><!--//doc-section-->
@@ -533,9 +678,11 @@
                                 </p>
                                 <ol>
                                     <li>Static geometry: cached on disk and loaded into memory on level load.</li>
-                                    <li>Static procedural geometry: Generated once at the start of the level, no caching.</li>
-                                    <li>Manually triggered generation: Only generated when RebuildFlyingNavigation is called from Blueprints or C++.</li>
-                                </ol> 
+                                    <li>Static procedural geometry: Generated once at the start of the level, no
+                                        caching.</li>
+                                    <li>Manually triggered generation: Only generated when RebuildFlyingNavigation is
+                                        called from Blueprints or C++.</li>
+                                </ol>
                                 <p>
                                     For option 2 and 3, setting <code>RuntimeGeneration = Dynamic</code> is required.
                                 </p>
@@ -546,89 +693,131 @@
                                     <div class="content">
                                         <h4 class="callout-title">DynamicModifiersOnly option</h4>
                                         <p>
-                                            <code>RuntimeGeneration = DynamicModifiersOnly</code> is the same as <code>Static</code> for the Flying Navigation System, which doesn't support modifiers.
+                                            <code>RuntimeGeneration = DynamicModifiersOnly</code> is the same as
+                                            <code>Static</code> for the Flying Navigation System, which doesn't support
+                                            modifiers.
                                         </p>
                                     </div><!--//content-->
                                 </div><!--//callout-block-->
                                 <p>
-                                    The <code>Build on Begin Play</code>  option (under <code>Generation</code>) is probably what you want for option 2.
+                                    The <code>Build on Begin Play</code> option (under <code>Generation</code>) is
+                                    probably what you want for option 2.
                                     <br>
                                     <br>
-                                    Manually triggering a full-level rebuild is useful for opening a new area of the map. For example, pressing a button opens a door. A rebuild can be triggered once the door is open and stopped moving, allowing AI to move through it.
+                                    Manually triggering a full-level rebuild is useful for opening a new area of the
+                                    map. For example, pressing a button opens a door. A rebuild can be triggered once
+                                    the door is open and stopped moving, allowing AI to move through it.
                                     <br>
                                     <br>
-                                    This can be achieved by the <code>Get Flying Navigation Data</code> function in blueprints. The function takes a Pawn as reference and returns the corresponding <code>FlyingNavigationData</code> actor. A rebuild of the data can be called on this data (which rebuilds the nav data for the entire level), and optionally an <code>On Flying Nav Generation Finished</code> delegate can be set up, to handle unlocking the game.
+                                    This can be achieved by the <code>Get Flying Navigation Data</code> function in
+                                    blueprints. The function takes a Pawn as reference and returns the corresponding
+                                    <code>FlyingNavigationData</code> actor. A rebuild of the data can be called on this
+                                    data (which rebuilds the nav data for the entire level), and optionally an
+                                    <code>On Flying Nav Generation Finished</code> delegate can be set up, to handle
+                                    unlocking the game.
                                     <br>
                                     <br>
                                     Something like this in Blueprints:
                                 </p>
                                 <div class="screenshot-holder">
-                                    <a href="assets/images/usage2.png" data-toggle="lightbox" data-title="Manually triggered rebuild">
-                                        <img class="img-fluid" src="assets/images/usage2.png" alt="Manually triggered rebuild"/>
+                                    <a href="assets/images/usage2.png" data-toggle="lightbox"
+                                        data-title="Manually triggered rebuild">
+                                        <img class="img-fluid" src="assets/images/usage2.png"
+                                            alt="Manually triggered rebuild" />
                                     </a>
                                 </div> <!--//screenshot-holder-->
                                 <p>
-                                    Remember, rebuilding is done asynchronously, so the <code>Rebuild Navigation Data</code> node returning does not signify the completion of the build.
+                                    Remember, rebuilding is done asynchronously, so the
+                                    <code>Rebuild Navigation Data</code> node returning does not signify the completion
+                                    of the build.
                                     <br>
                                     <br>
-                                    The Pawn should contain a movement component of some kind, with <code>AFlyingNavigationData</code> set in the <code>MovementCapabilities</code> (otherwise the function will return <code>nullptr</code>).
+                                    The Pawn should contain a movement component of some kind, with
+                                    <code>AFlyingNavigationData</code> set in the <code>MovementCapabilities</code>
+                                    (otherwise the function will return <code>nullptr</code>).
                                     <br>
                                     <br>
-                                    Constantly moving objects such as moving platforms are not taken into account. 
-                                    This is a limitation of the UE4 geometry gathering system, rather than the Flying Navigation System (Recast has this limitation too).
+                                    Constantly moving objects such as moving platforms are not taken into account.
+                                    This is a limitation of the UE4 geometry gathering system, rather than the Flying
+                                    Navigation System (Recast has this limitation too).
                                     <br>
                                     <br>
-                                    It is recommended that a blocking volume is placed anywhere a moving object might be, to prevent AI collision. 
+                                    It is recommended that a blocking volume is placed anywhere a moving object might
+                                    be, to prevent AI collision.
                                     For example, a moving platform between two points:
                                 </p>
                                 <div class="screenshot-holder">
-                                    <a href="assets/images/usage3.png" data-toggle="lightbox" data-title="Blocking Volume around Platform Path">
-                                        <img class="img-fluid" src="assets/images/usage3.png" alt="Blocking Volume around Platform Path"/>
+                                    <a href="assets/images/usage3.png" data-toggle="lightbox"
+                                        data-title="Blocking Volume around Platform Path">
+                                        <img class="img-fluid" src="assets/images/usage3.png"
+                                            alt="Blocking Volume around Platform Path" />
                                     </a>
                                 </div> <!--//screenshot-holder-->
                                 <p>After building:</p>
                                 <div class="screenshot-holder">
-                                    <a href="assets/images/usage4.png" data-toggle="lightbox" data-title="Blocking Volume around Platform Path">
-                                        <img class="img-fluid" src="assets/images/usage4.png" alt="Blocking Volume around Platform Path"/>
+                                    <a href="assets/images/usage4.png" data-toggle="lightbox"
+                                        data-title="Blocking Volume around Platform Path">
+                                        <img class="img-fluid" src="assets/images/usage4.png"
+                                            alt="Blocking Volume around Platform Path" />
                                     </a>
                                 </div> <!--//screenshot-holder-->
                             </section><!--//doc-section-->
                             <section id="network" class="doc-section">
                                 <h2 class="section-title">Network Replication</h2>
                                 <p>
-                                    The flying navigation system uses the <code>ANavigationData</code> class for all pathfinding, which is a server-only class by default (<code>bNetLoadOnClient</code> is <code>false</code>). 
-                                    This means that all AI pathfinding queries need to be done on the server, and that trying to access the navigation system will return <code>nullptr</code> on a client. 
+                                    The flying navigation system uses the <code>ANavigationData</code> class for all
+                                    pathfinding, which is a server-only class by default (<code>bNetLoadOnClient</code>
+                                    is <code>false</code>).
+                                    This means that all AI pathfinding queries need to be done on the server, and that
+                                    trying to access the navigation system will return <code>nullptr</code> on a client.
                                     <br>
                                     <br>
-                                    You should use the <code>HasAuthority()</code> check before calling <code>MoveTo</code> or similar on the <code>AIController</code>, and make sure actor movement is replicated on the Pawn.
-                                    If you require pathfinding access for a player controller or similar, I believe the best method is to use a Server RPC. 
+                                    You should use the <code>HasAuthority()</code> check before calling
+                                    <code>MoveTo</code> or similar on the <code>AIController</code>, and make sure actor
+                                    movement is replicated on the Pawn.
+                                    If you require pathfinding access for a player controller or similar, I believe the
+                                    best method is to use a Server RPC.
                                     <br>
                                     <br>
-                                    There is also the <code>Allow Client Side Navigation</code> option in <code>Project Settings->Navigation System</code> which will replicate the navigation system and navigation data actors to clients. 
-                                    However, the SVO data is not replicated because it has the potential to use a lot of bandwidth, so this option will not work. 
-                                    If you require a solution of this kind please open an issue on <a href="https://github.com/BlenderSleuth/FlyingNavSystemSupport/issues" target="_blank">GitHub</a>.
+                                    There is also the <code>Allow Client Side Navigation</code> option in
+                                    <code>Project Settings->Navigation System</code> which will replicate the navigation
+                                    system and navigation data actors to clients.
+                                    However, the SVO data is not replicated because it has the potential to use a lot of
+                                    bandwidth, so this option will not work.
+                                    If you require a solution of this kind please open an issue on <a
+                                        href="https://github.com/BlenderSleuth/FlyingNavSystemSupport/issues"
+                                        target="_blank">GitHub</a>.
                                 </p>
                             </section><!--//doc-section-->
                             <section id="memory-usage" class="doc-section">
                                 <h2 class="section-title">Checking Memory Usage</h2>
                                 <p>
-                                    You can check roughly how much memory the octree is using by right-clicking the map in the content explorer and opening the size map. 
-                                    The octree memory is inside the <code>*SELF*</code> section, which will expand as you add more layers to the tree. 
+                                    You can check roughly how much memory the octree is using by right-clicking the map
+                                    in the content explorer and opening the size map.
+                                    The octree memory is inside the <code>*SELF*</code> section, which will expand as
+                                    you add more layers to the tree.
                                     It also contains other things, but at small detail sizes it can be the majority.
                                 </p>
                                 <div class="screenshot-holder">
-                                    <a href="assets/images/usage5.png" data-toggle="lightbox" data-title="Octree Memory Usage in a Level">
-                                        <img class="img-fluid" src="assets/images/usage5.png" alt="Octree Memory Usage in a Level"/>
+                                    <a href="assets/images/usage5.png" data-toggle="lightbox"
+                                        data-title="Octree Memory Usage in a Level">
+                                        <img class="img-fluid" src="assets/images/usage5.png"
+                                            alt="Octree Memory Usage in a Level" />
                                     </a>
                                 </div> <!--//screenshot-holder-->
                             </section><!--//doc-section-->
                             <section id="compile-recast" class="doc-section">
                                 <h2 class="section-title">Turning off bCompileRecast</h2>
                                 <p>
-                                    I was considering allowing support for the compile-time parameter <code>bCompileRecast = false</code>, for small mobile builds. 
-                                    The plugin currently piggy-backs off the Recast geometry gathering code, so I would need to duplicate much of it for the Flying Navigation System to continue to work. 
-                                    However, I was not able to get the engine Shipping target (even without the plugin) to compile without Recast. 
-                                    Please open an issue on <a href="https://github.com/BlenderSleuth/FlyingNavSystemSupport/issues" target="_blank">GitHub</a> if this is something you require.
+                                    I was considering allowing support for the compile-time parameter
+                                    <code>bCompileRecast = false</code>, for small mobile builds.
+                                    The plugin currently piggy-backs off the Recast geometry gathering code, so I would
+                                    need to duplicate much of it for the Flying Navigation System to continue to work.
+                                    However, I was not able to get the engine Shipping target (even without the plugin)
+                                    to compile without Recast.
+                                    Please open an issue on <a
+                                        href="https://github.com/BlenderSleuth/FlyingNavSystemSupport/issues"
+                                        target="_blank">GitHub</a> if this is something you require.
                                 </p>
                             </section><!--//doc-section-->
                             <section id="blueprint" class="doc-section">
@@ -638,32 +827,40 @@
                                     <h4>Get Flying Navigation Data</h4>
                                     <p>
                                         Get the <code>FlyingNavigationData</code> actor for a given Pawn. <br>
-                                        Will return <code>nullptr</code> if the Pawn's movement component specifies a different <code>Preferred Nav Data</code>.
+                                        Will return <code>nullptr</code> if the Pawn's movement component specifies a
+                                        different <code>Preferred Nav Data</code>.
                                     </p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage6.png" alt="Get Flying Navigation Data node"/>
+                                        <img class="img-fluid" src="assets/images/usage6.png"
+                                            alt="Get Flying Navigation Data node" />
                                     </div> <!--//screenshot-holder-->
-                                    <p>It's recommended that you use an <code>Is Valid</code> node to make sure the return value exists.</p>
+                                    <p>It's recommended that you use an <code>Is Valid</code> node to make sure the
+                                        return value exists.</p>
                                 </div><!--//section-block-->
                                 <div id="rebuild-all-flying-nav" class="section-block">
                                     <h4>Rebuild All Flying Navigation</h4>
                                     <p>
                                         Rebuild all Flying Navigation Data agents. <br>
-                                        To build a specific navigation data, use <code>Get Flying Navigation Data</code> and call <code>Rebuild Navigation Data</code> on it.
+                                        To build a specific navigation data, use <code>Get Flying Navigation Data</code>
+                                        and call <code>Rebuild Navigation Data</code> on it.
                                     </p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage7.png" alt="Rebuild All Flying Navigation node"/>
+                                        <img class="img-fluid" src="assets/images/usage7.png"
+                                            alt="Rebuild All Flying Navigation node" />
                                     </div> <!--//screenshot-holder-->
                                 </div><!--//section-block-->
                                 <div id="rebuild-navdata" class="section-block">
                                     <h4>Rebuild Navigation Data / Rebuild Flying Navigation</h4>
                                     <p>
                                         Rebuild cached SVO Data for the given Flying Navigation Actor.
-                                        <code>Rebuild Navigation Data</code> will return instantly and not wait for the building to complete.
-                                        <code>Rebuild Flying Navigation</code> will only trigger once building is completed (or cancelled).
+                                        <code>Rebuild Navigation Data</code> will return instantly and not wait for the
+                                        building to complete.
+                                        <code>Rebuild Flying Navigation</code> will only trigger once building is
+                                        completed (or cancelled).
                                     </p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage8.png" alt="Rebuild Navigation Data and Rebuild Flying Navigation nodes"/>
+                                        <img class="img-fluid" src="assets/images/usage8.png"
+                                            alt="Rebuild Navigation Data and Rebuild Flying Navigation nodes" />
                                     </div> <!--//screenshot-holder-->
                                 </div><!--//section-block-->
                                 <div class="callout-block callout-danger">
@@ -673,7 +870,8 @@
                                     <div class="content">
                                         <h4 class="callout-title">Warning: Dynamic Rebuilding</h4>
                                         <p>
-                                            Using a small detail size and hi-res level can cause a performance hit when rebuilding. Use with caution (and profiling).
+                                            Using a small detail size and hi-res level can cause a performance hit when
+                                            rebuilding. Use with caution (and profiling).
                                             Turning off <code>Allow Drawing In Game World</code> helps.
                                         </p>
                                     </div><!--//content-->
@@ -687,7 +885,7 @@
                                         Rebuild will not overwrite data until completed.
                                     </p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage9.png" alt="Stop Rebuild node"/>
+                                        <img class="img-fluid" src="assets/images/usage9.png" alt="Stop Rebuild node" />
                                     </div> <!--//screenshot-holder-->
                                 </div><!--//section-block-->
                                 <div id="data-built" class="section-block">
@@ -696,7 +894,8 @@
                                         Checks if navigation data is available for pathfinding or raycasting.
                                     </p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage10.png" alt="Is Navigation Data Built node"/>
+                                        <img class="img-fluid" src="assets/images/usage10.png"
+                                            alt="Is Navigation Data Built node" />
                                     </div> <!--//screenshot-holder-->
                                 </div><!--//section-block-->
                                 <div id="built-voxel-size" class="section-block">
@@ -705,7 +904,8 @@
                                         Returns voxel size of currently built navigation data. Returns 0 if not built.
                                     </p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage11.png" alt="Is Navigation Data Built node"/>
+                                        <img class="img-fluid" src="assets/images/usage11.png"
+                                            alt="Is Navigation Data Built node" />
                                     </div> <!--//screenshot-holder-->
                                 </div><!--//section-block-->
                                 <div id="raycast" class="section-block">
@@ -714,51 +914,77 @@
                                         Fast raycast against the octree. Returns true if object was hit.
                                     </p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage12.png" alt="Octree raycast node"/>
+                                        <img class="img-fluid" src="assets/images/usage12.png"
+                                            alt="Octree raycast node" />
                                     </div> <!--//screenshot-holder-->
                                 </div><!--//section-block-->
                                 <div id="draw-navpath" class="section-block">
                                     <h4>Draw Nav Path (Development Only)</h4>
                                     <p>
-                                        Draw the navigation path returned by the <code>Find Path To Actor/Location Synchronously/Asynchronously</code> node.
-                                        <code>Path Offset</code> will translate the path by a fixed amount. <code>Persistent</code> draws will persist between frames.
+                                        Draw the navigation path returned by the
+                                        <code>Find Path To Actor/Location Synchronously/Asynchronously</code> node.
+                                        <code>Path Offset</code> will translate the path by a fixed amount.
+                                        <code>Persistent</code> draws will persist between frames.
                                     </p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage13.png" alt="Draw Nav Path node"/>
+                                        <img class="img-fluid" src="assets/images/usage13.png"
+                                            alt="Draw Nav Path node" />
                                     </div> <!--//screenshot-holder-->
                                 </div><!--//section-block-->
                                 <div id="pathfind-location" class="section-block">
                                     <h4>Find Path To Location Asynchronously</h4>
                                     <p>
-                                        Finds path on separate thread. The <code>Completed</code> pin is triggered once a path has been found<br>
-                                        The <code>Pathfinding Context</code> could be one of following: <code>NavigationData</code> (like <code>FlyingNavigationData</code> actor), <code>Pawn</code> or <code>Controller</code>.
-                                        This parameter determines which navigation data actor is chosen and allows override of SVO Query Settings (see <a href="usage.html#interface">UFlyingObjectInterface</a>).
+                                        Finds path on separate thread. The <code>Completed</code> pin is triggered once
+                                        a path has been found<br>
+                                        The <code>Pathfinding Context</code> could be one of following:
+                                        <code>NavigationData</code> (like <code>FlyingNavigationData</code> actor),
+                                        <code>Pawn</code> or <code>Controller</code>.
+                                        This parameter determines which navigation data actor is chosen and allows
+                                        override of SVO Query Settings (see <a
+                                            href="usage.html#interface">UFlyingObjectInterface</a>).
                                     </p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage14.png" alt="Find Path To Location Asynchronously"/>
+                                        <img class="img-fluid" src="assets/images/usage14.png"
+                                            alt="Find Path To Location Asynchronously" />
                                     </div> <!--//screenshot-holder-->
                                 </div><!--//section-block-->
                                 <div id="pathfind-actor" class="section-block">
                                     <h4>Find Path To Actor Asynchronously</h4>
                                     <p>
-                                        Finds path on separate thread. The <code>Completed</code> pin is triggered once a path has been found<br>
-                                        Main advantage over <code>Find Path To Location Asynchronously</code> is that the resulting path will automatically get updated if the goal actor moves more than <code>Tether Distance</code> away from last path node.
-                                        Updates when the <code>Goal Actor</code> moves are also asynchronous, but only when doing Flying pathfinding (Recast query updates are processed in the usual fashion).
-                                        The <code>Pathfinding Context</code> could be one of following: <code>NavigationData</code> (like <code>FlyingNavigationData</code> actor), <code>Pawn</code> or <code>Controller</code>.
-                                        This parameter determines which navigation data actor is chosen and allows override of SVO Query Settings (see <a href="usage.html#interface">UFlyingObjectInterface</a>).
+                                        Finds path on separate thread. The <code>Completed</code> pin is triggered once
+                                        a path has been found<br>
+                                        Main advantage over <code>Find Path To Location Asynchronously</code> is that
+                                        the resulting path will automatically get updated if the goal actor moves more
+                                        than <code>Tether Distance</code> away from last path node.
+                                        Updates when the <code>Goal Actor</code> moves are also asynchronous, but only
+                                        when doing Flying pathfinding (Recast query updates are processed in the usual
+                                        fashion).
+                                        The <code>Pathfinding Context</code> could be one of following:
+                                        <code>NavigationData</code> (like <code>FlyingNavigationData</code> actor),
+                                        <code>Pawn</code> or <code>Controller</code>.
+                                        This parameter determines which navigation data actor is chosen and allows
+                                        override of SVO Query Settings (see <a
+                                            href="usage.html#interface">UFlyingObjectInterface</a>).
                                     </p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage15.png" alt="Find Path To Location Asynchronously"/>
+                                        <img class="img-fluid" src="assets/images/usage15.png"
+                                            alt="Find Path To Location Asynchronously" />
                                     </div> <!--//screenshot-holder-->
                                     <p>This can be used in a setup similar to the following:</p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage16_1.png" alt="Find Path To Actor Asynchronously use case"/>
+                                        <img class="img-fluid" src="assets/images/usage16_1.png"
+                                            alt="Find Path To Actor Asynchronously use case" />
                                     </div> <!--//screenshot-holder-->
                                     <p>
-                                        On <code>BeginPlay</code>, the actor tries to find a path to the player. Before the pathfinding completes, <code>BeginPlay</code> exits and the level loads normally.
-                                        The <code>Tick</code> event runs every frame, but doesn't do anything because the <code>Found Path</code> variable is invalid.
-                                        Once the pathfinding is finished, the <code>Completed</code> pin triggers, and saves the path in <code>Found Path</code>.
-                                        <code>Tick</code> can now run <code>Draw Nav Path</code> each frame, and as the player moves the path will update periodically without stalling the game thread.
+                                        On <code>BeginPlay</code>, the actor tries to find a path to the player. Before
+                                        the pathfinding completes, <code>BeginPlay</code> exits and the level loads
+                                        normally.
+                                        The <code>Tick</code> event runs every frame, but doesn't do anything because
+                                        the <code>Found Path</code> variable is invalid.
+                                        Once the pathfinding is finished, the <code>Completed</code> pin triggers, and
+                                        saves the path in <code>Found Path</code>.
+                                        <code>Tick</code> can now run <code>Draw Nav Path</code> each frame, and as the
+                                        player moves the path will update periodically without stalling the game thread.
                                     </p>
                                 </div><!--//section-block-->
                                 <div class="callout-block callout-info">
@@ -768,88 +994,122 @@
                                     <div class="content">
                                         <h4 class="callout-title">Pathfinding Context</h4>
                                         <p>
-                                            When using the <code>Find Path To Actor/Location Synchronously/Asynchronously</code> family of nodes, to prevent bugs it’s a good idea
-                                            to use the controlled pawn (<code>GetControlledPawn</code> from a <code>Controller</code>) or <code>NavigationData</code> as the <code>Pathfinding Context</code>.
-                                            The <code>Pathfinding Context</code> is used to choose the correct navigation data.
-                                            This is only important if you have multiple agents defined in Project Settings.
+                                            When using the
+                                            <code>Find Path To Actor/Location Synchronously/Asynchronously</code> family
+                                            of nodes, to prevent bugs it’s a good idea
+                                            to use the controlled pawn (<code>GetControlledPawn</code> from a
+                                            <code>Controller</code>) or <code>NavigationData</code> as the
+                                            <code>Pathfinding Context</code>.
+                                            The <code>Pathfinding Context</code> is used to choose the correct
+                                            navigation data.
+                                            This is only important if you have multiple agents defined in Project
+                                            Settings.
                                         </p>
                                         <div class="screenshot-holder">
-                                            <img class="img-fluid" src="assets/images/usage17.png" alt="Find Path To Actor Synchronously node with controlled pawn"/>
+                                            <img class="img-fluid" src="assets/images/usage17.png"
+                                                alt="Find Path To Actor Synchronously node with controlled pawn" />
                                         </div> <!--//screenshot-holder-->
                                         <p>
-                                            The <code>Pathfinding Context</code> is also important for providing custom <code>FSVOQuerySettings</code>.
-                                            <code>Pathfinding Context</code> can implement the <code>FFlyingObjectInterface</code> to override the default settings.
+                                            The <code>Pathfinding Context</code> is also important for providing custom
+                                            <code>FSVOQuerySettings</code>.
+                                            <code>Pathfinding Context</code> can implement the
+                                            <code>FFlyingObjectInterface</code> to override the default settings.
                                         </p>
                                     </div><!--//content-->
                                 </div><!--//callout-block-->
                                 <div id="getpathfindingresult" class="section-block">
                                     <h4>Get Pathfinding Result</h4>
                                     <p>
-                                        Takes a path output from <code>Find Path To Actor/Location Synchronously/Asynchronously</code> and returns if it was invalid, an error, fail or success:<br>
+                                        Takes a path output from
+                                        <code>Find Path To Actor/Location Synchronously/Asynchronously</code> and
+                                        returns if it was invalid, an error, fail or success:<br>
                                         <code>Invalid</code>: If start or end point is blocked or out of bounds. <br>
                                         <code>Error</code>: Algorithm got stuck in infinite loop. <br>
-                                        <code>Fail</code>: If start and end points are not connected and partial paths are not enabled. <br>
+                                        <code>Fail</code>: If start and end points are not connected and partial paths
+                                        are not enabled. <br>
                                         <code>Success</code>: Path is valid.
                                     </p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage16_2.png" alt="Get Pathfinding Result"/>
+                                        <img class="img-fluid" src="assets/images/usage16_2.png"
+                                            alt="Get Pathfinding Result" />
                                     </div> <!--//screenshot-holder-->
                                     <p>For example, to switch on the result:</p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage16_3.png" alt="Get Pathfinding Result use case"/>
+                                        <img class="img-fluid" src="assets/images/usage16_3.png"
+                                            alt="Get Pathfinding Result use case" />
                                     </div> <!--//screenshot-holder-->
                                 </div><!--//section-block-->
                                 <div id="nav-path-points" class="section-block">
                                     <h4>Set Navigation Path Points</h4>
-                                    <p>Allows custom blueprint post-processing of paths. Takes an existing navigation path, and replaces the path points with the given array of vectors.</p>
+                                    <p>Allows custom blueprint post-processing of paths. Takes an existing navigation
+                                        path, and replaces the path points with the given array of vectors.</p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage18.png" alt="Set Navigation Path Points"/>
+                                        <img class="img-fluid" src="assets/images/usage18.png"
+                                            alt="Set Navigation Path Points" />
                                     </div> <!--//screenshot-holder-->
-                                    <p>For example, this node can be used to flatten a path to the x-y plane by clearing the z-component of each path point.</p>
+                                    <p>For example, this node can be used to flatten a path to the x-y plane by clearing
+                                        the z-component of each path point.</p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage19.png" alt="Set Navigation Path Points use case"/>
+                                        <img class="img-fluid" src="assets/images/usage19.png"
+                                            alt="Set Navigation Path Points use case" />
                                     </div> <!--//screenshot-holder-->
                                 </div><!--//section-block-->
                                 <div id="request-move" class="section-block">
                                     <h4>Request Move</h4>
-                                    <p>Takes a path output from <code>Find Path To Actor/Location Synchronously/Asynchronously</code> and requests an <code>AIController</code> to follow it.</p>
+                                    <p>Takes a path output from
+                                        <code>Find Path To Actor/Location Synchronously/Asynchronously</code> and
+                                        requests an <code>AIController</code> to follow it.
+                                    </p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage20.png" alt="Request Move"/>
+                                        <img class="img-fluid" src="assets/images/usage20.png" alt="Request Move" />
                                     </div> <!--//screenshot-holder-->
                                     <p>For example, to make a pawn find the player when the level starts:</p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage21.png" alt="Request Move use case"/>
+                                        <img class="img-fluid" src="assets/images/usage21.png"
+                                            alt="Request Move use case" />
                                     </div> <!--//screenshot-holder-->
                                 </div><!--//section-block-->
                                 <div id="smooth-path" class="section-block">
                                     <h4>Smooth Path</h4>
-                                    <p>Smooths navigation path (from <code>Find Path To Actor/Location Synchronously/Asynchronously</code>) by constructing a centripetal Catmull-Rom Spline and sampling points at equidistant intervals.</p>
-                                    <p>The <code>Sample Length</code> is the distance between samples along the path in Unreal units.</p>
+                                    <p>Smooths navigation path (from
+                                        <code>Find Path To Actor/Location Synchronously/Asynchronously</code>) by
+                                        constructing a centripetal Catmull-Rom Spline and sampling points at equidistant
+                                        intervals.
+                                    </p>
+                                    <p>The <code>Sample Length</code> is the distance between samples along the path in
+                                        Unreal units.</p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage22.png" alt="Request Move"/>
+                                        <img class="img-fluid" src="assets/images/usage22.png" alt="Request Move" />
                                     </div> <!--//screenshot-holder-->
                                     <p>Smoothing looks like this:</p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage23.png" alt="Request Move use case"/>
+                                        <img class="img-fluid" src="assets/images/usage23.png"
+                                            alt="Request Move use case" />
                                     </div> <!--//screenshot-holder-->
                                     <p>Generated using this graph:</p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage24.png" alt="Request Move use case"/>
+                                        <img class="img-fluid" src="assets/images/usage24.png"
+                                            alt="Request Move use case" />
                                     </div> <!--//screenshot-holder-->
                                 </div><!--//section-block-->
                                 <div id="cr-spline-functions" class="section-block">
                                     <h4>CatmullRomSpline Object</h4>
-                                    <p>A Catmull-Rom Spline object can be created and sampled at will using the <code>Make Catmull Rom Spline</code> node. <code>Path Points</code> must have at least 2 points.</p>
-                                    <p>This can be used to move objects along splines manually, without sampling at intervals and passing to <code>Request Move</code>.</p>
+                                    <p>A Catmull-Rom Spline object can be created and sampled at will using the
+                                        <code>Make Catmull Rom Spline</code> node. <code>Path Points</code> must have at
+                                        least 2 points.
+                                    </p>
+                                    <p>This can be used to move objects along splines manually, without sampling at
+                                        intervals and passing to <code>Request Move</code>.</p>
                                     <div class="screenshot-holder">
-                                        <img class="img-fluid" src="assets/images/usage25.png" alt="Request Move"/>
+                                        <img class="img-fluid" src="assets/images/usage25.png" alt="Request Move" />
                                     </div> <!--//screenshot-holder-->
                                 </div><!--//section-block-->
                             </section><!--//doc-section-->
                             <section id="cpp-api" class="doc-section">
                                 <h2 class="section-title">C++ API Reference</h2>
                                 <p>
-                                    If you're building custom query functionality, its a good idea to check out the source code to see how everything works.
+                                    If you're building custom query functionality, its a good idea to check out the
+                                    source code to see how everything works.
                                     <br><br>
                                     If you downloaded the plugin from the Marketplace, the source will be found at<br>
                                     <code>C:\Program Files\Epic Games\UE_4.XX\Engine\Plugins\Marketplace\FlyingNavSystem\Source\FlyingNavSystem</code><br>
@@ -858,10 +1118,16 @@
                                     for macOS. You should know where it is if you built for Linux &#128540;.
                                     <br><br>
                                     Here I have put together an easy reference of the most common classes.
-                                    If you're doing custom querying, you should call <code>GetSVOData()</code> on the <code>AFlyingNavigationData</code> actor, which will return a reference to a <code>FSVOData</code> struct.
-                                    You should save it in a <code>FSVODataRef</code> if you're holding on to it for a while. This will give you access to the underlying octree data (Layers, Nodes and SubNodes).
+                                    If you're doing custom querying, you should call <code>GetSVOData()</code> on the
+                                    <code>AFlyingNavigationData</code> actor, which will return a reference to a
+                                    <code>FSVOData</code> struct.
+                                    You should save it in a <code>FSVODataRef</code> if you're holding on to it for a
+                                    while. This will give you access to the underlying octree data (Layers, Nodes and
+                                    SubNodes).
                                     <br><br>
-                                    There is also the <code>FSVOPathfindingGraph</code> struct for the underlying pathfinding algorithm, which can be accessed from <code>AFlyingNavigationData::GetSyncPathfindingGraph()</code> on the game thread.
+                                    There is also the <code>FSVOPathfindingGraph</code> struct for the underlying
+                                    pathfinding algorithm, which can be accessed from
+                                    <code>AFlyingNavigationData::GetSyncPathfindingGraph()</code> on the game thread.
                                 </p>
                                 <div id="nav-system-types" class="section-block">
                                     <h4>In FlyingNavSystemTypes.h</h4>
@@ -1307,7 +1573,9 @@ public:
                                 <div id="svograph" class="section-block">
                                     <h4>In SVOGraph.h</h4>
                                     <br>
-                                    <h6><code>FSVOGraph</code> struct: Defines neighbour connections, accessed through <code>FSVOPathfindingGraph.Graph</code></h6>
+                                    <h6><code>FSVOGraph</code> struct: Defines neighbour connections, accessed through
+                                        <code>FSVOPathfindingGraph.Graph</code>
+                                    </h6>
                                     <pre><code class="language-cpp">struct FSVOGraph
 {
 	typedef FSVOLink FNodeRef;
@@ -1389,9 +1657,9 @@ public:
                                     <a class="nav-link scrollto" href="#NavigationOctree">NavigationOctree</a>
                                     <a class="nav-link scrollto" href="#rasterization">Rasterization</a>
                                 </nav><!--//nav-->
-                                
+                                <a class="nav-link scrollto" href="#nav-sys">Navigation System</a>
                                 <a class="nav-link scrollto" href="#generation">Generation</a>
-                                    <!-- <nav class="doc-sub-menu nav flex-column">
+                                <!-- <nav class="doc-sub-menu nav flex-column">
                                         <a class="nav-link scrollto" href="#clear-data">Clear Navigation Data</a>
                                         <a class="nav-link scrollto" href="#rebuild-data">Rebuild Navigation Data</a>
                                         <a class="nav-link scrollto" href="#maxdetailsize">Max Detail Size</a>
@@ -1404,7 +1672,7 @@ public:
                                         <a class="nav-link scrollto" href="#use-agent-radius">Use Agent Radius</a>
                                     </nav> -->
                                 <a class="nav-link scrollto" href="#pathfinding">Pathfinding</a>
-                                    <!-- <nav class="doc-sub-menu nav flex-column dropdown-container">
+                                <!-- <nav class="doc-sub-menu nav flex-column dropdown-container">
                                         <a class="nav-link scrollto" href="#algorithm">Pathfinding Algorithm</a>
                                         <a class="nav-link scrollto" href="#heuristic-scale">Heuristic Scale</a>
                                         <a class="nav-link scrollto" href="#unit-cost">Use Unit Cost</a>
@@ -1426,47 +1694,53 @@ public:
                             </nav><!--//doc-menu-->
                         </div><!--//doc-nav-->
                     </div><!--//doc-sidebar-->
-                </div><!--//doc-body-->              
+                </div><!--//doc-body-->
             </div><!--//container-->
         </div><!--//doc-wrapper-->
 
         <div id="promo-block" class="promo-block">
             <div class="container">
                 <div class="promo-block-inner">
-                    <h3 class="promo-title text-center"><i class="fas fa-heart"></i> <a href="https://www.unrealengine.com/marketplace/en-US/product/65b9b3247c5c458dbb6de81c79cdc8f0" target="_blank">If you like the Flying Navigation System</a></h3>
+                    <h3 class="promo-title text-center"><i class="fas fa-heart"></i> <a
+                            href="https://www.unrealengine.com/marketplace/en-US/product/65b9b3247c5c458dbb6de81c79cdc8f0"
+                            target="_blank">If you like the Flying Navigation System</a></h3>
                     <div class="content-holder col-lg-7 col-md-6 col-12">
                         <div class="content-holder-inner">
                             <div class="desc">
-                                <h4 class="content-title"> Please consider leaving a review on the Unreal Marketplace</h4>
-                                <a class="btn btn-cta" href="https://www.unrealengine.com/marketplace/en-US/product/65b9b3247c5c458dbb6de81c79cdc8f0/reviews" target="_blank"><i class="fas fa-external-link-alt"></i> Leave Review</a>
+                                <h4 class="content-title"> Please consider leaving a review on the Unreal Marketplace
+                                </h4>
+                                <a class="btn btn-cta"
+                                    href="https://www.unrealengine.com/marketplace/en-US/product/65b9b3247c5c458dbb6de81c79cdc8f0/reviews"
+                                    target="_blank"><i class="fas fa-external-link-alt"></i> Leave Review</a>
                                 <p>Thank you for your support</p>
                             </div><!--//desc-->
                             <div class="author"><a href="https://ninepointeightgame.com/about">Ben Sutherland</a></div>
                         </div><!--//content-holder-inner-->
                     </div><!--//content-holder-->
-                </div><!--//promo-block-inner-->  
+                </div><!--//promo-block-inner-->
             </div><!--//container-->
         </div><!--//promo-block-->
 
     </div><!--//page-wrapper-->
-    
+
     <footer id="footer" class="footer text-center">
         <div class="container">
             <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
-            <small class="copyright">Designed with <i class="fas fa-heart"></i> by <a href="https://themes.3rdwavemedia.com/" target="_blank">Xiaoying Riley</a> for developers</small>
+            <small class="copyright">Designed with <i class="fas fa-heart"></i> by <a
+                    href="https://themes.3rdwavemedia.com/" target="_blank">Xiaoying Riley</a> for developers</small>
         </div><!--//container-->
     </footer><!--//footer-->
-    
-     
-    <!-- Main Javascript -->          
+
+
+    <!-- Main Javascript -->
     <script type="text/javascript" src="assets/plugins/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>    
-    <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>  
-    <script type="text/javascript" src="assets/plugins/lightbox/dist/ekko-lightbox.min.js"></script>      
-    <script type="text/javascript" src="assets/plugins/stickyfill/dist/stickyfill.min.js"></script>                                                              
+    <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/lightbox/dist/ekko-lightbox.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/stickyfill/dist/stickyfill.min.js"></script>
     <script type="text/javascript" src="assets/js/main.js"></script>
-    
-</body>
-</html> 
 
+</body>
+
+</html>
