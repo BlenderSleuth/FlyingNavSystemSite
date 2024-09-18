@@ -202,6 +202,12 @@
                                                 </div> <!--//screenshot-holder-->
                                             </li>
                                             <li>
+                                                If using multiple agent types, make sure that at least one of the radius, height and step height of each agent is different from each other. 
+                                                These properties are used as a key hash in a lookup table, so if they're all the same only one is ever registered (the one furthest down the table).
+                                                This logic is in <code>UNavigationSystemV1::GetNavDataForProps</code>, and is the source of many headaches when working with multiple agents. 
+                                                It's worth becoming familiar with this function if you're having issues with multiple agents.
+                                            </li>
+                                            <li>
                                                 The AI controller needs to be requested to move.
                                                 Using <code>MoveTo</code> or a behaviour tree does this for you, but for
                                                 the <code>FindPath*</code> nodes you need to use the <a
